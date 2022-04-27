@@ -20,10 +20,10 @@ public:
     int countLine = 0;
     int incLine = 0;
 
-    //QSerialPort *port1;
+    QSerialPort *port1;
     QSerialPort *port2;
     //QSerialPort port2;
-    QSerialPort port1;
+    //QSerialPort port1;
 
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
