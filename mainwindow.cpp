@@ -258,7 +258,9 @@ void MainWindow::on_pushButton_4_clicked()
     //QByteArray ListOfString = ui->textBrowser_Port1->toPlainText();
     QString txt = ui->textBrowser_Port1->toPlainText();
     QByteArray data = txt.toUtf8();
-    port1.write(data);
+    while(!port1.waitForBytesWritten(300)){
+        port1.write(data);
+    }
 
 }
 
@@ -313,9 +315,16 @@ void MainWindow::on_pushButton_3_clicked()
 void MainWindow::SendNextRow(){
     //QString txtLineByLine[300];
     QByteArray data = txtLineByLine[incLine].toUtf8();
-    port1.write(data);
+    QByteArray data_1 = "Hello\n";
+    int64_t err;
+    while(!port1.waitForBytesWritten(400)){
+        err = port1.write(data);
+    }
 
-    qDebug() << incLine << " - " << txtLineByLine[incLine].toLocal8Bit();
+    //ui->textBrowser_Port1->setPlainText(QString::number(port1.write(data_1)));
+    //port2->write(data);
+
+    qDebug() << incLine << " - " << txtLineByLine[incLine].toLocal8Bit() << QString::number(err);
     incLine++;
     if(incLine >= countLine){
         incLine = 0;
