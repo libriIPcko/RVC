@@ -283,14 +283,14 @@ void MainWindow::on_pushButton_2_clicked()
 //Send packet list
 void MainWindow::on_pushButton_3_clicked()
 {
-    for(int n=0;n<=300;n++){
+    for(int n=0;n<300;n++){
         txtLineByLine[n].clear();
     }
     int countChar = 0;
     QString txt = ui->textBrowser_Port1->toPlainText();
     char text[txt.length()];
 
-
+    //Separating strings line by line
     while(countChar < ui->textBrowser_Port1->toPlainText().length()){
         text[countChar] = txt.at(countChar).toLatin1();
         if(text[countChar] == '\n'){
@@ -307,24 +307,27 @@ void MainWindow::on_pushButton_3_clicked()
     Timer_sendLine = new QTimer(this);
     Timer_sendLine->setInterval(700);
     Timer_sendLine->setSingleShot(false);
-    QObject::connect(Timer_sendLine,SIGNAL(timeout()),this,SLOT(SendNextRow()));
+    qDebug() << QObject::connect(Timer_sendLine,SIGNAL(timeout()),this,SLOT(SendNextRow()));
+    //QObject::connect(Timer_sendLine,Timer_sendLine->timeout(),MainWindow::SendNextRow());
+    //QObject::connect(Timer_sendLine,timeout(),SendNextRow());
     Timer_sendLine->start();
+
 }
 
 //Write is correct
 void MainWindow::SendNextRow(){
     //QString txtLineByLine[300];
     QByteArray data = txtLineByLine[incLine].toUtf8();
-    QByteArray data_1 = "Hello\n";
-    int64_t err = 0;
-    while(port1->waitForBytesWritten(400)){
-        err = port1->write(data);
+    //int64_t err = 0;
+        //port1->write(data);
+
+    while(!port1->waitForBytesWritten(400)){
+        qDebug() << incLine << " - " << data << " - " << port1->write(data);
     }
 
-    //ui->textBrowser_Port1->setPlainText(QString::number(port1->write(data_1)));
-    //port2->write(data);
+    //qDebug() << incLine << " - " << txtLineByLine[incLine].toLocal8Bit();
+    //qDebug() << incLine << " - " << data;
 
-    qDebug() << incLine << " - " << txtLineByLine[incLine].toLocal8Bit() << QString::number(err);
     incLine++;
     if(incLine >= countLine){
         incLine = 0;

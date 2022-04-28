@@ -18,7 +18,7 @@ public:
     QTimer *Timer_sendLine;
     QString txtLineByLine[300];
     int countLine = 0;
-    int incLine = 0;
+    int incLine = 1;
 
     QSerialPort *port1;
     QSerialPort *port2;
