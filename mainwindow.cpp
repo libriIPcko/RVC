@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     //QMetaObject::connectSlotsByName(MainWindow);
 
     //port1 = new QSerialPort(this);
-    port2 = new QSerialPort(this);
+    //port2 = new QSerialPort(this);
 
 
 }
@@ -57,46 +57,14 @@ void MainWindow::on_pushButton_clicked()
     }
 }
 
+//Delete it !
 void MainWindow::on_pushButton_connect2_clicked()
 {
-    //4GetTxt
 
-    port2->setBaudRate(9600);
-    port2->setPortName(ui->textBrowser_Port2->toPlainText());
-
-    if (port2->open(QIODevice::ReadWrite) == 1){
-        //opened
-        ui->pushButton_connect1->setAutoFillBackground(true);
-        QPalette palette = ui->textBrowser_Port2->palette();
-        palette.setColor(QPalette::ButtonText,QColor(Qt::green));
-        ui->pushButton_connect1->setPalette(palette);
-        ui->pushButton_connect1->update();
-
-        QObject::connect(port2,SIGNAL(readyRead()),this,SLOT(readSerial_2()));
-        //port2.connect(SIGNAL(port2.readyRead()),SLOT(readSerial_2()));
-        //QObject::connect(port2,SIGNAL(port.readyRead()),this,SLOT(readSerial_2()));
-        //connect(port2,SIGNAL(readyRead()),this,SLOT(readSerial_2()));
-        /*
-        QTimer mTimer;
-        mTimer.setInterval(10);
-        mTimer.setSingleShot(false);
-        connect(mTimer,SIGNAL(timeout()),this,SLOT(readSerial2()));
-        mTimer.start();
-        */
-
-    }
-    else{
-        //error, or closed
-        ui->pushButton_connect2->setAutoFillBackground(true);
-        QPalette palette = ui->textBrowser_Port2->palette();
-        palette.setColor(QPalette::ButtonText,QColor(Qt::red));
-        ui->pushButton_connect2->setPalette(palette);
-        ui->pushButton_connect2->update();
-    }
 }
 
 
-
+//Open PORT1
 void MainWindow::on_pushButton_connect1_toggled(bool checked)
 {
     temp_count++;
@@ -167,14 +135,12 @@ void MainWindow::on_pushButton_connect1_toggled(bool checked)
     }
 }
 
-
+//Open PORT2
 void MainWindow::on_pushButton_connect2_toggled(bool checked)
 {
     temp_count++;
     ui->textBrowser_Port2->clear();
-    //4GetTxt
-    //QSerialPort Port2;
-    //port2 = new QSerialPort(this);
+    port2 = new QSerialPort(this);
     port2->setBaudRate(9600);
     //checked = !checked;
     if (checked == 1){
@@ -193,6 +159,9 @@ void MainWindow::on_pushButton_connect2_toggled(bool checked)
             ui->pushButton_connect2->setPalette(palette);
             ui->pushButton_connect2->update();
             ui->pushButton_connect2->setText("Connected");
+
+            //qDebug() << QObject::connect(port2,SIGNAL(readyRead()),this,SLOT(readSerial2));
+            qDebug() << QObject::connect(port2,SIGNAL(readyRead()),this,SLOT(readSerial_2()));
 
         }
         else{
@@ -321,9 +290,13 @@ void MainWindow::SendNextRow(){
     //int64_t err = 0;
         //port1->write(data);
 
+    /*
     while(!port1->waitForBytesWritten(400)){
         qDebug() << incLine << " - " << data << " - " << port1->write(data);
     }
+    */
+
+    qDebug() << incLine << " - " << data << " - " << port1->write(data);
 
     //qDebug() << incLine << " - " << txtLineByLine[incLine].toLocal8Bit();
     //qDebug() << incLine << " - " << data;
@@ -338,7 +311,7 @@ void MainWindow::SendNextRow(){
 
 //Error in receive signal or slot
 void MainWindow::readSerial_2(){
-    ui->textBrowser_Port1->setPlainText("Received: ");
-    ui->textBrowser_Port1->setPlainText(port2->readAll());
-    ui->textBrowser_Port1->setPlainText("\n");
+    ui->textBrowser_Port2->setPlainText("Received: ");
+    //ui->textBrowser_Port2->setPlainText(port2->readAll());
+    ui->textBrowser_Port2->setPlainText("\n");
 }
