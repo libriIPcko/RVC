@@ -311,7 +311,8 @@ void MainWindow::SendNextRow(){
 
 //Error in receive signal or slot
 void MainWindow::readSerial_2(){
-    ui->textBrowser_Port2->setPlainText("Received: ");
+    //ui->textBrowser_Port2->setPlainText("Received: ");
     //ui->textBrowser_Port2->setPlainText(port2->readAll());
+    qDebug() << "Received" << port2->readAll();
     ui->textBrowser_Port2->setPlainText("\n");
 }
