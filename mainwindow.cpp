@@ -72,7 +72,7 @@ void MainWindow::on_pushButton_connect1_toggled(bool checked)
     //4GetTxt
    //QSerialPort port1;
     port1 = new QSerialPort(this);
-    port1->setBaudRate(9600);
+    port1->setBaudRate(115200);   //115200        //9600
     //checked = !checked;
     if (checked == 1){
         port1->setPortName(ui->textEdit_Port1->toPlainText());
