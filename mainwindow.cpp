@@ -29,7 +29,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    GL_MAX_TEXTURE_STACK_DEPTH;
 }
 
 
@@ -57,8 +56,6 @@ void MainWindow::on_pushButton_clicked()
         ui->textBrowser->append(s);
     }
 }
-
-
 
 //Delete it !
 void MainWindow::on_pushButton_connect2_clicked()
