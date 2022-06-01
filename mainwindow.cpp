@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "graphics.h"
-
+#include "canview.h"
 
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
@@ -316,3 +316,12 @@ void MainWindow::readSerial_2(){
     qDebug() << "Received" << port2->readAll();
     ui->textBrowser_Port2->setPlainText("\n");
 }
+
+void MainWindow::on_pushButton_6_released()
+{
+    //Graphics gr;
+    CANview viewCAN;
+    viewCAN.setModal(true);
+    viewCAN.exec();
+}
+
