@@ -39,6 +39,8 @@ private slots:
 
     void readSerial_2();
 
+    void readSerial_1();
+
     void on_pushButton_clicked();
 
     void on_pushButton_connect2_clicked();
@@ -60,6 +62,10 @@ private slots:
     void on_pushButton_3_clicked();
 
     void on_pushButton_6_released();
+
+    void on_pushButton_port1_RX_clear_clicked(bool checked);
+
+    void on_pushButton_port2_RX_clear_clicked(bool checked);
 
 private:
     Ui::MainWindow *ui;
