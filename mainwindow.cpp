@@ -256,37 +256,22 @@ void MainWindow::on_pushButton_4_clicked()
         qDebug()<<"Hex code has been detected";
         bool ok;
 
-        int manyBytes;
-        for(qsizetype i = 0;i<txt.length();i++){
-            if(txt.at(i) == QChar('x') || txt.at(2) == QChar('X')){
-                manyBytes++;
-            }
-        }
-        QByteArray ByteData[manyBytes];
         QByteArray tst;
-
-        manyBytes = 0;
         QString dat;
         for(qsizetype i = 0;i<txt.length();i++){
             if(txt.at(i) == QChar('x') || txt.at(2) == QChar('X')){
                 dat = txt.sliced(++i,2);
-                //dat.insert(0,"/");  //compatible for saved RAW data to QByteArray
-                //uint16_t val = dat.toUInt(&ok,16);
-                //ByteData[manyBytes] = dat.toUInt(&ok,16);
-                //ByteData[manyBytes] = QByteArray::fromHex(dat.toLatin1());
-
                 uint8_t parsedData = dat.toUInt(&ok,16);
 
                 while(!port1->waitForBytesWritten(300)){
                     port1->write(tst.setNum(parsedData));
                 }
                 qDebug() << dat << "-" << parsedData << "-" << i <<"/" << txt.length();
-                manyBytes++;
+
             }
         }
-        //qDebug() << ByteData;
-
     }
+
     else{
         QByteArray data = txt.toUtf8();
         while(!port1->waitForBytesWritten(300)){
