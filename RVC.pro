@@ -14,12 +14,14 @@ SOURCES += \
     canview.cpp \
     graphics.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    usb2can_driver.cpp
 
 HEADERS += \
     canview.h \
     graphics.h \
-    mainwindow.h
+    mainwindow.h \
+    usb2can_driver.h
 
 FORMS += \
     canview.ui \
