@@ -285,8 +285,36 @@ void MainWindow::on_pushButton_4_clicked()
 void MainWindow::on_pushButton_5_clicked()
 {
     QString txt = ui->textBrowser_Port2->toPlainText();
-    QByteArray data = txt.toUtf8();
-    port2->write(data);
+    qsizetype i = 0;
+
+
+
+    if(txt.at(i) == QChar('x') || txt.at(i) == QChar('X')){
+            qDebug()<<"Hex code has been detected";
+            bool ok;
+
+            QByteArray tst;
+            QString dat;
+            for(qsizetype i = 0;i<txt.length();i++){
+                if(txt.at(i) == QChar('x') || txt.at(2) == QChar('X')){
+                    dat = txt.sliced(++i,2);
+                    uint8_t parsedData = dat.toUInt(&ok,16);
+
+                    while(!port2->waitForBytesWritten(300)){
+                        port2->write(tst.setNum(parsedData));
+                    }
+                    qDebug() << dat << "-" << parsedData << "-" << i <<"/" << txt.length();
+
+                }
+            }
+
+    }
+    else{
+        QByteArray data = txt.toUtf8();
+        port2->write(data);
+    }
+
+
 }
 
 
