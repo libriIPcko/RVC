@@ -119,11 +119,14 @@ void MainWindow::on_pushButton_connect1_toggled(bool checked)
             ui->textBrowser_Port1->insertPlainText("\tPermissionError: ");
             ui->textBrowser_Port1->insertPlainText(QString::number(port1->PermissionError));
             ui->textBrowser_Port1->insertPlainText("\n");
+            port1->clearError();
+            port1->close();
         }
     }
     else{
         QString data = QString::number(temp_count)+" Check status: "+QString::number(checked)+"\n";
         ui->textBrowser_Port1->insertPlainText(data);
+
         port1->close();
         if(port1->isOpen()){
             ui->pushButton_connect1->setText("Conected");
@@ -133,7 +136,8 @@ void MainWindow::on_pushButton_connect1_toggled(bool checked)
             palette.setColor(QPalette::ButtonText,QColor(Qt::black));
             ui->pushButton_connect1->setPalette(palette);
             ui->pushButton_connect1->update();
-            ui->pushButton_connect1->setText("Disconnected");
+            ui->pushButton_connect1->setText("Connect");
+            port1->close();
         }
     }
 }
@@ -198,6 +202,7 @@ void MainWindow::on_pushButton_connect2_toggled(bool checked)
     else{
         QString data = QString::number(temp_count)+" Check status: "+QString::number(checked)+"\n";
         ui->textBrowser_Port2->insertPlainText(data);
+
         port2->close();
         if(port2->isOpen()){
             ui->pushButton_connect2->setText("Connected");
@@ -207,7 +212,8 @@ void MainWindow::on_pushButton_connect2_toggled(bool checked)
             palette.setColor(QPalette::ButtonText,QColor(Qt::black));
             ui->pushButton_connect2->setPalette(palette);
             ui->pushButton_connect2->update();
-            ui->pushButton_connect2->setText("Disconnected");
+            ui->pushButton_connect2->setText("Connect");
+            port2->close();
         }
     }
 }
@@ -322,7 +328,7 @@ void MainWindow::readSerial_2(){
     //ui->textBrowser_Port2->setTextColor(QColor(0,0,255));
     //ui->textBrowser_Port2->setPlainText(ReadData + "\n");
     //ui->textBrowser_port2_RX->setPlainText(ReadData + "\n");
-    ui->textBrowser_port2_RX->append("\n" + ReadData);
+    ui->textBrowser_port2_RX->append(ReadData);
     //ui->textBrowser_Port2->setTextColor(QColor(255,255,255));
 
 
@@ -332,7 +338,7 @@ void MainWindow::readSerial_1(){
     QString ReadData = port1->readAll();
     qDebug() << "Received_port1: " << ReadData;
     //ui->textBrowser_port1_RX->setPlainText(ReadData + "\n");
-    ui->textBrowser_port1_RX->append("\n" + ReadData);
+    ui->textBrowser_port1_RX->append(ReadData);
 }
 
 void MainWindow::on_pushButton_6_released()
