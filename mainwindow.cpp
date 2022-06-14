@@ -230,28 +230,11 @@ void MainWindow::on_pushButton_port2_clear_clicked()
     ui->textBrowser_Port2->clear();
 }
 
-
+//send port1
 void MainWindow::on_pushButton_4_clicked()
 {
     QString txt = ui->textBrowser_Port1->toPlainText();
     qsizetype i = 0;
-/*
-    if(txt.at(i) == QChar('#')){
-        qDebug()<<"Hastag is detected";
-        QString filteredData = txt.sliced(++i);
-        qDebug()<<filteredData;
-
-
-        //convert to hex
-        bool ok;
-        uint64_t parsedData = filteredData.toUInt(&ok,16);
-
-        QByteArray data;
-        while(!port1->waitForBytesWritten(300)){
-            port1->write(data.setNum(parsedData));
-        }
-    }
-*/
     if(txt.at(i) == QChar('x') || txt.at(i) == QChar('X')){
         qDebug()<<"Hex code has been detected";
         bool ok;
@@ -266,7 +249,7 @@ void MainWindow::on_pushButton_4_clicked()
                 while(!port1->waitForBytesWritten(300)){
                     port1->write(tst.setNum(parsedData));
                 }
-                qDebug() << dat << "-" << parsedData << "-" << i <<"/" << txt.length();
+                //qDebug() << dat << "-" << parsedData << "-" << i <<"/" << txt.length();
 
             }
         }
@@ -281,14 +264,11 @@ void MainWindow::on_pushButton_4_clicked()
 
 }
 
-
+//Send port2
 void MainWindow::on_pushButton_5_clicked()
 {
     QString txt = ui->textBrowser_Port2->toPlainText();
     qsizetype i = 0;
-
-
-
     if(txt.at(i) == QChar('x') || txt.at(i) == QChar('X')){
             qDebug()<<"Hex code has been detected";
             bool ok;
@@ -303,8 +283,7 @@ void MainWindow::on_pushButton_5_clicked()
                     while(!port2->waitForBytesWritten(300)){
                         port2->write(tst.setNum(parsedData));
                     }
-                    qDebug() << dat << "-" << parsedData << "-" << i <<"/" << txt.length();
-
+                    //qDebug() << dat << "-" << parsedData << "-" << i <<"/" << txt.length();
                 }
             }
 
@@ -401,7 +380,8 @@ void MainWindow::readSerial_2(){
 }
 
 void MainWindow::readSerial_1(){
-    QString ReadData = port1->readAll();
+    //QString ReadData = port1->readAll();
+    QByteArray ReadData = port1->readAll();
     qDebug() << "Received_port1: " << ReadData;
     //ui->textBrowser_port1_RX->setPlainText(ReadData + "\n");
     ui->textBrowser_port1_RX->append(ReadData);
