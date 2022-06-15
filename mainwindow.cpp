@@ -236,23 +236,56 @@ void MainWindow::on_pushButton_4_clicked()
     QString txt = ui->textBrowser_Port1->toPlainText();
     qsizetype i = 0;
     if(txt.at(i) == QChar('x') || txt.at(i) == QChar('X')){
-        qDebug()<<"Hex code has been detected";
+        qDebug()<<"Hex code has been detected" << txt;
         bool ok;
 
         QByteArray tst;
         QString dat;
+
         for(qsizetype i = 0;i<txt.length();i++){
             if(txt.at(i) == QChar('x') || txt.at(2) == QChar('X')){
                 dat = txt.sliced(++i,2);
-                uint8_t parsedData = dat.toUInt(&ok,16);
-
-                while(!port1->waitForBytesWritten(300)){
-                    port1->write(tst.setNum(parsedData));
+                qDebug() << dat << QByteArray::fromHex(dat.toLatin1());
+                while(!port1->waitForBytesWritten(1)){
+                    port1->write(QByteArray::fromHex(dat.toLatin1()));
                 }
-                //qDebug() << dat << "-" << parsedData << "-" << i <<"/" << txt.length();
-
             }
         }
+        //qDebug() << dat <<dat.toUInt(&ok,16);
+
+    }
+    //Commands separation
+    else if(txt.at(0) == QChar('#')){
+        i = 1;
+        txt = txt.sliced(i);
+
+        if(QString::compare(txt,"getmode") == 0){
+           static const char initData[] = {
+                '\x0f', '\x06' , '\x00'
+            };
+            QByteArray sendData = QByteArray::fromRawData(initData,sizeof (initData));
+
+            while(!port1->waitForBytesWritten(300)){
+                port1->write(sendData );
+                qDebug() << sendData;
+            }
+            qDebug() << "Get mode command" << sendData;
+        }
+        else if(QString::compare(txt,"readreg") == 0){
+           static const char initData[] = {
+                '\x0f', '\x12' , '\x00'
+            };
+            QByteArray sendData = QByteArray::fromRawData(initData,sizeof (initData));
+
+            while(!port1->waitForBytesWritten(300)){
+                port1->write(sendData );
+            }
+            qDebug() << "Read reg command" << sendData;
+        }
+        else{
+            qDebug()<< "Command does not exist";
+        }
+
     }
 
     else{
@@ -383,7 +416,6 @@ void MainWindow::readSerial_1(){
     //QString ReadData = port1->readAll();
     QByteArray ReadData = port1->readAll();
     qDebug() << "Received_port1: " << ReadData;
-    //ui->textBrowser_port1_RX->setPlainText(ReadData + "\n");
     ui->textBrowser_port1_RX->append(ReadData);
 }
 
