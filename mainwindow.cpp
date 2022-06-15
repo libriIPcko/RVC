@@ -245,8 +245,8 @@ void MainWindow::on_pushButton_4_clicked()
         for(qsizetype i = 0;i<txt.length();i++){
             if(txt.at(i) == QChar('x') || txt.at(2) == QChar('X')){
                 dat = txt.sliced(++i,2);
-                qDebug() << dat << QByteArray::fromHex(dat.toLatin1());
-                while(!port1->waitForBytesWritten(1)){
+                //qDebug() << dat << QByteArray::fromHex(dat.toLatin1());
+                while(!port1->waitForBytesWritten(300)){
                     port1->write(QByteArray::fromHex(dat.toLatin1()));
                 }
             }
@@ -414,9 +414,15 @@ void MainWindow::readSerial_2(){
 
 void MainWindow::readSerial_1(){
     //QString ReadData = port1->readAll();
+    bool ok;
     QByteArray ReadData = port1->readAll();
-    qDebug() << "Received_port1: " << ReadData;
+    //qDebug() << "Received_port1: " << QByteArray::fromHex(ReadData);
+
+    //ui->textBrowser_port1_RX->append(QByteArray::fromHex(ReadData) );
     ui->textBrowser_port1_RX->append(ReadData);
+    QByteArray tst = ReadData.fromHex(ReadData);
+    ui->textBrowser_port1_RX->append(tst);
+    qDebug() << "Received_port1: " << ReadData << tst;
 }
 
 void MainWindow::on_pushButton_6_released()
