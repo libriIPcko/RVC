@@ -1,0 +1,27 @@
+Autorem tohoto kousku kodu je pan V. Holy.
+S jeho svolenim kod zverejnujeme. Nasleduje
+mirne upraveny kometar pana Holeho ke kodu:
+
+
+Posilam asi neprilis vypovidajici priklad, omlouvam se za citelnost a kvalitu kodu. 
+Driver, pravda, potrebuje jeste malinke dodelavky (napr. 
+prepocet baud->obsah registru), nicmene je uz ted celkem pouzitelny. 
+V teto trictvrtecni forme slouzil dlouho jako gateway UDP<->USB<->CAN. 
+Prilozena aplikace funguje jako transparentni monitor (odposlech) deni na CANu.
+
+systemove pozadavky:
+
+- linux s jadrem 2.6.26 a vyssi
+- prekladac gcc, linker ld
+- knihovny glibc, libftdi
+- program make (slozi k rizeni prekladu)
+
+Balik rozbalite, spustite make a pokud mate vse ok, vypadne binarka can_mon. 
+Ta po spusteni ocenicha zarizeni /dev/ttyUSBO (tak se v jadre mapuje ftdi chip). 
+
+V pripade, ze mate zarizeni povicero, je treba upravit v main.c:27 jmeno/cislo adapteru 
+(puvodni plan byl, ze to bude parametr). Pokud driver najde spravne udaje vypise verzi 
+HW+FW a pak uz jen posloucha a tiskne vse na consoli, co zaslechne na CANu...
+
+
+ing. Vladimir Holy
