@@ -16,6 +16,7 @@ class MainWindow : public QMainWindow
 
 public:
     QTimer *Timer_sendLine;
+
     QString txtLineByLine[300];
     int countLine = 0;
     int incLine = 1;
@@ -36,6 +37,8 @@ private: signals:
 private slots:
 
     void SendNextRow();
+
+    void SendNextRow_InitUSB2CAN();
 
     void readSerial_2();
 
