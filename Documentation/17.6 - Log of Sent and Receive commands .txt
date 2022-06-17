@@ -1,0 +1,45 @@
+/*																									*/
+//				Log of manual sending initialization cmd 
+//					Lef side are sent cmd
+//					Right side are received cmd
+/*																									*/
+
+15:00 - 17.6
+						CMD										Reply of USB2CAN
+------------------------------------------------------------------------------------------
+CONFIG_MODE			x0fx02x00						|			\xFF			2x
+SetResetMode		x0fx12x02x00x01					|			\x0F\x12\x01\x00
+SetClockDiv			x0fx12x02x1FxC0					|			\x0F\x12\x01\x1F
+SetACCepCODE		x0fx12x02x10x00					|			\x0F\x12\x01\x10
+SETAccepMASK		x0fx12x02x14xff					|			\x0F\x12\x01\14
+SetOutputControl	x0fx12x02x08xDA					|			\x0F\x12\x01\b
+SetInterruptEnable	x0fx13x02x04x03					|				-----
+
+SetBusTiming0		x0fx12x02x06x00					|			\x0F\x12\x01\x06
+SetBusTiming1		x0fx12x02x07x14					|			\x0F\x12\x01\x07
+
+TCL					x0fx13x02x04x03					|
+TCR					x0fx21x02x01x01					|	\x0F!\fHW0003FW0016	
+SetNormalMode		x0f0x03x00						|	\x0F\t\x02\x02\x02		(repeatedly receiveing)
+SetModeReg			x0fx12x02x00x00					|	\x0F\t\x02\x02\x0
+------------------------------------------------------------------------------------------
+
+16:18 - 17.6
+						CMD										Reply of USB2CAN
+------------------------------------------------------------------------------------------
+CONFIG_MODE			x0fx02x00						|			\xFF			2x
+SetResetMode		x0fx12x02x00x01					|			\x0F\x12\x01\x00
+SetClockDiv			x0fx12x02x1FxC0					|			\x0F\x12\x01\x1F
+SetACCepCODE		x0fx12x02x10x00					|			\x0F\x12\x01\x10
+SETAccepMASK		x0fx12x02x14xff					|			\x0F\x12\x01\14
+SetOutputControl	x0fx12x02x08xDA					|			\x0F\x12\x01\b(moze tu byt binary value)
+SetInterruptEnable	x0fx12x02x04x03					|			\x0fx12x01x04
+
+SetBusTiming 0-1	x0fx12x03x08x06x00				|			\x0F\x12\x01\b(moze tu byt binary value)
+
+
+TRL/TCL				x0fx12x02x00x01					|	\x0f\x12\x01\x00
+TCL/TCR				x0fx12x02x01x00					|	\x0f\x12\x01\x01
+SetNormalMode		x0f0x03x00						|	\x0F\t\x02\x02\x02		(repeatedly receiveing)
+SetModeReg			x0fx12x02x00x00					|	x0fx12x02x00x00
+------------------------------------------------------------------------------------------
