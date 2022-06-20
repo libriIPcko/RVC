@@ -1,0 +1,23 @@
+W		R		
+x0fx02x00	-	x0fx02x00	-	CONFIG_MODE
+x0fx12x02x00x01	-	x0fx10x02x00x01	-	Set Reset mode
+x0fx12x02x1FxC0	-	x0fx10x02x1FxC0	-	Set ClockDiv
+x0fx12x02x10x00	-	x0fx10x02x10x00	-	Set ACCep CODE
+x0fx12x02x14xff	-	x0fx10x02x14xff	-	SET Accep MASK
+x0fx12x02x08xDA	-	x0fx10x02x08xDA	-	Set Output Control
+x0fx12x02x04x03	-	x0fx10x02x04x03	-	Set Interrupt enable
+x0fx12x03x08x06x00	-	x0fx10x03x08x06x00	-	Set Bus Timing 0/1
+//x0fx20x02x06x00
+
+x0fx12x03x20x00x05	-	x0fx10x03x21x01x01	-	TCL - Critical Transmit Limit	
+x0fx20x02x00x18		|	x0fx20x02x20x00x18
+
+x0fx12x03x20x01x03	-	x0fx10x03x20x00x12	-	TRL
+x0fx20x02x01x11
+
+x0fx03x00	-	x0fx03x00	-	Set Normal mode
+x0fx12x02x00x00	-	x0fx10x02x00	-	Set Mode reg
+
+
+
+x0fx40x04x12x02x03xff

@@ -285,7 +285,7 @@ void MainWindow::on_pushButton_4_clicked()
 
         else if(QString::compare(txt,"init") == 0){
             Timer_sendLine = new QTimer(this);
-            Timer_sendLine->setInterval(700);
+            Timer_sendLine->setInterval(1500);
             Timer_sendLine->setSingleShot(false);
             qDebug() << QObject::connect(Timer_sendLine,SIGNAL(timeout()),this,SLOT(SendNextRow_InitUSB2CAN()));
             Timer_sendLine->start();
@@ -469,8 +469,13 @@ void MainWindow::readSerial_2(){
 }
 
 void MainWindow::readSerial_1(){
-    //QString ReadData = port1->readAll();
+    bool ok;
     QByteArray ReadData = port1->readAll();
+    //QString ArrivedData = QString::number(ReadData.fromHex(ReadData),10);
+    QString ArrivedData;
+
+  //ArrivedData = QString::fromUtf8((char*)ReadData.data());
+    ArrivedData = ReadData.data();
     //qDebug() << "Received_port1: " << QByteArray::fromHex(ReadData);
 
     //ui->textBrowser_port1_RX->append(QByteArray::fromHex(ReadData) );
@@ -478,9 +483,9 @@ void MainWindow::readSerial_1(){
     //QByteArray tst = ReadData.fromHex(ReadData);
     //QString tst = ReadData.fromHex(ReadData);
     //QString tst = ReadData.fromHex(ReadData);
-    QString tst = ReadData;
-    ui->textBrowser_port1_RX->append(tst);
-    qDebug() << "Received_port1: " << ReadData << tst;
+    //QString tst = ReadData;
+    ui->textBrowser_port1_RX->append(ArrivedData.toLatin1());
+    qDebug() << "Received_port1: " << ReadData << "--" <<  ArrivedData;
 }
 
 void MainWindow::on_pushButton_6_released()
@@ -522,7 +527,7 @@ void MainWindow::SendNextRow_InitUSB2CAN()
         case 1:
             //2-Set Reset Mode [0x00]on value 0x01   (by WriteReg[x12])
                 static const char ResetMod[] = {
-                  '\x0f', '\x00' , '\x01'
+                  '\x0f','\x12','\x02','\x00','\x01'
                 };
                 sendData = QByteArray::fromRawData(ResetMod,sizeof (ResetMod));
                 while(!port1->waitForBytesWritten(300)){
@@ -533,7 +538,7 @@ void MainWindow::SendNextRow_InitUSB2CAN()
         case 2:
             //3-Set Clock divider [0x1F] on value 0xC0 (by WriteReg[x12])
                 static const char ClockDivData[] = {
-                   '\x0f', '\x1F' , '\xC0'
+                   '\x0f','\x12','\x02','\x1F','\xC0'
                 };
                 sendData = QByteArray::fromRawData(ClockDivData,sizeof (ClockDivData));
                 while(!port1->waitForBytesWritten(300)){
@@ -545,7 +550,7 @@ void MainWindow::SendNextRow_InitUSB2CAN()
             //4.1-Set message filter; without filtration: (by WriteReg[x12])
             //set-> Acceptance Code [?] on 0x00
                 static const char AccCode[] = {
-                    '\x0f', '\x12', '\x02' , '\x10' , '\x00'
+                    '\x0f','\x12','\x02','\x10','\x00'
                 };
                 sendData = QByteArray::fromRawData(AccCode,sizeof (AccCode));
                 while(!port1->waitForBytesWritten(300)){
@@ -568,7 +573,7 @@ void MainWindow::SendNextRow_InitUSB2CAN()
         case 5:
             //5-Set OutputControl[0x08] on 0xDA (by WriteReg[x12])
                 static const char OutCtrl[] = {
-                  '\x0f', '\x12', '\x02' , '\x10' , '\xda'
+                  '\x0f','\x12','\x02','\x08','\xDA'
                 };
                 sendData = QByteArray::fromRawData(OutCtrl,sizeof (OutCtrl));
                 while(!port1->waitForBytesWritten(300)){
@@ -577,21 +582,20 @@ void MainWindow::SendNextRow_InitUSB2CAN()
                 qDebug() << incLine << "-" << "Output Control";
         break;
         case 6:
-            //6-Set Bus Timing 0 [0x06] 1[0x07] to (1)?  (by WriteReg[x12])
-            //6.1Bus Timing 0 - to 1Mbit/s
-                static const char BT0[] = {
-                     '\x0f', '\x20' , '\x02' , '\x06', '\x10'
-                 };
-                 sendData = QByteArray::fromRawData(BT0,sizeof (BT0));
-                 while(!port1->waitForBytesWritten(300)){
-                     port1->write(sendData);
-                 }
-                 qDebug() << incLine << "-" << "Bus Timing 0";
+            //7. -Set Interrupt enable[]  on 0x03  (by WriteReg[x12])
+                static const char IE[] = {
+                    '\x0f','\x12','\x02','\x04','\x03'
+                };
+                sendData = QByteArray::fromRawData(IE,sizeof (IE));
+                while(!port1->waitForBytesWritten(300)){
+                port1->write(sendData);
+                }
+                qDebug() << incLine << "-" << "Interrupt enable";
         break;
         case 7:
-            //6.2 - Bus Timing 1
+            //6.2 - Bus Timing 0/1
                 static const char BT1[] = {
-                     '\x0f', '\x20' , '\x02' , '\x07', '\x14'
+                     '\x0f','\x12','\x03','\x08','\x06'
                  };
                  sendData = QByteArray::fromRawData(BT1,sizeof (BT1));
                  while(!port1->waitForBytesWritten(300)){
@@ -600,21 +604,13 @@ void MainWindow::SendNextRow_InitUSB2CAN()
                  qDebug() << incLine << "-" << "Bus Timing 1";
         break;
         case 8:
-            //7. -Set Interrupt enable[]  on 0x03  (by WriteReg[x12])
-                static const char IE[] = {
-                    '\x0f', '\x13', '\x02' , '\x04' , '\x03'
-                };
-                sendData = QByteArray::fromRawData(IE,sizeof (IE));
-                while(!port1->waitForBytesWritten(300)){
-                port1->write(sendData);
-                }
-                qDebug() << incLine << "-" << "Interrupt enable";
+            qDebug() << "Nop";
         break;
         case 9:
             //8.-Set Transmit Critical Limit and Transmit Ready limit by cmd COMMAND
             //8.1 Set TCL
                 static const char TCL_Code[] = {
-                     '\x0f', '\x20' , '\x02' , '\x00', '\x12'
+                     '\x0f','\x12','\x03','\x21','\x01','\x01'
                  };
                  sendData = QByteArray::fromRawData(TCL_Code,sizeof (TCL_Code));
                  while(!port1->waitForBytesWritten(300)){
@@ -623,11 +619,11 @@ void MainWindow::SendNextRow_InitUSB2CAN()
                  qDebug() << incLine << "-" << "TCL";
         break;
         case 10:
-            //8.2 Set-> TCR
-                static const char TCR_Code[] = {
-                     '\x0f', '\x20' , '\x02' , '\x00', '\x12'
+            //8.2 Set-> TRL
+                static const char TRL_Code[] = {
+                     '\x0f','\x12','\x03','\x20','\x00','\x12'
                  };
-                 sendData = QByteArray::fromRawData(TCR_Code,sizeof (TCR_Code));
+                 sendData = QByteArray::fromRawData(TRL_Code,sizeof (TRL_Code));
                  while(!port1->waitForBytesWritten(300)){
                      port1->write(sendData);
                  }
@@ -636,7 +632,7 @@ void MainWindow::SendNextRow_InitUSB2CAN()
         case 11:
             //9-Set Normal Mode
                 static const char NormalMode[] = {
-                   '\x0f', '\x03' , '\x00'
+                   '\x0f','\x03','\x00'
                 };
                 sendData = QByteArray::fromRawData(NormalMode,sizeof (NormalMode));
                 while(!port1->waitForBytesWritten(300)){
@@ -648,7 +644,7 @@ void MainWindow::SendNextRow_InitUSB2CAN()
             //10-Set Mode register [0x00], the value depends on Message Filter   (by WriteReg[x12])
             //values can be 0x00 or 0x08
                static const char ModRegDat[] = {
-                    '\x0f', '\x12' , '\x02' , '\x00', '\x00'
+                    '\x0f','\x12','\x02','\x00','\x00'
                 };
                 sendData = QByteArray::fromRawData(ModRegDat,sizeof (ModRegDat));
                 while(!port1->waitForBytesWritten(300)){
