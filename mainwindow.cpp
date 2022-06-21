@@ -285,7 +285,7 @@ void MainWindow::on_pushButton_4_clicked()
 
         else if(QString::compare(txt,"init") == 0){
             Timer_sendLine = new QTimer(this);
-            Timer_sendLine->setInterval(1500);
+            Timer_sendLine->setInterval(250);
             Timer_sendLine->setSingleShot(false);
             qDebug() << QObject::connect(Timer_sendLine,SIGNAL(timeout()),this,SLOT(SendNextRow_InitUSB2CAN()));
             Timer_sendLine->start();
@@ -511,18 +511,19 @@ void MainWindow::on_pushButton_port2_RX_clear_clicked(bool checked)
 void MainWindow::SendNextRow_InitUSB2CAN()
 {
     QByteArray sendData;
+    qint64 feedback;
     //For Set value is used command WriteReg-[0x12]  - EXCEPT FOR 1.8.9. step
     switch (incLine){
         case 0:
             //1-Set to Config Mode [0x02]
                 static const char Config[] = {
-                     '\x0f', '\x02' , '\x00'
+                     '\x0f', '\x02' , '\x00', '\x00'
                  };
                  sendData = QByteArray::fromRawData(Config,sizeof (Config));
                  while(!port1->waitForBytesWritten(300)){
-                     port1->write(Config );
+                     feedback = port1->write(Config);
                  }
-                 qDebug() << incLine << "-"  << "Config Mode";
+                 qDebug() << incLine << "-"  << "Config Mode" << "-"  << feedback << "-"  << Config;
         break;
         case 1:
             //2-Set Reset Mode [0x00]on value 0x01   (by WriteReg[x12])
@@ -531,9 +532,9 @@ void MainWindow::SendNextRow_InitUSB2CAN()
                 };
                 sendData = QByteArray::fromRawData(ResetMod,sizeof (ResetMod));
                 while(!port1->waitForBytesWritten(300)){
-                  port1->write(sendData);
+                  feedback = port1->write(sendData);
                 }
-                qDebug() << incLine << "-"  << "Reset Mode";
+                qDebug() << incLine << "-"  << "Reset Mode" << "-"  << feedback << "-"  << ResetMod;
         break;
         case 2:
             //3-Set Clock divider [0x1F] on value 0xC0 (by WriteReg[x12])
@@ -542,9 +543,9 @@ void MainWindow::SendNextRow_InitUSB2CAN()
                 };
                 sendData = QByteArray::fromRawData(ClockDivData,sizeof (ClockDivData));
                 while(!port1->waitForBytesWritten(300)){
-                   port1->write(sendData);
+                   feedback = port1->write(sendData);
                 }
-                qDebug() << incLine << "-"  << "Clock divider data";
+                qDebug() << incLine << "-"  << "Clock divider data" << "-"  << feedback << "-"  << ClockDivData;
         break;
         case 3:
             //4.1-Set message filter; without filtration: (by WriteReg[x12])
@@ -554,20 +555,20 @@ void MainWindow::SendNextRow_InitUSB2CAN()
                 };
                 sendData = QByteArray::fromRawData(AccCode,sizeof (AccCode));
                 while(!port1->waitForBytesWritten(300)){
-                    port1->write(sendData);
+                    feedback = port1->write(sendData);
                 }
-                qDebug() << incLine << "-" << "Acceptance Code";
+                qDebug() << incLine << "-" << "Acceptance Code" << "-"  << feedback << "-"  << AccCode;
         break;
         case 4:
             //4.2 set-> Acceptance Mask [0x05] on 0xff
                 static const char AccMask[] = {
-                 '\x0f', '\x12', '\x02' , '\x10' , '\xff'
+                 '\x0f', '\x12', '\x02' , '\x14' , '\xff'
                 };
                 sendData = QByteArray::fromRawData(AccMask,sizeof (AccMask));
                 while(!port1->waitForBytesWritten(300)){
-                    port1->write(sendData);
+                    feedback = port1->write(sendData);
                 }
-                qDebug() << incLine << "-" << "Acceptance Mask";
+                qDebug() << incLine << "-" << "Acceptance Mask" << "-"  << feedback << "-"  << AccMask;
 
         break;
         case 5:
@@ -577,9 +578,9 @@ void MainWindow::SendNextRow_InitUSB2CAN()
                 };
                 sendData = QByteArray::fromRawData(OutCtrl,sizeof (OutCtrl));
                 while(!port1->waitForBytesWritten(300)){
-                  port1->write(sendData);
+                  feedback = port1->write(sendData);
                 }
-                qDebug() << incLine << "-" << "Output Control";
+                qDebug() << incLine << "-" << "Output Control" << "-"  << feedback << "-"  << OutCtrl;
         break;
         case 6:
             //7. -Set Interrupt enable[]  on 0x03  (by WriteReg[x12])
@@ -588,46 +589,57 @@ void MainWindow::SendNextRow_InitUSB2CAN()
                 };
                 sendData = QByteArray::fromRawData(IE,sizeof (IE));
                 while(!port1->waitForBytesWritten(300)){
-                port1->write(sendData);
+                    feedback = port1->write(sendData);
                 }
-                qDebug() << incLine << "-" << "Interrupt enable";
+                qDebug() << incLine << "-" << "Interrupt enable" << "-"  << feedback << "-"  << IE;
         break;
         case 7:
-            //6.2 - Bus Timing 0/1
+            //6.1 - Bus Timing 0
+                static const char BT0[] = {
+                     '\x0f','\x12','\x02','\x06','\x00'
+                 };
+                 sendData = QByteArray::fromRawData(BT0,sizeof (BT0));
+                 while(!port1->waitForBytesWritten(300)){
+                     feedback = port1->write(sendData);
+                 }
+                 qDebug() << incLine << "-" << "Bus Timing 0" << "-"  << feedback << "-"  << BT0;
+        break;
+        case 8:
+            //6.2 - Bus Timing 1
                 static const char BT1[] = {
-                     '\x0f','\x12','\x03','\x08','\x06'
+                     '\x0f','\12','\x02','\x07','\x14'
                  };
                  sendData = QByteArray::fromRawData(BT1,sizeof (BT1));
                  while(!port1->waitForBytesWritten(300)){
-                     port1->write(sendData);
+                     feedback = port1->write(sendData);
                  }
-                 qDebug() << incLine << "-" << "Bus Timing 1";
+                 qDebug() << incLine << "-" << "Bus Timing 1" << "-"  << feedback << "-"  << BT1;
         break;
-        case 8:
-            qDebug() << "Nop";
-        break;
+
+                 //Here are some data
+
         case 9:
             //8.-Set Transmit Critical Limit and Transmit Ready limit by cmd COMMAND
             //8.1 Set TCL
-                static const char TCL_Code[] = {
-                     '\x0f','\x12','\x03','\x21','\x01','\x01'
+                static const char CTL_Code[] = {
+                     '\x0f','\x20','\x01','\x18'
                  };
-                 sendData = QByteArray::fromRawData(TCL_Code,sizeof (TCL_Code));
+                 sendData = QByteArray::fromRawData(CTL_Code,sizeof (CTL_Code));
                  while(!port1->waitForBytesWritten(300)){
-                     port1->write(sendData);
+                     feedback = port1->write(sendData);
                  }
-                 qDebug() << incLine << "-" << "TCL";
+                 qDebug() << incLine << "-" << "CTL_Code" << "-"  << feedback << "-"  << CTL_Code;
         break;
         case 10:
             //8.2 Set-> TRL
                 static const char TRL_Code[] = {
-                     '\x0f','\x12','\x03','\x20','\x00','\x12'
+                     '\x0f','\x20','\x02','\x01'
                  };
                  sendData = QByteArray::fromRawData(TRL_Code,sizeof (TRL_Code));
                  while(!port1->waitForBytesWritten(300)){
-                     port1->write(sendData);
+                     feedback = port1->write(sendData);
                  }
-                 qDebug() << incLine << "-" << "TCR";
+                 qDebug() << incLine << "-" << "TRL_Code" << "-"  << feedback << "-"  << TRL_Code;
         break;
         case 11:
             //9-Set Normal Mode
@@ -636,9 +648,9 @@ void MainWindow::SendNextRow_InitUSB2CAN()
                 };
                 sendData = QByteArray::fromRawData(NormalMode,sizeof (NormalMode));
                 while(!port1->waitForBytesWritten(300)){
-                   port1->write(sendData);
+                   feedback = port1->write(sendData);
                 }
-                qDebug() << incLine << "-" << "Normal Mode";
+                qDebug() << incLine << "-" << "Normal Mode" << "-"  << feedback << "-"  << NormalMode;
         break;
         case 12:
             //10-Set Mode register [0x00], the value depends on Message Filter   (by WriteReg[x12])
@@ -648,9 +660,9 @@ void MainWindow::SendNextRow_InitUSB2CAN()
                 };
                 sendData = QByteArray::fromRawData(ModRegDat,sizeof (ModRegDat));
                 while(!port1->waitForBytesWritten(300)){
-                    port1->write(sendData);
+                    feedback = port1->write(sendData);
                 }
-                qDebug() << incLine << "-" << "Set Mode";
+                qDebug() << incLine << "-" << "Set Mode" << "-"  << feedback << "-"  << ModRegDat;
         break;
     }
     if(incLine>12){

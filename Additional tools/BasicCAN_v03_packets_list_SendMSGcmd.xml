@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<data>
+  <loop>false</loop>
+  <repeat_times>1</repeat_times>
+  <repeat_period>250</repeat_period>
+  <packets_list>
+    <packet name="Config Mode">
+      <payload>0F0200</payload>
+    </packet>
+    <packet name="Reset mod">
+      <payload>0F12020001</payload>
+    </packet>
+    <packet name="ClockDiv">
+      <payload>0F12021FC0</payload>
+    </packet>
+    <packet name="Accept Code">
+      <payload>0F12021000</payload>
+    </packet>
+    <packet name="Accept Mask">
+      <payload>0F120214FF</payload>
+    </packet>
+    <packet name="Output Control">
+      <payload>0F120208DA</payload>
+    </packet>
+    <packet name="Interrupt Enable">
+      <payload>0F12020403</payload>
+    </packet>
+    <packet name="Bus Timing 0">
+      <payload>0F12020600</payload>
+    </packet>
+    <packet name="Bus Timing 1">
+      <payload>0F12020714</payload>
+    </packet>
+    <packet name="Critical Transmit Limit">
+      <payload>0F200118</payload>
+    </packet>
+    <packet name="Transfer Ready Limit">
+      <payload>0F200201</payload>
+    </packet>
+    <packet name="Normal Mode">
+      <payload>0F0300</payload>
+    </packet>
+    <packet name="Set Mode reg">
+      <payload>0F12020000</payload>
+    </packet>
+    <packet name="GetMode">
+      <payload>0F0600</payload>
+    </packet>
+    <packet name="Send MSG">
+      <payload>0F400D880000000800FF01020304FF00</payload>
+    </packet>
+  </packets_list>
+</data>
