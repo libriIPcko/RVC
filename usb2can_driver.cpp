@@ -78,7 +78,7 @@ QByteArray USB2CAN_driver::ReadReg(QByteArray regAdress){
 
 int USB2CAN_driver::init(){
     tim_interrupt_1 = new QTimer();
-    QObject::connect(tim_interrupt_1,SIGNAL(timeout()),USB2CAN_driver,SLOT(initSend()));
+    QObject::connect(tim_interrupt_1,SIGNAL(timeout()),this,SLOT(USB2CAN_driver::initSend()));
 }
 
 QByteArray USB2CAN_driver::read_USB2CAN(){

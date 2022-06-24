@@ -8,11 +8,12 @@
 #include "QObject"
 
 
-class USB2CAN_driver
+class USB2CAN_driver : public QObject
 {
-    //Q_OBJECT;
+    Q_OBJECT;
 public:
     USB2CAN_driver();
+    virtual ~USB2CAN_driver();
 
     QSerialPort *port_USB2CAN = new QSerialPort();
     QTimer *tim_interrupt_1 = new QTimer();
