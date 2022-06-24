@@ -14,6 +14,25 @@ USB2CAN_driver::USB2CAN_driver()
     QObject::connect(port_USB2CAN,SIGNAL(readyRead()),port_USB2CAN,SLOT(QByteArray read_USB2CAN()));
 }
 
+int USB2CAN_driver::connectToPort(QString portName){
+    USB2CAN_driver::portName = portName;
+    port_USB2CAN->setBaudRate(QSerialPort::Baud9600,QSerialPort::AllDirections);
+    port_USB2CAN->setPortName(portName);
+    return port_USB2CAN->open(QIODevice::ReadWrite);
+}
+
+int USB2CAN_driver::disconnectedFromPort(){
+    QObject::disconnect(port_USB2CAN,SIGNAL(readyRead()),port_USB2CAN,SLOT(read_USB2CAN()));
+    port_USB2CAN->close();
+
+    if(port_USB2CAN->isOpen()){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
 
 void USB2CAN_driver::USB_LoopBack(){
 
@@ -59,7 +78,7 @@ QByteArray USB2CAN_driver::ReadReg(QByteArray regAdress){
 
 int USB2CAN_driver::init(){
     tim_interrupt_1 = new QTimer();
-    QObject::connect(tim_interrupt_1,SIGNAL(timeout()),tim_interrupt_1,SLOT(initSend()));
+    QObject::connect(tim_interrupt_1,SIGNAL(timeout()),USB2CAN_driver,SLOT(initSend()));
 }
 
 QByteArray USB2CAN_driver::read_USB2CAN(){

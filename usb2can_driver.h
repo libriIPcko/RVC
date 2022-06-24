@@ -3,7 +3,7 @@
 
 #include "QSerialPort"
 #include "QTimer"
-#include "USB2CAN_define.h"
+//#include "USB2CAN_define.h"
 
 #include "QObject"
 
@@ -17,6 +17,7 @@ public:
     QSerialPort *port_USB2CAN = new QSerialPort();
     QTimer *tim_interrupt_1 = new QTimer();
 
+    int temporary_init_Counter = 0;
     int init();
     void USB_LoopBack();
     void Boot_Mode();
@@ -29,7 +30,9 @@ public:
     QByteArray WriteCMD(QByteArray CMD_name, QByteArray value);
     QByteArray ReadReg(QByteArray regAdress);
 
-
+    QString portName;
+    int connectToPort(QString portName);
+    int disconnectedFromPort();
 
 private: signals:
     void readyRead();

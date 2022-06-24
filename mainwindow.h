@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTextBrowser>
 #include <QSerialPort>
+#include "usb2can_driver.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -23,6 +24,7 @@ public:
 
     QSerialPort *port1;
     QSerialPort *port2;
+    USB2CAN_driver *u2c;
     //QSerialPort port2;
     //QSerialPort port1;
 
@@ -69,6 +71,8 @@ private slots:
     void on_pushButton_port1_RX_clear_clicked(bool checked);
 
     void on_pushButton_port2_RX_clear_clicked(bool checked);
+
+    void on_checkBox_toggled(bool checked);
 
 private:
     Ui::MainWindow *ui;

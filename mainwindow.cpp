@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //port1 = new QSerialPort(this);
     //port2 = new QSerialPort(this);
+    u2c = new USB2CAN_driver();
 
 
 }
@@ -284,12 +285,15 @@ void MainWindow::on_pushButton_4_clicked()
         }
 
         else if(QString::compare(txt,"init") == 0){
+            u2c->init();
+            /*
             Timer_sendLine = new QTimer(this);
             Timer_sendLine->setInterval(250);
             Timer_sendLine->setSingleShot(false);
             qDebug() << QObject::connect(Timer_sendLine,SIGNAL(timeout()),this,SLOT(SendNextRow_InitUSB2CAN()));
             Timer_sendLine->start();
             incLine = 0;
+            */
         }
 
         else if(QString::compare(txt,"busoff") == 0){
@@ -508,8 +512,10 @@ void MainWindow::on_pushButton_port2_RX_clear_clicked(bool checked)
     ui->textBrowser_port2_RX->clear();
 }
 
+
 void MainWindow::SendNextRow_InitUSB2CAN()
 {
+    /*
     QByteArray sendData;
     qint64 feedback;
     //For Set value is used command WriteReg-[0x12]  - EXCEPT FOR 1.8.9. step
@@ -674,4 +680,17 @@ void MainWindow::SendNextRow_InitUSB2CAN()
     else{
         incLine++;
     }
+    */
 }
+
+
+void MainWindow::on_checkBox_toggled(bool checked)
+{
+    if(checked == 1){
+        qDebug() << "Status of open COMport" << u2c->connectToPort(ui->textEdit_Port1->toPlainText());
+    }
+    else{
+        qDebug() << "Status of open COMport {1...open/0...close}" << u2c->disconnectedFromPort();
+    }
+}
+
