@@ -18,6 +18,7 @@ SOURCES += \
     usb2can_driver.cpp
 
 HEADERS += \
+    USB2CAN_define.h \
     canview.h \
     graphics.h \
     mainwindow.h \
