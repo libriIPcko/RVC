@@ -28,6 +28,7 @@ public:
     //QSerialPort port2;
     //QSerialPort port1;
 
+
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 

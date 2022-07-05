@@ -3,7 +3,6 @@
 
 #include "QSerialPort"
 #include "QTimer"
-//#include "USB2CAN_define.h"
 
 #include "QObject"
 
@@ -11,9 +10,10 @@
 class USB2CAN_driver : public QObject
 {
     Q_OBJECT;
+
 public:
     USB2CAN_driver();
-    virtual ~USB2CAN_driver();
+    //virtual ~USB2CAN_driver();
 
     QSerialPort *port_USB2CAN = new QSerialPort();
     QTimer *tim_interrupt_1 = new QTimer();
@@ -42,6 +42,8 @@ private slots:
     QByteArray read_USB2CAN();
     void initSend();
 
+private:
+    //Priority m_priority;
 };
 
 #endif // USB2CAN_DRIVER_H

@@ -347,6 +347,11 @@ void MainWindow::on_pushButton_4_clicked()
             qDebug()<< "Command does not exist";
         }
     }
+    else if (txt.at(0) == QChar('!')) {
+        if(QString::compare(txt,"getmode") == 0){
+            u2c->Get_Mode();
+        }
+    }
 
     else{
         QByteArray data = txt.toUtf8();
@@ -687,7 +692,7 @@ void MainWindow::SendNextRow_InitUSB2CAN()
 void MainWindow::on_checkBox_toggled(bool checked)
 {
     if(checked == 1){
-        qDebug() << "Status of open COMport" << u2c->connectToPort(ui->textEdit_Port1->toPlainText());
+        qDebug() << ui->textEdit_Port1->toPlainText() << "Status of open COMport" << u2c->connectToPort(ui->textEdit_Port1->toPlainText());
     }
     else{
         qDebug() << "Status of open COMport {1...open/0...close}" << u2c->disconnectedFromPort();
