@@ -60,7 +60,7 @@ void USB2CAN_driver::LoopBack_Mode(){
 
 }
 QByteArray USB2CAN_driver::Get_Mode(){
-    while(port_USB2CAN->waitForBytesWritten(300)){
+    while(!port_USB2CAN->waitForBytesWritten(300)){
         port_USB2CAN->write(getMode);
 
     }
@@ -74,7 +74,7 @@ void USB2CAN_driver::WriteReg(QByteArray regAdress, QByteArray value[]){
     QByteArray sendVal[] = { writeReg, len, regAdress, *value };
     QByteArray sendData;
     sendData.fromRawData(*sendVal,sizeof (sendVal));
-    while(port_USB2CAN->waitForBytesWritten(300)){
+    while(!port_USB2CAN->waitForBytesWritten(300)){
         port_USB2CAN->write(sendData);
 
     }
