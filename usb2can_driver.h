@@ -6,6 +6,8 @@
 
 #include "QObject"
 
+#include "QSignalSpy"
+
 
 class USB2CAN_driver : public QSerialPort
 {
@@ -15,7 +17,7 @@ public:
     USB2CAN_driver();
     //virtual ~USB2CAN_driver();
 
-    QSerialPort *port_USB2CAN = new QSerialPort();
+    //QSerialPort *port_USB2CAN = new QSerialPort();
     QTimer *tim_interrupt_1 = new QTimer();
 
     int temporary_init_Counter = 0;
@@ -36,9 +38,18 @@ public:
     int disconnectedFromPort();
 
     //int write(QString data);
+            //test atribute
+    QTimer *tim;
+    int tim_counter = 0;
 
-private: signals:
+public: signals:
+    void test_signal();
     void readyRead();
+    void readChannelFinished();
+    //void QSerialPort::readyRead();
+    //void USB2CAN_driver::readyRead();
+
+
 
 private slots:
     //For reading from driver, you have to implemented separately to own
@@ -46,6 +57,8 @@ private slots:
 
     QByteArray read_USB2CAN();
     void initSend();
+
+    //void timEvent();
 
 private:
     //Priority m_priority;

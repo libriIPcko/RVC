@@ -6,15 +6,16 @@
 #include "QObject"
 #include "QDebug"
 
+#include <QSignalSpy>
+
 
 
 USB2CAN_driver::USB2CAN_driver()
 {
-    //USB2CAN_driver:: = new QSerialPort();
-    //USB2CAN_driver::Baud9600;
-    //USB2CAN_driver::AllDirections;
+    //port_USB2CAN:: = new QSerialPort();
+    //port_USB2CAN::Baud9600;
+    //port_USB2CAN::AllDirections;
     //qDebug() << "Open port" << USB2CAN_driver::open(QIODevice::ReadWrite);
-
 }
 
 /*
@@ -24,24 +25,43 @@ USB2CAN_driver::~USB2CAN_driver(){
 */
 
 int USB2CAN_driver::connectToPort(QString portName){
-    //USB2CAN_driver::portName = portName;
-    USB2CAN_driver::setPortName(portName);
     USB2CAN_driver::setPortName(portName);
     USB2CAN_driver::setBaudRate(QSerialPort::Baud9600,QSerialPort::AllDirections);
     USB2CAN_driver::setPortName(portName);
     //Reimplemented separately as signal of driver. !!!
-    //QObject::connect(USB2CAN_driver::,SIGNAL(readyRead()),USB2CAN_driver::,SLOT(QByteArray read_USB2CAN()));
+    //qDebug() << "connect S&S in the driver, status: " << QObject::connect(this,SIGNAL(readyRead),this,SLOT(read_USB2CAN));
+
+    //qDebug() << "connect S&S in the driver, status: " << connect(this,SIGNAL(readyRead()),this,SLOT(read_USB2CAN()));
+    //QSignalSpy spy(this, SIGNAL(readyRead()));
+    //qDebug() << "from driver" << spy.wait(5000) << "----" << spy.signal();
+
+    tim = new QTimer;
+    //connect(tim,SIGNAL(timeout()),this, SLOT(timEvent()));
+    //tim->start(800);
+
+
     return USB2CAN_driver::open(QIODevice::ReadWrite);
 }
 
+/*
+void USB2CAN_driver::timEvent(){
+    qDebug() << "Tim" << tim_counter++;
+    if(tim_counter >= 5){
+        tim_counter = 0;
+        tim->stop();
+    }
+}
+*/
+
 int USB2CAN_driver::disconnectedFromPort(){
-    QObject::disconnect(this,SIGNAL(readyRead()),this,SLOT(read_USB2CAN()));
+    //QObject::disconnect(this,SIGNAL(readyRead()),this,SLOT(read_USB2CAN()));
     USB2CAN_driver::close();
 
     if(USB2CAN_driver::isOpen()){
         return 1;
     }
     else{
+        qDebug() << "------------------Port is diconected-----------------";
         return 0;
     }
 }
@@ -92,11 +112,13 @@ QByteArray USB2CAN_driver::ReadReg(QByteArray regAdress){
 int USB2CAN_driver::init(){
     tim_interrupt_1 = new QTimer();
     //QObject::connect(tim_interrupt_1,SIGNAL(timeout()),this,SLOT(USB2CAN_driver::initSend()));
-    QObject::connect(tim_interrupt_1,SIGNAL(timeout()),this,SLOT(initSend()));
+    //QObject::connect(tim_interrupt_1,SIGNAL(timeout()),this,SLOT(initSend()));
+
     tim_interrupt_1->start(500);
 }
 
 QByteArray USB2CAN_driver::read_USB2CAN(){
+    qDebug() <<"From driver RX" << USB2CAN_driver::readAll();
     return USB2CAN_driver::readAll();
 }
 
@@ -215,9 +237,3 @@ void USB2CAN_driver::initSend(){
 
 
 }
-
-/*
-int USB2CAN_driver::write(QString data){
-    //USB2CAN_driver::write(data,static_cast<qint64>(data));
-}
-*/

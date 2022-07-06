@@ -17,13 +17,19 @@ public:
     ~CANview();
 
     USB2CAN_driver *u2c;
+    QTimer *time;
 
+
+private: signals:
+    friend void USB2CAN_driver::readyRead();
 private slots:
     void on_connectPort_released();
 
     void on_pushButton_released();
 
     QByteArray read_u2c();
+
+    void timerSubrutine();
 
 private:
     Ui::CANview *ui;
