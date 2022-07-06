@@ -7,7 +7,7 @@
 #include "QObject"
 
 
-class USB2CAN_driver : public QObject
+class USB2CAN_driver : public QSerialPort
 {
     Q_OBJECT;
 
@@ -35,10 +35,15 @@ public:
     int connectToPort(QString portName);
     int disconnectedFromPort();
 
+    //int write(QString data);
+
 private: signals:
     void readyRead();
 
 private slots:
+    //For reading from driver, you have to implemented separately to own
+    //QObject::connect(port_USB2CAN,SIGNAL(readyRead()),ObjWhereIsOwnMethod,SLOT(QByteArray ownMethod()));
+
     QByteArray read_USB2CAN();
     void initSend();
 

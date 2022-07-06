@@ -24,10 +24,12 @@ USB2CAN_driver::~USB2CAN_driver(){
 */
 
 int USB2CAN_driver::connectToPort(QString portName){
-    USB2CAN_driver::portName = portName;
+    //USB2CAN_driver::portName = portName;
+    port_USB2CAN->setPortName(portName);
     port_USB2CAN->setBaudRate(QSerialPort::Baud9600,QSerialPort::AllDirections);
     port_USB2CAN->setPortName(portName);
-    QObject::connect(port_USB2CAN,SIGNAL(readyRead()),port_USB2CAN,SLOT(QByteArray read_USB2CAN()));
+    //Reimplemented separately as signal of driver. !!!
+    //QObject::connect(port_USB2CAN,SIGNAL(readyRead()),port_USB2CAN,SLOT(QByteArray read_USB2CAN()));
     return port_USB2CAN->open(QIODevice::ReadWrite);
 }
 
@@ -212,3 +214,9 @@ void USB2CAN_driver::initSend(){
 
 
 }
+
+/*
+int USB2CAN_driver::write(QString data){
+    //port_USB2CAN->write(data,static_cast<qint64>(data));
+}
+*/
