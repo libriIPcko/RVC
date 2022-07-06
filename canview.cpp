@@ -13,7 +13,7 @@ CANview::~CANview()
 {
     delete ui;
 }
-
+//for commit
 void CANview::on_connectPort_released()
 {
     qDebug() << "u2c some port is open" << u2c->connectToPort(ui->inputNamePort->text());

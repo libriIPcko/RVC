@@ -351,6 +351,10 @@ void MainWindow::on_pushButton_4_clicked()
         if(QString::compare(txt,"getmode") == 0){
             u2c->Get_Mode();
         }
+        else{
+            u2c->write(txt.sliced(1).toLatin1());
+            //u2c->write("hey");
+        }
     }
 
     else{
