@@ -20,8 +20,6 @@ public:
     QTimer *time;
 
 
-private: signals:
-    friend void USB2CAN_driver::readyRead();
 private slots:
     void on_connectPort_released();
 

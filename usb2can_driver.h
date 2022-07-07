@@ -17,8 +17,12 @@ public:
     USB2CAN_driver();
     //virtual ~USB2CAN_driver();
 
-    //QSerialPort *port_USB2CAN = new QSerialPort();
+    QSerialPort *port_USB2CAN;
     QTimer *tim_interrupt_1 = new QTimer();
+    QTimer *ListTimer = new QTimer();
+    QTimer *initListTimer = new QTimer();
+    QTimer *tim;
+    int tim_counter = 0;
 
     int temporary_init_Counter = 0;
     int init();
@@ -37,15 +41,11 @@ public:
     int connectToPort(QString portName);
     int disconnectedFromPort();
 
-    //int write(QString data);
-            //test atribute
-    QTimer *tim;
-    int tim_counter = 0;
 
 public: signals:
-    void test_signal();
-    void readyRead();
-    void readChannelFinished();
+    //void readyRead();
+    friend void QIODevice::readyRead();
+    void timeout();
     //void QSerialPort::readyRead();
     //void USB2CAN_driver::readyRead();
 
@@ -57,11 +57,6 @@ private slots:
 
     QByteArray read_USB2CAN();
     void initSend();
-
-    //void timEvent();
-
-private:
-    //Priority m_priority;
 };
 
 #endif // USB2CAN_DRIVER_H
