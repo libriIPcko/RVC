@@ -1,0 +1,17 @@
+
+
+--CMD name--				---DRIVER send---				------XCTU send---
+Config Mode						0F 02 00 							0F 02 00
+Reset mod						0F 12 02 00 01 						0F 12 02 00 01
+ClockDiv						0F 12 02 1F C0 						0F 12 02 1F C0
+Accept Code						0F 12 02 10 00 						0F 12 02 10 00
+Accept Mask						0F 12 02 14 FF 						0F 12 02 14 FF
+Output Control					0F 12 02 08 DA 						0F 12 02 08 DA
+Interrupt Enable				0F 12 02 04 03 						0F 12 02 04 03
+Bus Timing 0					0F 12 02 06 00 						0F 12 02 06 00
+Bus Timing 1					0F 12 02 07 14 						0F 12 02 07 14
+Critical Transmit Limit			0F 20 01 18 						0F 20 01 18
+Transfer Ready Limit			0F 20 02 01 						0F 20 02 01
+Normal Mode						0F 03 00 							0F 03 00
+Set Mode reg					0F 12 02 00 00 						0F 12 02 00 00
+

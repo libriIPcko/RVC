@@ -6,7 +6,6 @@ CANview::CANview(QWidget *parent) : QDialog(parent),ui(new Ui::CANview)
 {
     ui->setupUi(this);
     u2c = new USB2CAN_driver;
-
 }
 
 CANview::~CANview()
@@ -47,8 +46,12 @@ void CANview::on_pushButton_released()
     else if( (ui->TX_textBrowser->toPlainText().toLatin1().at(0) == 'x')||(ui->TX_textBrowser->toPlainText().toLatin1().at(0) == 'X')){
         qDebug()<<"Hex code has been detected" << txt;
         QByteArray tst;
-        QString dat;
-
+        QString dat = ui->TX_textBrowser->toPlainText().toLatin1().sliced(1);
+        //sending without formatting
+        while(!u2c->port_USB2CAN->waitForBytesWritten(300)){
+            u2c->port_USB2CAN->write(QByteArray::fromHex(dat.toLatin1()));
+        }
+        /*
         for(qsizetype i = 0;i<txt.length();i++){
             if(txt.at(i) == QChar('x') || txt.at(2) == QChar('X')){
                 dat = txt.sliced(++i,2);
@@ -58,6 +61,7 @@ void CANview::on_pushButton_released()
                 }
             }
         }
+        */
     }
     else{
         u2c->port_USB2CAN->write(ui->TX_textBrowser->toPlainText().toLatin1(),static_cast<int>(ui->TX_textBrowser->toPlainText().length()));
@@ -92,4 +96,49 @@ void CANview::timerSubrutine(){
         u2c->tim->stop();
     }
 }
+
+
+void CANview::on_ListSend_released(){
+
+    for(int n=0;n<300;n++){
+        txtLineByLine[n].clear();
+    }
+
+    int countChar = 0;
+    QString txt  = ui->TX_textBrowser->toPlainText().toLatin1();
+    char text[txt.length()];
+
+    //Separating strings line by line
+    while(countChar < txt.length()){
+        text[countChar] = txt.at(countChar).toLatin1();
+        if(text[countChar] == '\n'){
+            //txtLineByLine[countLine].append("\n");
+            qDebug() << countLine++;
+        }
+        else{
+            txtLineByLine[countLine].append(text[countChar]);
+        }
+        countChar++;
+    }
+
+    timer_listSend = new QTimer;
+    connect(timer_listSend,SIGNAL(timeout()),this,SLOT(timer_listSend_event()));
+    timer_listSend->start(200);
+}
+
+void CANview::timer_listSend_event(){
+    while(!u2c->port_USB2CAN->waitForBytesWritten(300)){
+        //qDebug() << u2c->port_USB2CAN->write(txtLineByLine[incLine].toLatin1(),static_cast<int>(txtLineByLine[incLine].length()));
+        u2c->port_USB2CAN->write(QByteArray::fromHex(txtLineByLine[incLine].toLatin1()));
+    }
+
+    incLine++;
+    if(incLine >= countLine){
+        incLine = 0;
+        countLine = 0;
+        timer_listSend->stop();
+    }
+}
+
+
 

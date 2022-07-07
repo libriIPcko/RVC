@@ -17,8 +17,16 @@ public:
     ~CANview();
 
     USB2CAN_driver *u2c;
-    QTimer *time;
+    QTimer *timer;
+    QTimer *timer_listSend;
 
+    //Important for list send
+    QString txtLineByLine[300];
+    int countLine = 0;
+    int incLine = 0;
+
+private: signals:
+    void timeout();
 
 private slots:
     void on_connectPort_released();
@@ -28,6 +36,10 @@ private slots:
     QByteArray read_u2c();
 
     void timerSubrutine();
+
+    void timer_listSend_event();
+
+    void on_ListSend_released();
 
 private:
     Ui::CANview *ui;

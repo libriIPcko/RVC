@@ -145,6 +145,19 @@ p, li { white-space: pre-wrap; }
         <string>Send</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="ListSend">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>190</y>
+         <width>75</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>ListSend</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
