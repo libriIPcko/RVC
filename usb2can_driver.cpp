@@ -105,6 +105,34 @@ QByteArray USB2CAN_driver::read_USB2CAN(){
     return port_USB2CAN->readAll();
 }
 
+void USB2CAN_driver::writeCANmsg(QString msg){
+    //WRITE_MESSAGE 65 N,L Odoslanie CAN spravy
+    /*
+                    Tato zpráva nese požadavek na odeslání zprávy na CAN. Struktura datové ásti
+                    zprávy odpovídá struktue transmit bufferu obvodu SJA 1000. Tzn. nejprve hodnota
+                    registru, TX frame Information, dále pak 2 (standardní 11 bitový identifikátor) nebo 4
+                    (rozšíený 29 bitový identifikátor) bajty registr TX identifier a následn 0 až 8
+                    datových bajt CAN zprávy. Délka USB zprávy je tedy závislá na délce CAN zprávy.
+    */
+    //0F +  CMD + Length(0x00-0x10) + Data bytes {RegName + TX frame information + 11bit ID + CAN data}
+                                            //Datahseet SJA1000 -   39page
+    //Tato zpráva nese požadavek na odeslání zprávy na CAN. Struktura datové ásti zprávy odpovídá struktue transmit bufferu obvodu SJA 1000. Tzn. nejprve hodnota
+    //registru, TX frame Information, dále pak
+    //x0F 40 xyxy  d10 00 d11 ff d12 01 d13 02 d14 03
+    //0F 40 xyxy TX_frame TX_ID1 TX_ID2 TX_DatB-1-8
+    //TX Frame information SFF
+                //B7   B6 B5  B4  B3       B2       B1      B0
+                //FF  RTR X   X   DLC.3   DLC.2   DLC.1   DLC.0
+            //FF - 0 Standard Frame Format
+            //RTR   1 - remote frame    0 - data frame
+            //B7   B6 B5  B4       B3             B2       B1        B0
+            //0     0 0   0     DataLength DataLength DataLength DataLength
+    //TX Identifier 1-2 16b CAN_ID
+    //CAN Data
+
+
+}
+
 void USB2CAN_driver::initSend(){
     bool stop = false;
     int waitForBytesWritten = 300;

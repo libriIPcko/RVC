@@ -37,6 +37,8 @@ public:
     QByteArray WriteCMD(QByteArray CMD_name, QByteArray value);
     QByteArray ReadReg(QByteArray regAdress);
 
+    void writeCANmsg(QString msg);
+
     QString portName;
     int connectToPort(QString portName);
     int disconnectedFromPort();
