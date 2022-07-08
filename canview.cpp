@@ -38,59 +38,77 @@ void CANview::on_connectPort_released()
 //Send function
 void CANview::on_pushButton_released()
 {
-    QString txt = ui->TX_textBrowser->toPlainText();
-    if(ui->TX_textBrowser->toPlainText().toLatin1().at(0) == '#'){
-        u2c->init();
-    }
-
-    else if( (ui->TX_textBrowser->toPlainText().toLatin1().at(0) == 'x')||(ui->TX_textBrowser->toPlainText().toLatin1().at(0) == 'X')){
-        qDebug()<<"Hex code has been detected" << txt;
-        QByteArray tst;
-        QString dat = ui->TX_textBrowser->toPlainText().toLatin1().sliced(1);
-        //sending without formatting
-        while(!u2c->port_USB2CAN->waitForBytesWritten(300)){
-            u2c->port_USB2CAN->write(QByteArray::fromHex(dat.toLatin1()));
-        }
-        /*
-        for(qsizetype i = 0;i<txt.length();i++){
-            if(txt.at(i) == QChar('x') || txt.at(2) == QChar('X')){
-                dat = txt.sliced(++i,2);
-                //qDebug() << dat << QByteArray::fromHex(dat.toLatin1());
-                while(!u2c->port_USB2CAN->waitForBytesWritten(300)){
-                    u2c->port_USB2CAN->write(QByteArray::fromHex(dat.toLatin1()));
-                }
-            }
-        }
-        */
+    //control close/open port
+    if(!u2c->port_USB2CAN->isOpen()){
+        ui->TX_textBrowser->setPlainText("Port is closed...");
     }
     else{
-        u2c->port_USB2CAN->write(ui->TX_textBrowser->toPlainText().toLatin1(),static_cast<int>(ui->TX_textBrowser->toPlainText().length()));
+        QString txt = ui->TX_textBrowser->toPlainText();
+        if(ui->TX_textBrowser->toPlainText().toLatin1().at(0) == '#'){
+            u2c->init();
+        }
+
+        else if( (ui->TX_textBrowser->toPlainText().toLatin1().at(0) == 'x')||(ui->TX_textBrowser->toPlainText().toLatin1().at(0) == 'X')){
+            qDebug()<<"Hex code has been detected" << txt;
+            QByteArray tst;
+            QString dat = ui->TX_textBrowser->toPlainText().toLatin1().sliced(1);
+            //sending without formatting
+            while(!u2c->port_USB2CAN->waitForBytesWritten(300)){
+                u2c->port_USB2CAN->write(QByteArray::fromHex(dat.toLatin1()));
+            }
+            /*
+            for(qsizetype i = 0;i<txt.length();i++){
+                if(txt.at(i) == QChar('x') || txt.at(2) == QChar('X')){
+                    dat = txt.sliced(++i,2);
+                    //qDebug() << dat << QByteArray::fromHex(dat.toLatin1());
+                    while(!u2c->port_USB2CAN->waitForBytesWritten(300)){
+                        u2c->port_USB2CAN->write(QByteArray::fromHex(dat.toLatin1()));
+                    }
+                }
+            }
+            */
+        }
+        else{
+            u2c->port_USB2CAN->write(ui->TX_textBrowser->toPlainText().toLatin1(),static_cast<int>(ui->TX_textBrowser->toPlainText().length()));
+        }
     }
+
 
 }
 
 QByteArray CANview::read_u2c(){
     QByteArray rxData = u2c->port_USB2CAN->readAll();
     QString rxText = QString(rxData.toHex()).toLatin1();
-//separate 2bytes
-/*
-    int i = 0;
-    int cnt = 0;
-    while (i<rxText.length()) {
-        if(i%2 == 0){
-            rxText.insert(i + cnt,' ');
-            cnt++;
-        }
-        i++;
-    }
-*/
     qDebug() << "RX:" << QString(rxData.toHex()).toLatin1();
-    ui->RX_textBrowser_2->setPlainText(rxText);
+    ui->RX_textBrowser_2->append(rxText);
     return rxData;
+
+    /*
+
+     if(rxText.isEmpty()){
+        return  rxData;
+    }
+    else{
+
+    //separate 2bytes
+        int i = 0;
+        int cnt = 0;
+        while (i<rxText.length()) {
+            if(i%2 == 0){
+                rxText.insert(i + cnt,' ');
+                cnt++;
+            }
+            i++;
+        }
+        qDebug() << "RX:" << QString(rxData.toHex()).toLatin1();
+        ui->RX_textBrowser_2->append(rxText);
+        return rxData;
+    }
+    */
 }
 
 void CANview::timerSubrutine(){
-    qDebug() << "TimerEvent" << u2c->tim_counter++;
+    u2c->tim_counter++;
     if(u2c->tim_counter >= 4){
         u2c->tim_counter = 0;
         u2c->tim->stop();
@@ -113,7 +131,7 @@ void CANview::on_ListSend_released(){
         text[countChar] = txt.at(countChar).toLatin1();
         if(text[countChar] == '\n'){
             //txtLineByLine[countLine].append("\n");
-            qDebug() << countLine++;
+            countLine++;
         }
         else{
             txtLineByLine[countLine].append(text[countChar]);
@@ -127,17 +145,21 @@ void CANview::on_ListSend_released(){
 }
 
 void CANview::timer_listSend_event(){
-    while(!u2c->port_USB2CAN->waitForBytesWritten(300)){
-        //qDebug() << u2c->port_USB2CAN->write(txtLineByLine[incLine].toLatin1(),static_cast<int>(txtLineByLine[incLine].length()));
-        u2c->port_USB2CAN->write(QByteArray::fromHex(txtLineByLine[incLine].toLatin1()));
-    }
-
-    incLine++;
-    if(incLine >= countLine){
+    if((incLine >= countLine)||(txtLineByLine[incLine].isEmpty())){
         incLine = 0;
         countLine = 0;
         timer_listSend->stop();
+        disconnect(timer_listSend);
     }
+    else{
+        while(!u2c->port_USB2CAN->waitForBytesWritten(300)){
+            //qDebug() << u2c->port_USB2CAN->write(txtLineByLine[incLine].toLatin1(),static_cast<int>(txtLineByLine[incLine].length()));
+            qDebug() << incLine << txtLineByLine[incLine].toLatin1();
+            u2c->port_USB2CAN->write(QByteArray::fromHex(txtLineByLine[incLine].toLatin1()));
+        }
+        incLine++;
+    }
+
 }
 
 
