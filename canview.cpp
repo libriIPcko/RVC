@@ -164,3 +164,15 @@ void CANview::timer_listSend_event(){
 
 
 
+
+void CANview::on_clean_RX_released()
+{
+    ui->RX_textBrowser_2->clear();
+}
+
+
+void CANview::on_clean_TX_released()
+{
+    ui->TX_textBrowser->clear();
+}
+

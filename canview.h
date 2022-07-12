@@ -41,6 +41,10 @@ private slots:
 
     void on_ListSend_released();
 
+    void on_clean_RX_released();
+
+    void on_clean_TX_released();
+
 private:
     Ui::CANview *ui;
 };
