@@ -82,7 +82,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>COM66</string>
+        <string>COM15</string>
        </property>
       </widget>
       <widget class="Line" name="line">
