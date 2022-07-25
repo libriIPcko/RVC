@@ -143,7 +143,21 @@ void USB2CAN_driver::initSend(){
             while(!port_USB2CAN->waitForBytesWritten(waitForBytesWritten)){
                 //USB2CAN_driver::write(Config,qstrlen(Config));
                 status = port_USB2CAN->write(Config,3);
-                qDebug() << "TX:" << Config << "Status" << status ;
+                qDebug() << "TX:" << Config << "Status" << status << "Config";
+                bool ok = false;
+                int cycle = 0;
+                while(ok == true){
+                    status = port_USB2CAN->write(Config,3);
+                    while(!port_USB2CAN->waitForReadyRead(5)){
+                        if((strcmp(port_USB2CAN->readAll(),"FF"))==1){
+                                ok = true;
+                        }
+                        if(cycle >= 4){
+                            ok = true;
+                        }
+                        qDebug() << cycle++;
+                    }
+                }
             }
         break;
         case 1:                    //2-Set Reset Mode [0x00]on value 0x01   (by WriteReg[x12])
@@ -151,7 +165,7 @@ void USB2CAN_driver::initSend(){
                 //USB2CAN_driver::write(ResetMod);
                 //USB2CAN_driver::write(ResetMod,qstrlen(ResetMod));
                 status = port_USB2CAN->write(ResetMod,5);
-                qDebug() << "TX:" << ResetMod << "Status" << status;
+                qDebug() << "TX:" << ResetMod << "Status" << status << "ResetMod";
             }
         break;
         case 2:                    //3-Set Clock divider [0x1F] on value 0xC0 (by WriteReg[x12])
@@ -159,7 +173,7 @@ void USB2CAN_driver::initSend(){
                 //USB2CAN_driver::write(ClockDivData);
                 //USB2CAN_driver::write(ClockDivData,qstrlen(ClockDivData));
                 status = port_USB2CAN->write(ClockDivData,5);
-                qDebug() << "TX:" << ClockDivData << "Status" << status;
+                qDebug() << "TX:" << ClockDivData << "Status" << status << "ClockDivData";
             }
         break;
         case 3:                    //4.1-Set message filter; without filtration: (by WriteReg[x12])
@@ -167,7 +181,7 @@ void USB2CAN_driver::initSend(){
                 //USB2CAN_driver::write(AccCode);
                 //USB2CAN_driver::write(AccCode,qstrlen(AccCode));
                 status = port_USB2CAN->write(AccCode,5);
-                qDebug() << "TX:" << AccCode << "Status" << status;
+                qDebug() << "TX:" << AccCode << "Status" << status << "AccCode";
             }
         break;
         case 4:                    //4.2 set-> Acceptance Mask [0x05] on 0xff
@@ -175,7 +189,7 @@ void USB2CAN_driver::initSend(){
                 //USB2CAN_driver::write(AccMask);
                 //USB2CAN_driver::write(AccMask,qstrlen(AccMask));
                 status = port_USB2CAN->write(AccMask,5);
-                qDebug() << "TX:" << AccMask << "Status" << status;
+                qDebug() << "TX:" << AccMask << "Status" << status << "AccMask";
             }
         break;
         case 5:                   //5-Set OutputControl[0x08] on 0xDA (by WriteReg[x12])
@@ -183,7 +197,7 @@ void USB2CAN_driver::initSend(){
                 //USB2CAN_driver::write(OutCtrl);
                 //USB2CAN_driver::write(OutCtrl),qstrlen(OutCtrl);
                 status = port_USB2CAN->write(OutCtrl,5);
-                qDebug() << "TX:" << OutCtrl << "Status" << status;
+                qDebug() << "TX:" << OutCtrl << "Status" << status << "OutCtrl";
             }
         break;
         case 6:                  //7. -Set Interrupt enable[]  on 0x03  (by WriteReg[x12])
@@ -191,7 +205,7 @@ void USB2CAN_driver::initSend(){
                 //USB2CAN_driver::write(IE);
                 //USB2CAN_driver::write(IE,qstrlen(IE));
                 status = port_USB2CAN->write(IE,5);
-                qDebug() << "TX:" << IE << "Status" << status;
+                qDebug() << "TX:" << IE << "Status" << status << "IE";
             }
         break;
         case 7:                 //6.1 - Bus Timing 0
@@ -199,7 +213,7 @@ void USB2CAN_driver::initSend(){
                 //USB2CAN_driver::write(BT0);
                 //USB2CAN_driver::write(BT0,qstrlen(BT0));
                 status = port_USB2CAN->write(BT0,5);
-                qDebug() << "TX:" << BT0 << "Status" << status;
+                qDebug() << "TX:" << BT0 << "Status" << status << "BT0";
             }
         break;
         case 8:                 //6.2 - Bus Timing 1
@@ -207,7 +221,7 @@ void USB2CAN_driver::initSend(){
                 //USB2CAN_driver::write(BT1);
                 //USB2CAN_driver::write(BT1,qstrlen(BT1));
                 status = port_USB2CAN->write(BT1,5);
-                qDebug() << "TX:" << BT1 << "Status" << status;
+                qDebug() << "TX:" << BT1 << "Status" << status << "BT1";
             }
         break;
         case 9:                 //8.1 -Set Transmit Critical Limit and Transmit Ready limit by cmd COMMAND TCL
@@ -215,7 +229,7 @@ void USB2CAN_driver::initSend(){
                 //USB2CAN_driver::write(CTL_Code);
                 //USB2CAN_driver::write(CTL_Code,qstrlen(CTL_Code));
                 status = port_USB2CAN->write(CTL_Code,4);
-                qDebug() << "TX:" << CTL_Code << "Status" << status;
+                qDebug() << "TX:" << CTL_Code << "Status" << status << "CTL_Code";
             }
         break;
         case 10:               //8.2 Set-> TRL
@@ -223,7 +237,7 @@ void USB2CAN_driver::initSend(){
                 //USB2CAN_driver::write(TRL_Code);
                 //USB2CAN_driver::write(TRL_Code,qstrlen(TRL_Code));
                 status = port_USB2CAN->write(TRL_Code,4);
-                qDebug() << "TX:" << TRL_Code << "Status" << status;
+                qDebug() << "TX:" << TRL_Code << "Status" << status << "TRL_Code";
             }
         break;
         case 11:              //9-Set Normal Mode
@@ -231,7 +245,7 @@ void USB2CAN_driver::initSend(){
                 //USB2CAN_driver::write(NormalMode);
                 //USB2CAN_driver::write(NormalMode,qstrlen(NormalMode));
                 status = port_USB2CAN->write(NormalMode,3);
-                qDebug() << "TX:" << NormalMode << "Status" << status;
+                qDebug() << "TX:" << NormalMode << "Status" << status << "NormalMode";
             }
             break;
         case 12:              //10-Set Mode register [0x00], the value depends on Message Filter   (by WriteReg[x12])
@@ -239,7 +253,7 @@ void USB2CAN_driver::initSend(){
                 //USB2CAN_driver::write(ModRegDat);
                 //USB2CAN_driver::write(ModRegDat,qstrlen(ModRegDat));
                 status = port_USB2CAN->write(ModRegDat,5);
-                qDebug() << "TX:" << ModRegDat << "Status" << status;
+                qDebug() << "TX:" << ModRegDat << "Status" << status << "ModRegDat";
             }
         break;
         case 13:              //End of Initialize sub-routine
