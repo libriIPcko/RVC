@@ -59,6 +59,7 @@ private slots:
 
     QByteArray read_USB2CAN();
     void initSend();
+    void initSend_1();
 };
 
 #endif // USB2CAN_DRIVER_H

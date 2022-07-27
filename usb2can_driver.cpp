@@ -15,7 +15,7 @@ USB2CAN_driver::USB2CAN_driver()
     port_USB2CAN = new QSerialPort();
     ListTimer = new QTimer();
     initListTimer = new QTimer();
-    connect(initListTimer,SIGNAL(timeout()),this,SLOT(initSend()));
+
 }
 
 /*
@@ -96,8 +96,11 @@ QByteArray USB2CAN_driver::ReadReg(QByteArray regAdress){
 }
 
 int USB2CAN_driver::init(){
-    //connect(initListTimer,SIGNAL)
-    initListTimer->start(200);
+    //Init CMD by timer period
+        //connect(initListTimer,SIGNAL(timeout()),this,SLOT(initSend()));
+        //initListTimer->start(200);
+    //BadCode
+        initSend_1();
 }
 
 QByteArray USB2CAN_driver::read_USB2CAN(){
@@ -275,4 +278,22 @@ void USB2CAN_driver::initSend(){
 
 
 
+}
+
+void USB2CAN_driver::initSend_1(){
+    QByteArray initSeq[] = {Config, ResetMod, ClockDivData, AccCode, AccMask, OutCtrl, IE, BT0, BT1, CTL_Code, TRL_Code, NormalMode, ModRegDat};
+    int step = 0;
+    int step_fb = 0;
+    while(step <= sizeof (initSeq)){
+        while(!port_USB2CAN->waitForBytesWritten(waitForBytesWritten())){
+            port_USB2CAN->write(initSeq[step]);
+        }
+        step++;
+        qDebug() << step_fb++ << "/" << sizeof (initSeq);
+        /*
+        if(step_fb>=50){
+            break;
+        }
+        */
+    }
 }
