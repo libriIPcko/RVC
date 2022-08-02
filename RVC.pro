@@ -16,6 +16,7 @@ SOURCES += \
     graphics.cpp \
     main.cpp \
     mainwindow.cpp \
+    radar_awr1843.cpp \
     usb2can_driver.cpp
 
 HEADERS += \
@@ -23,6 +24,7 @@ HEADERS += \
     canview.h \
     graphics.h \
     mainwindow.h \
+    radar_awr1843.h \
     usb2can_driver.h
 
 FORMS += \

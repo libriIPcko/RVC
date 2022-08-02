@@ -1,0 +1,146 @@
+#include "radar_awr1843.h"
+#include "QCoreApplication"
+#include "QFile"
+#include "QTextStream"
+
+#include "Lis
+
+RADAR_AWR1843::RADAR_AWR1843()
+{
+    port_AUXILIARY = new QSerialPort;
+    port_COMM = new QSerialPort;
+}
+RADAR_AWR1843::~RADAR_AWR1843(){
+    PortDisconnect();    
+}
+
+int RADAR_AWR1843::init(QString path){
+    //Read from .cfg file
+    QFile configFile(path);
+    if(!configFile.open(QIODeviceBase::ReadOnly)){
+        qCritical() << "ERROR during open the file at path:" << path;
+        return 1;
+    }
+    //Save to txt block
+    QTextStream stream(&configFile);
+    QString line;
+    
+    while (!stream.atEnd()){
+        line = stream.readAll();        
+    }    
+    //Iteration line for direct sending
+        //count lines
+        int countLines = 0;
+        int iterator = 0;
+        while (countLines <= line.length()) {
+            if(line.at(countLines) == '\n' ){
+                countLines++;    
+            }
+            iterator++;
+        }
+        //
+    //Close .cfg file
+      configFile.close();
+}
+
+//@ Direct send data
+int RADAR_AWR1843::send_COMM(QString data){
+    qint64 lengthWrittenData = 0;
+    while(!port_COMM->waitForBytesWritten(300)){
+        lengthWrittenData = port_COMM->write(data.toUtf8());
+    }
+    if(lengthWrittenData == data.toUtf8().length()){
+        return 0;   //all is OK
+    }
+    else if(lengthWrittenData > data.toUtf8().length()){
+        return 1;   //It was write more than data contain
+    }
+    else if(lengthWrittenData < data.toUtf8().length()){
+        return 2;   //I was write less than data contain        
+    }
+    else{
+        return 99;  //Non possible statement
+    }
+}
+
+//@portName == COM14 or COM15
+//@typePort == AUX for AUXILIARY port
+//@typePort == COM for COMMUNICATION port
+int RADAR_AWR1843::PortConnect(QString portName, int BaudRate, QString typePort){
+    if(QString::compare(typePort,"AUX")){
+        port_AUXILIARY->setPortName(portName);
+        port_AUXILIARY->setBaudRate(BaudRate);
+        return port_AUXILIARY->open(QIODevice::ReadOnly);
+    }
+    else if(QString::compare(typePort,"COM")){
+        port_COMM->setPortName(portName);
+        port_COMM->setBaudRate(BaudRate);
+        return port_COMM->open(QIODevice::ReadWrite);
+    }
+    else{   //default settings COM14 and COM15
+        return 1;   //Error statement
+    }
+}
+
+//@typePort == AUX for AUXILIARY port
+//@typePort == COM for COMMUNICATION port
+//@return 2 == Port was closed
+//@return 1 == Port is closed
+int RADAR_AWR1843::PortDisconnect(QString typePort){
+    if(QString::compare(typePort,"AUX")){
+        bool closeStatus = !port_AUXILIARY->isOpen();
+        if(closeStatus == false){
+            port_AUXILIARY->disconnect();
+            port_AUXILIARY->close();
+            return 0;
+        }
+        else{
+            return 2;
+        }
+    }
+    else if(QString::compare(typePort,"AUX")){
+        bool closeStatus = !port_COMM->isOpen();
+        if(closeStatus == false){
+            port_COMM->disconnect();
+            port_COMM->close();
+            return 0;
+        }
+        else{
+            return 2;
+        }
+    }
+    else{
+        PortDisconnect();
+        return 0;
+    }
+}
+
+int RADAR_AWR1843::PortDisconnect(){
+    bool closeStatus_AUX = !port_AUXILIARY->isOpen();
+    bool closeStatus_COMM = !port_COMM->isOpen();
+
+    if(closeStatus_AUX == false){
+        port_AUXILIARY->disconnect();
+        port_AUXILIARY->close();
+    }
+    if(closeStatus_COMM == false){
+        port_COMM->disconnect();
+        port_COMM->close();
+    }
+
+    if((closeStatus_AUX == false)&&(closeStatus_COMM == false)){
+        return 1;   //error statement
+    }
+    else{
+        return 0;   //close was sucesfull
+    }
+
+}
+
+int RADAR_AWR1843::port_COMM_receive(){
+    
+}
+int RADAR_AWR1843::port_AUXILIARY_receive(){
+    
+}
+
