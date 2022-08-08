@@ -176,3 +176,8 @@ void CANview::on_clean_TX_released()
     ui->TX_textBrowser->clear();
 }
 
+
+
+
+
+
