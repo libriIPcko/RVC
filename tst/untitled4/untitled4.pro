@@ -10,7 +10,8 @@ CONFIG -= app_bundle
 
 SOURCES += \
         ../../radar_awr1843.cpp \
-        main.cpp
+        main.cpp \
+        testc.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -18,4 +19,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    ../../radar_awr1843.h
+    ../../radar_awr1843.h \
+    testc.h

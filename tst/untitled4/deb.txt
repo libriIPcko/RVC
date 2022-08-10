@@ -1,0 +1,228 @@
+
+RX:	 sensorSt
+
+RX:	 op
+
+
+RX:	 Done
+mm
+
+RX:	 wDemo:/>
+1 --- flushCfg
+
+RX:	 flushCfg
+
+RX:	 
+Done
+mmwDemo:/>
+2 --- dfeDataOutputMode 1
+
+RX:	 dfeDataO
+
+RX:	 utputMode 1
+Done
+mmwDemo:/>
+3 --- channelCfg 15 5 0
+
+RX:	 channelC
+
+RX:	 fg 15 5 0
+Done
+mmwDemo:/>
+4 --- adcCfg 2 1
+
+RX:	 adcCfg 2
+
+RX:	  1
+Done
+mmwDemo:/>
+5 --- adcbufCfg -1 0 1 1 1
+
+RX:	 adcbufCf
+
+RX:	 g -1 0 1 1 1
+Done
+mmwDemo:/>
+6 --- profileCfg 0 76 464 7 28.49 0 0 30 1 256 12499 0 0 30
+
+RX:	 profileC
+
+RX:	 fg 0 76 464 7 28.49 0 0 30 1 256
+
+RX:	  12499 0 0 30
+Done
+mmwDemo:/>
+7 --- chirpCfg 0 0 0 0 0 0 0 1
+
+RX:	 chirpCfg
+
+RX:	  0 0 0 0 0 0 0 1
+Done
+mmwDemo:/>
+8 --- chirpCfg 1 1 0 0 0 0 0 4
+
+RX:	 chirpCfg
+
+RX:	  1 1 0 0 0 0 0 4
+Done
+mmwDemo:/>
+9 --- frameCfg 0 1 16 0 250 1 0
+
+RX:	 frameCfg
+
+RX:	  0 1 16 0 250 1 0
+Done
+mmwDemo
+
+RX:	 :/>
+10 --- lowPower 0 0
+
+RX:	 lowPower
+
+RX:	  0 0
+Done
+mmwDemo:/>
+11 --- guiMonitor -1 1 0 0 1 0 1
+
+RX:	 guiMonit
+
+RX:	 or -1 1 0 0 1 0 1
+Done
+mmwDemo:/>
+12 --- cfarCfg -1 0 2 8 4 3 0 15 1
+
+RX:	 cfarCfg 
+
+RX:	 -1 0 2 8 4 3 0 15 1
+Done
+mmwDe
+
+RX:	 mo:/>
+13 --- cfarCfg -1 1 0 4 2 3 1 15 1
+
+RX:	 cfarCfg 
+
+RX:	 -1 1 0 4 2 3 1 15 1
+Done
+mmwDe
+
+RX:	 mo:/>
+14 --- multiObjBeamForming -1 1 0.5
+
+RX:	 multiObj
+
+RX:	 BeamForming -1 1 0.5
+Done
+mmwD
+
+RX:	 emo:/>
+15 --- clutterRemoval -1 0
+
+RX:	 clutterR
+
+RX:	 emoval -1 0
+Done
+mmwDemo:/>
+16 --- calibDcRangeSig -1 0 -5 8 256
+
+RX:	 calibDcR
+
+RX:	 angeSig -1 0 -5 8 256
+Done
+mmw
+
+RX:	 Demo:/>
+17 --- extendedMaxVelocity -1 0
+
+RX:	 extended
+
+RX:	 MaxVelocity -1 0
+Done
+mmwDemo:/>
+18 --- lvdsStreamCfg -1 0 0 0
+
+RX:	 lvdsStre
+
+RX:	 amCfg -1 0 0 0
+Done
+mmwDemo:/>
+19 --- compRangeBiasAndRxChanPhase 0.0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0
+
+RX:	 compRang
+
+RX:	 eBiasAndRxChanPhase 0.0 1 0 1 0 
+
+RX:	 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0
+
+RX:	 
+Done
+mmwDemo:/>
+20 --- measureRangeBiasAndRxChanPhase 0 1.5 0.2
+
+RX:	 measureR
+
+RX:	 angeBiasAndRxChanPhase 0 1.5 0.2
+
+RX:	 
+Done
+mmwDemo:/>
+21 --- CQRxSatMonitor 0 3 4 63 0
+
+RX:	 CQRxSatM
+
+RX:	 onitor 0 3 4 63 0
+Done
+mmwDemo:/>
+22 --- CQSigImgMonitor 0 127 4
+
+RX:	 CQSigImg
+
+RX:	 Monitor 0 127 4
+Done
+mmwDemo:/>
+23 --- analogMonitor 0 0
+
+RX:	 analogMo
+
+RX:	 nitor 0 0
+Done
+mmwDemo:/>
+24 --- aoaFovCfg -1 -90 90 -90 90
+
+RX:	 aoaFovCf
+
+RX:	 g -1 -90 90 -90 90
+Done
+mmwDem
+
+RX:	 o:/>
+25 --- cfarFovCfg -1 0 0 49.99
+
+RX:	 cfarFovC
+
+RX:	 fg -1 0 0 49.99
+Done
+mmwDemo:/>
+26 --- cfarFovCfg -1 1 -1 1.00
+
+RX:	 cfarFovC
+
+RX:	 fg -1 1 -1 1.00
+Done
+mmwDemo:/>
+27 --- calibData 1 0 0x1F0000
+
+RX:	 calibDat
+
+RX:	 a 1 0 0x1F0000
+Done
+mmwDemo:/>
+28 --- sensorStart
+
+RX:	 sensorSt
+
+RX:	 art
+
+
+RX:	 Done
+mmwDemo:/>
