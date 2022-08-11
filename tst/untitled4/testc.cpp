@@ -49,7 +49,7 @@ int testC::testCase_Initialize_RADAR(QString RadOrVirt){
         //qDebug() << "APP/User UART status: " << rad->PortConnect("COM3", rad->port_COMM_baudRate, "COM");
         //qDebug() << "Auxiliary data status: " << rad->PortConnect("COM4", rad->port_AUXILIARY_baudRate, "AUX");
         bool statusCom, statusAUX;
-        statusCom = rad->PortConnect("COM3", rad->port_COMM_baudRate, "COM");
+        statusCom = rad->PortConnect("COM3", rad->port_COMM_baudRate, "COM");//COM3
         statusAUX = rad->PortConnect("COM4", rad->port_AUXILIARY_baudRate, "AUX");
         if((statusCom==false)&&(statusAUX)==false){
             qDebug() << "Error during opening ports";

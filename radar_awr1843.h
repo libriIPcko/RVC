@@ -7,6 +7,7 @@
 #include "QThread"
 #include <QTimer>
 #include <QFile>
+#include <QTextStream>
 
 class RADAR_AWR1843 : QSerialPort
 {
@@ -26,7 +27,9 @@ public:
 
     //Debug part of SC
     QTimer *tim_debug = new QTimer;
+    int tim_debug_period = 200;
     QTimer *watchdog_RX = new QTimer;
+    int watchdog_RX_period = 2000;
     //QFile debug_file("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/deb.txt");
     int marker = 0;
     QString RX;
@@ -40,6 +43,12 @@ private:
     std::array<QString, 60> temporary_arrayCMD;
     QSerialPort *port_AUXILIARY;
     QSerialPort *port_COMM;
+
+    //RX_radar_data obj and variables
+        //QFile  = new QFile;
+        //QFile *RX_radar_data(C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/RX_radar_data.txt);
+        QFile *RX_radar_data = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/RX_radar_data.txt");
+
 
 
 public: signals:

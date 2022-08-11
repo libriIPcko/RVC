@@ -51,14 +51,18 @@ RX:	 fg 0 76 464 7 28.49 0 0 30 1 256
 
 RX:	  12499 0 0 30
 Done
-mmwDemo:/>
+mmw
+
+RX:	 Demo:/>
 7 --- chirpCfg 0 0 0 0 0 0 0 1
 
 RX:	 chirpCfg
 
 RX:	  0 0 0 0 0 0 0 1
 Done
-mmwDemo:/>
+mmwDemo:
+
+RX:	 />
 8 --- chirpCfg 1 1 0 0 0 0 0 4
 
 RX:	 chirpCfg
@@ -95,9 +99,7 @@ RX:	 cfarCfg
 
 RX:	 -1 0 2 8 4 3 0 15 1
 Done
-mmwDe
-
-RX:	 mo:/>
+mmwDemo:/>
 13 --- cfarCfg -1 1 0 4 2 3 1 15 1
 
 RX:	 cfarCfg 
@@ -129,16 +131,16 @@ RX:	 calibDcR
 
 RX:	 angeSig -1 0 -5 8 256
 Done
-mmw
-
-RX:	 Demo:/>
+mmwDemo:/>
 17 --- extendedMaxVelocity -1 0
 
 RX:	 extended
 
 RX:	 MaxVelocity -1 0
 Done
-mmwDemo:/>
+mmwDemo:
+
+RX:	 />
 18 --- lvdsStreamCfg -1 0 0 0
 
 RX:	 lvdsStre
@@ -152,18 +154,16 @@ RX:	 compRang
 
 RX:	 eBiasAndRxChanPhase 0.0 1 0 1 0 
 
-RX:	 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0
+RX:	 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 
 
-RX:	 
+RX:	 1 0 1 0
 Done
 mmwDemo:/>
 20 --- measureRangeBiasAndRxChanPhase 0 1.5 0.2
 
 RX:	 measureR
 
-RX:	 angeBiasAndRxChanPhase 0 1.5 0.2
-
-RX:	 
+RX:	 angeBiasAndRxChanPhase 0 1.5 0.2
 Done
 mmwDemo:/>
 21 --- CQRxSatMonitor 0 3 4 63 0
@@ -172,7 +172,9 @@ RX:	 CQRxSatM
 
 RX:	 onitor 0 3 4 63 0
 Done
-mmwDemo:/>
+mmwDemo
+
+RX:	 :/>
 22 --- CQSigImgMonitor 0 127 4
 
 RX:	 CQSigImg
@@ -225,4 +227,6 @@ RX:	 art
 
 
 RX:	 Done
-mmwDemo:/>
+mm
+
+RX:	 wDemo:/>
