@@ -115,7 +115,7 @@ int RADAR_AWR1843::ReadConfigCMD(QString path,std::array<QString, 60> txtLines){
             }
 }
 
-int RADAR_AWR1843::init(QString path){
+int RADAR_AWR1843:: init(QString path){
 //Read from .txt  file
     QFile configFile(path);
     if(!configFile.open(QIODeviceBase::ReadOnly)){

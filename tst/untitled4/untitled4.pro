@@ -1,5 +1,6 @@
 QT      -= gui
 QT      += serialport
+QT      += widgets
 
 CONFIG += c++11 console
 CONFIG -= app_bundle
@@ -10,10 +11,11 @@ CONFIG -= app_bundle
 
 SOURCES += \
         ../../radar_awr1843.cpp \
+        dialog.cpp \
         main.cpp \
+        mythread.cpp \
         testc.cpp \
-        trainthread.cpp \
-        trainthread_v1.cpp
+        trainthread.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -22,6 +24,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     ../../radar_awr1843.h \
+    dialog.h \
+    mythread.h \
     testc.h \
-    trainthread.h \
-    trainthread_v1.h
+    trainthread.h
+
+FORMS += \
+    dialog.ui
