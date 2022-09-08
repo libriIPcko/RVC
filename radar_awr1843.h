@@ -6,6 +6,7 @@
 #include "QSerialPort"
 #include "QThread"
 #include <QTimer>
+#include <QTime>
 #include <QFile>
 #include <QTextStream>
 
@@ -48,7 +49,7 @@ private:
         //QFile  = new QFile;
         //QFile *RX_radar_data(C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/RX_radar_data.txt);
         QFile *RX_radar_data = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/RX_radar_data.txt");
-
+        QTime stopwatch;
 
 
 public: signals:

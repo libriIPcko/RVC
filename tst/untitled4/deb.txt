@@ -3,18 +3,15 @@ RX:	 sensorSt
 
 RX:	 op
 
+1 --- flushCfg
 
 RX:	 Done
 mm
 
 RX:	 wDemo:/>
-1 --- flushCfg
-
-RX:	 flushCfg
 
 RX:	 
-Done
-mmwDemo:/>
+mmwDemo:/>
 2 --- dfeDataOutputMode 1
 
 RX:	 dfeDataO
@@ -26,7 +23,9 @@ Done
 
 RX:	 channelC
 
-RX:	 fg 15 5 0
+RX:	 fg 15 5 
+
+RX:	 0
 Done
 mmwDemo:/>
 4 --- adcCfg 2 1
@@ -131,16 +130,16 @@ RX:	 calibDcR
 
 RX:	 angeSig -1 0 -5 8 256
 Done
-mmwDemo:/>
+mmw
+
+RX:	 Demo:/>
 17 --- extendedMaxVelocity -1 0
 
 RX:	 extended
 
 RX:	 MaxVelocity -1 0
 Done
-mmwDemo:
-
-RX:	 />
+mmwDemo:/>
 18 --- lvdsStreamCfg -1 0 0 0
 
 RX:	 lvdsStre
@@ -152,9 +151,9 @@ Done
 
 RX:	 compRang
 
-RX:	 eBiasAndRxChanPhase 0.0 1 0 1 0 
+RX:	 eBiasAndRxChanPhase 0.0 1 0 1 0 1 0 1 0 
 
-RX:	 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 
+RX:	 1 0 1 0 1 0 1 0 1 0 1 0 
 
 RX:	 1 0 1 0
 Done
@@ -163,7 +162,9 @@ Done
 
 RX:	 measureR
 
-RX:	 angeBiasAndRxChanPhase 0 1.5 0.2
+RX:	 angeBiasAndRxChanPhase 0 1.5 0.2
+
+RX:	 
 Done
 mmwDemo:/>
 21 --- CQRxSatMonitor 0 3 4 63 0
@@ -172,9 +173,7 @@ RX:	 CQRxSatM
 
 RX:	 onitor 0 3 4 63 0
 Done
-mmwDemo
-
-RX:	 :/>
+mmwDemo:/>
 22 --- CQSigImgMonitor 0 127 4
 
 RX:	 CQSigImg

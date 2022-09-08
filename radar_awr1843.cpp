@@ -22,19 +22,13 @@ RADAR_AWR1843::~RADAR_AWR1843(){
 int RADAR_AWR1843::initialization(QString path){
     ReadConfigCMD(path,temporary_arrayCMD);
     marker = 0;
-    //QObject::connect(tim_debug,SIGNAL(timeout),this,SLOT(tim_debug_handler));
-    //qDebug() << "status of connection:" << QObject::connect(tim_debug,SIGNAL(timeout()),this,SLOT(tim_debug_handler()));
-
     QObject::connect(port_COMM,SIGNAL(readyRead()),this,SLOT(port_COMM_receive()));
     QObject::connect(port_AUXILIARY,SIGNAL(readyRead()),this,SLOT(port_AUXILIARY_receive()));
 
     QObject::connect(tim_debug,SIGNAL(timeout()),this,SLOT(tim_debug_handler()));
 
     qDebug () << RX_radar_data->open(QIODevice::ReadWrite | QFile::Append);
-
     tim_debug->start(tim_debug_period);
-
-    qDebug() << "Status of tim: " << tim_debug->isActive();
     return 0;
 }
 
@@ -49,7 +43,6 @@ void RADAR_AWR1843::tim_debug_handler(){
         QTextStream outstr(&debug_file);
         outstr << "";
         debug_file.close();
-        //qDebug () << "Error during sending:" << send_COMM(temporary_arrayCMD[marker]);
         send_COMM(temporary_arrayCMD[marker]);
         QObject::connect(watchdog_RX,SIGNAL(timeout()),this,SLOT(watchdog_RX_handler()));
         watchdog_RX->start(watchdog_RX_period);
@@ -60,8 +53,10 @@ void RADAR_AWR1843::tim_debug_handler(){
         watchdog_RX->stop();
         QObject::disconnect(tim_debug);
         qDebug() << "End of Init";
-        port_COMM->close();
-        port_AUXILIARY->close();
+        qDebug() << stopwatch.currentTime();
+        //port_COMM->close();
+        //port_AUXILIARY->close();
+
     }
     else{
         //qDebug () << "Error during sending:" << send_COMM(temporary_arrayCMD[marker]);
@@ -340,13 +335,21 @@ void RADAR_AWR1843::watchdog_RX_handler(){
 int RADAR_AWR1843::port_AUXILIARY_receive(){
     //QFile RX_radar_data("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/RX_radar_data.txt");
     //RX_radar_data->open(QIODevice::ReadWrite | QFile::Append | QFile::Text);
+
     QByteArray RX_byte_array = port_AUXILIARY->readAll();
-    QTextStream out(RX_radar_data);
-    out << RX_byte_array.toHex() << "\n\n";
-    qDebug() << RX_byte_array.toHex();
-    //out << marker << " --- " << temporary_arrayCMD[marker] << "\nRX:\t Nothing received\n";
-    //out << marker << " --- " << temporary_arrayCMD[marker] <<"\n";
-    //RX_radar_data.close();
+    QString RX = RX_byte_array.toHex();
+    if(!RX.contains("0201040306050807")){
+        RX_byte_array.clear();
+    }
+    else{
+        QTextStream out(RX_radar_data);
+        //out << RX_byte_array.toHex() << "\n\n";
+        out << RX_byte_array.toHex();
+        qDebug() << "\n\t\t\t" << stopwatch.msec()<< RX_byte_array.toHex();
+        //out << marker << " --- " << temporary_arrayCMD[marker] << "\nRX:\t Nothing received\n";
+        //out << marker << " --- " << temporary_arrayCMD[marker] <<"\n";
+        //RX_radar_data.close();
+    }
 }
 
 int RADAR_AWR1843::readPackets(int msec){

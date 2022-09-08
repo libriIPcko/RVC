@@ -81,8 +81,4 @@ int testC::testCase_Initialize_RADAR(QString RadOrVirt){
             rad->initialization(cfgPath);
         }
     }
-
-    //qDebug() << "Status port: " << rad->PortDisconnect();
-    //qDebug() << "Duration of QTimer: " << rad->tim_debug->remainingTime();
-    //rad->~RADAR_AWR1843();
 }

@@ -11,7 +11,9 @@ CONFIG -= app_bundle
 SOURCES += \
         ../../radar_awr1843.cpp \
         main.cpp \
-        testc.cpp
+        testc.cpp \
+        trainthread.cpp \
+        trainthread_v1.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -20,4 +22,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     ../../radar_awr1843.h \
-    testc.h
+    testc.h \
+    trainthread.h \
+    trainthread_v1.h
