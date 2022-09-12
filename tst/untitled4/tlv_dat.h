@@ -2,6 +2,7 @@
 #define TLV_DAT_H
 
 #include "QByteArray"
+#include "array"
 
 class TLV_dat
 {
@@ -12,8 +13,8 @@ public:
 
     //    datType       name            startBytN.O.                description
     struct frameHeaderStructType{
-        QByteArray  sync[8];                //1B     //syncPattern in hex is: '02 01 04 03 06 05 08 07'
-        QByteArray  version[4];             //8B    //0xA1642 or 0xA1443
+        std::array<QByteArray,8>  sync;     //1B     //syncPattern in hex is: '02 01 04 03 06 05 08 07'
+        QByteArray  version[4];             //8B     //0xA1642 or 0xA1443
         QByteArray  platform[4];            //12B    //See description below
         QByteArray  timestamp[4];           //16B    //600MHz free running clocks
         QByteArray  packetLength[4];        //20B    //In bytes, including header
@@ -25,18 +26,18 @@ public:
         QByteArray  trackProcessTime[4];    //44B    //Tracking Processing time, in ms
         QByteArray  numTLVs[4];             //48B    //Number of TLVs in thins frame
         QByteArray  checksum[4];            //52B    //Header checksum
-    };
+    }fHST;
     struct  TLV_Header{
         //TLV Type: 06 = Point cloud, 07 = Target object list, 08 = Target index
         QByteArray  type[4];                //56B    //TLV object
         QByteArray  length[4];              //60B    //TLV object Length, in bytes, including TLV header
-    };
+    }tlv_header;
     struct PointCloud{      //more PC in one packet                                                             x06
         QByteArray  range[4];               //64B    //Range, in m
         QByteArray  azimuth[4];             //68B    //Angle, in rad
         QByteArray  doppler[4];             //72B    //Doppler, in m/s
         QByteArray  snr[4];                 //76B    //SNR, ratio
-    };
+    }point_cloud;
     struct TargetObject{    //more TO in one packet                                                             x07
         QByteArray  tid[4];                 //80B    //Track ID
         QByteArray  posX[4];                //84B    //Target position in X dimension, m
@@ -47,7 +48,7 @@ public:
         QByteArray  accY[4];                //104B   //Target acceleration in Y dimension, m/s2
         QByteArray  EC[36];                 //108B   //Error covariance matrix[3x3], in range/angle/doppler coordinates
         QByteArray  G[4];                   //144B   //Gating function gain
-    };
+    }target_object;
     struct TargetIndex{     //more TI in one packet                                                             x08
         uint8_t id;                         //148B   //track ID
         /*
@@ -55,10 +56,7 @@ public:
          * 254  -   Point not associated, located outside boundary of interest
          * 255  -   Point not associated, considered as noise
          */
-    };
+    }target_index;
 private:
-
-
 };
-
 #endif // TLV_DAT_H

@@ -363,10 +363,19 @@ int RADAR_AWR1843::sortData(QByteArray data,TLV_dat outData){
     //FrameHeaderStructType     defaultPosition
         //sync
         if(n<= 8){
-
+            //outData.fHST->sync = {'x02', 'x01', 'x04', 'x03', 'x06', 'x05', 'x08', 'x07'};
+            //outData.fHST.sync = {'\x02', '\x01', '\x04', '\x03', '\x06', '\x05', '\x08', '\x07'};
+            //outData.fHST.sync = {0x02,0x01,0x04,0x03,0x06,0x05,0x08,0x07};
+            //outData.fHST.sync = QByteArray::fromHex("0201040306050807");
+            //outData.fHST.sync = QByteArrayLiteral("\x02\x01\x04");
+            outData.fHST.sync
+            QByteArray abc[5];
+            abc = QByteArrayLiteral("\x02\x01\x04");
         }
         //version
-        else if(n <= 12){}
+        else if(n <= 12){
+
+        }
         //platform
         else if(n <= 16){}
         //timestamp
