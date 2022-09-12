@@ -18,7 +18,7 @@ void MyThread::run(){
         mutex.unlock();
 
         emit NumberChanged(i);
-        this->msleep(100);
+        this->msleep(10);
      }
 
 }

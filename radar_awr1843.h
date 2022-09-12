@@ -9,6 +9,7 @@
 #include <QTime>
 #include <QFile>
 #include <QTextStream>
+#include <tlv_dat.h>
 
 class RADAR_AWR1843 : QSerialPort
 {
@@ -34,6 +35,7 @@ public:
     //QFile debug_file("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/deb.txt");
     int marker = 0;
     QString RX;
+    QString cfgPath = "C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/xwr18xx_profile_2022_05_30T13_05_06_607.txt";
 
 private:
     int ReadConfigCMD(QString path,std::array<QString, 60> txtLines);
@@ -41,6 +43,8 @@ private:
     int send_COMM(QString data);
 
     int readPackets(int msec);
+
+    int sortData(QByteArray,TLV_dat);
     std::array<QString, 60> temporary_arrayCMD;
     QSerialPort *port_AUXILIARY;
     QSerialPort *port_COMM;
@@ -49,6 +53,8 @@ private:
         //QFile  = new QFile;
         //QFile *RX_radar_data(C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/RX_radar_data.txt);
         QFile *RX_radar_data = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/RX_radar_data.txt");
+        QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/DebugLog.txt");
+
         QTime stopwatch;
 
 

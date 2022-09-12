@@ -5,6 +5,8 @@
 
 #include "ui_dialog.h"
 #include "mythread.h"
+#include "QDebug"
+#include "C:\Users\RPlsicik\Documents\GitHub\RVC\radar_awr1843.h"
 
 namespace Ui {
 class Dialog;
@@ -18,6 +20,7 @@ public:
     explicit Dialog(QWidget *parent = nullptr);
     ~Dialog();
     MyThread *mThread;
+    RADAR_AWR1843 *rad;
 
 private:
     Ui::Dialog *ui;

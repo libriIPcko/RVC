@@ -3,6 +3,7 @@ release/dialog.o
 release/main.o
 release/mythread.o
 release/testc.o
+release/tlv_dat.o
 release/trainthread.o
 release/moc_radar_awr1843.o
 release/moc_dialog.o

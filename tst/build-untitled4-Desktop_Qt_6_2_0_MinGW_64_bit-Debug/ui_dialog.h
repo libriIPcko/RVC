@@ -12,32 +12,32 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QTextBrowser>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_Dialog
 {
 public:
-    QLabel *label;
     QPushButton *pushButtons_Start;
     QPushButton *pushButton_2;
+    QTextBrowser *textBrowser;
 
     void setupUi(QDialog *Dialog)
     {
         if (Dialog->objectName().isEmpty())
             Dialog->setObjectName(QString::fromUtf8("Dialog"));
-        Dialog->resize(400, 60);
-        label = new QLabel(Dialog);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(100, 20, 47, 13));
+        Dialog->resize(593, 397);
         pushButtons_Start = new QPushButton(Dialog);
         pushButtons_Start->setObjectName(QString::fromUtf8("pushButtons_Start"));
-        pushButtons_Start->setGeometry(QRect(210, 20, 75, 23));
+        pushButtons_Start->setGeometry(QRect(534, 40, 41, 23));
         pushButton_2 = new QPushButton(Dialog);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        pushButton_2->setGeometry(QRect(300, 20, 75, 23));
+        pushButton_2->setGeometry(QRect(534, 10, 41, 23));
+        textBrowser = new QTextBrowser(Dialog);
+        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
+        textBrowser->setGeometry(QRect(10, 10, 511, 381));
 
         retranslateUi(Dialog);
 
@@ -47,7 +47,6 @@ public:
     void retranslateUi(QDialog *Dialog)
     {
         Dialog->setWindowTitle(QCoreApplication::translate("Dialog", "Dialog", nullptr));
-        label->setText(QCoreApplication::translate("Dialog", "Number", nullptr));
         pushButtons_Start->setText(QCoreApplication::translate("Dialog", "Start", nullptr));
         pushButton_2->setText(QCoreApplication::translate("Dialog", "Stop", nullptr));
     } // retranslateUi

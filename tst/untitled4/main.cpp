@@ -65,6 +65,7 @@ int main(int argc, char *argv[])
     //trainT->saveToFile('+',*trainT->var_a,*trainT->var_b,*trainT->var_c);
     */
 
+    //Radar receive output to txt
     /*
     RADAR_AWR1843 *rad;
     rad = new RADAR_AWR1843;

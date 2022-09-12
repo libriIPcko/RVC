@@ -6,32 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>60</height>
+    <width>593</width>
+    <height>397</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>20</y>
-     <width>47</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Number</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButtons_Start">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>20</y>
-     <width>75</width>
+     <x>534</x>
+     <y>40</y>
+     <width>41</width>
      <height>23</height>
     </rect>
    </property>
@@ -42,14 +29,24 @@
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>20</y>
-     <width>75</width>
+     <x>534</x>
+     <y>10</y>
+     <width>41</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
     <string>Stop</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="textBrowser">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>511</width>
+     <height>381</height>
+    </rect>
    </property>
   </widget>
  </widget>

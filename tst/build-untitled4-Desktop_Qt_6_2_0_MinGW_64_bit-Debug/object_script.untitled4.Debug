@@ -3,6 +3,7 @@ debug/dialog.o
 debug/main.o
 debug/mythread.o
 debug/testc.o
+debug/tlv_dat.o
 debug/trainthread.o
 debug/moc_radar_awr1843.o
 debug/moc_dialog.o

@@ -15,6 +15,7 @@ SOURCES += \
         main.cpp \
         mythread.cpp \
         testc.cpp \
+        tlv_dat.cpp \
         trainthread.cpp
 
 # Default rules for deployment.
@@ -27,6 +28,7 @@ HEADERS += \
     dialog.h \
     mythread.h \
     testc.h \
+    tlv_dat.h \
     trainthread.h
 
 FORMS += \

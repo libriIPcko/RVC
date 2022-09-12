@@ -27,7 +27,9 @@ int RADAR_AWR1843::initialization(QString path){
 
     QObject::connect(tim_debug,SIGNAL(timeout()),this,SLOT(tim_debug_handler()));
 
-    qDebug () << RX_radar_data->open(QIODevice::ReadWrite | QFile::Append);
+    RX_radar_data->open(QIODevice::ReadWrite | QFile::Append);
+    DebugLog->open(QIODevice::ReadWrite | QFile::Append | QFile::Text);
+
     tim_debug->start(tim_debug_period);
     return 0;
 }
@@ -334,24 +336,69 @@ void RADAR_AWR1843::watchdog_RX_handler(){
 
 int RADAR_AWR1843::port_AUXILIARY_receive(){
     //QFile RX_radar_data("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/RX_radar_data.txt");
-    //RX_radar_data->open(QIODevice::ReadWrite | QFile::Append | QFile::Text);
+    //RX_radar_data->open(QIODevice::ReadWrite | QFile::Append | QFile::Text);    
+    QTextStream DebugLogStream(DebugLog);
 
     QByteArray RX_byte_array = port_AUXILIARY->readAll();
+    DebugLogStream << RX_byte_array.length();
     QString RX = RX_byte_array.toHex();
     if(!RX.contains("0201040306050807")){
         RX_byte_array.clear();
     }
     else{
-        QTextStream out(RX_radar_data);
+        QTextStream out(RX_radar_data); //assign file to txtStream
         //out << RX_byte_array.toHex() << "\n\n";
         out << RX_byte_array.toHex();
         qDebug() << "\n\t\t\t" << stopwatch.msec()<< RX_byte_array.toHex();
+
         //out << marker << " --- " << temporary_arrayCMD[marker] << "\nRX:\t Nothing received\n";
         //out << marker << " --- " << temporary_arrayCMD[marker] <<"\n";
         //RX_radar_data.close();
+    }    
+}
+int RADAR_AWR1843::sortData(QByteArray data,TLV_dat outData){
+    int length = data.length();
+    int n = 1;
+    while(n<=data.length()){
+    //FrameHeaderStructType     defaultPosition
+        //sync
+        if(n<= 8){
+
+        }
+        //version
+        else if(n <= 12){}
+        //platform
+        else if(n <= 16){}
+        //timestamp
+        else if(n <= 20){}
+        //packetLength
+        else if(n <= 24){}
+        //frameNumber
+        else if(n <= 28){}
+        //subframeNumber
+        else if(n <= 32){}
+        //chirpMargin
+        else if(n <= 36){}
+        //frameMargin
+        else if(n <= 40){}
+        //uartSendTime
+        else if(n <= 44){}
+        //trackProcessTime
+        else if(n <= 48){}
+        // !!! //numTLVs
+        else if(n <= 52){}
+        //checksum
+        else if(n <= 56){}
+        //TLV_Header OR Point Cloud OR TargetObject dependent on type
+        else if((n > 56)&&(n<=length)){
+            //
+        }
+        else{
+            break;
+        }
+        n++;
     }
 }
-
 int RADAR_AWR1843::readPackets(int msec){
 
 }
