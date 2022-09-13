@@ -11,11 +11,11 @@
 #include <QTextStream>
 #include <tlv_dat.h>
 
-class RADAR_AWR1843 : QSerialPort
+class RADAR_AWR1843 : QSerialPort, virtual QThread
 {
     Q_OBJECT
 public:
-    RADAR_AWR1843();
+    explicit RADAR_AWR1843(QObject *parent = 0);
     ~RADAR_AWR1843();
     int init(QString path);
     int initialization(QString path);
@@ -37,6 +37,10 @@ public:
     QString RX;
     QString cfgPath = "C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/xwr18xx_profile_2022_05_30T13_05_06_607.txt";
 
+    //Dev-Deb Var DDV
+    int DEBUG_allignData_fromFile();
+    int ofset = 0;
+
 private:
     int ReadConfigCMD(QString path,std::array<QString, 60> txtLines);
     int PortDisconnect(QString typePort);
@@ -53,7 +57,8 @@ private:
         //QFile  = new QFile;
         //QFile *RX_radar_data(C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/RX_radar_data.txt);
         QFile *RX_radar_data = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/RX_radar_data.txt");
-        QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/DebugLog.txt");
+        //QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/DebugLog.txt");             //old path
+        QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/Backup RX data/RX_radar_data - 1h45m 11.8.2022.txt");               //new path
 
         QTime stopwatch;
 
@@ -62,6 +67,7 @@ public: signals:
     //QIODevice ReadyRead();
     void timeout();
     void readyRead();
+    void Interrupt_ReadPacket(QString data, int dataCounter);
 
 
 public slots:
@@ -72,8 +78,9 @@ public slots:
     void watchdog_RX_handler();
     /*
 public: signals:
-    //QIODevice ReadyRead();
-    QTimer timeout();
+   //QIODevice ReadyRead();
+   // QTimer timeout();
+
 
 
 private slots:
@@ -82,6 +89,7 @@ private slots:
     //int tim_timeout();
     void tim_debug_handler(int marker);
     */
+
 };
 
 #endif // RADAR_AWR1843_H

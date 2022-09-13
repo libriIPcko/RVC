@@ -8,10 +8,12 @@
 #include <QDir>
 #include <QTimer>
 
-RADAR_AWR1843::RADAR_AWR1843()
+RADAR_AWR1843::RADAR_AWR1843(QObject *parent) : QThread(parent)
 {
     port_AUXILIARY = new QSerialPort;
     port_COMM = new QSerialPort;
+    qDebug() << "RX_radar_data File status open: " << RX_radar_data->open(QIODevice::ReadWrite);
+    qDebug() << "DebugLog File status open: " << DebugLog->open(QIODevice::ReadWrite);
 }
 RADAR_AWR1843::~RADAR_AWR1843(){
     PortDisconnect();
@@ -19,16 +21,18 @@ RADAR_AWR1843::~RADAR_AWR1843(){
     //tim->destroyed();
 }
 
+                                                                                              //Not used
 int RADAR_AWR1843::initialization(QString path){
     ReadConfigCMD(path,temporary_arrayCMD);
     marker = 0;
-    QObject::connect(port_COMM,SIGNAL(readyRead()),this,SLOT(port_COMM_receive()));
-    QObject::connect(port_AUXILIARY,SIGNAL(readyRead()),this,SLOT(port_AUXILIARY_receive()));
+        //Stop RX
+        //QObject::connect(port_COMM,SIGNAL(readyRead()),this,SLOT(port_COMM_receive()));
+        //QObject::connect(port_AUXILIARY,SIGNAL(readyRead()),this,SLOT(port_AUXILIARY_receive()));
 
-    QObject::connect(tim_debug,SIGNAL(timeout()),this,SLOT(tim_debug_handler()));
+    //QObject::connect(tim_debug,SIGNAL(timeout()),this,SLOT(tim_debug_handler()));
 
     RX_radar_data->open(QIODevice::ReadWrite | QFile::Append);
-    DebugLog->open(QIODevice::ReadWrite | QFile::Append | QFile::Text);
+
 
     tim_debug->start(tim_debug_period);
     return 0;
@@ -46,14 +50,15 @@ void RADAR_AWR1843::tim_debug_handler(){
         outstr << "";
         debug_file.close();
         send_COMM(temporary_arrayCMD[marker]);
-        QObject::connect(watchdog_RX,SIGNAL(timeout()),this,SLOT(watchdog_RX_handler()));
+        RADAR_AWR1843::connect(RADAR_AWR1843::watchdog_RX,SIGNAL(timeout()),this,SLOT(watchdog_RX_handler()));
+
         watchdog_RX->start(watchdog_RX_period);
         marker++;
     }
     else if(marker>=29){
         tim_debug->stop();
         watchdog_RX->stop();
-        QObject::disconnect(tim_debug);
+        RADAR_AWR1843::disconnect(tim_debug);
         qDebug() << "End of Init";
         qDebug() << stopwatch.currentTime();
         //port_COMM->close();
@@ -356,11 +361,31 @@ int RADAR_AWR1843::port_AUXILIARY_receive(){
         //RX_radar_data.close();
     }    
 }
+int RADAR_AWR1843::DEBUG_allignData_fromFile(){
+    QTextStream inputStream(DebugLog);
+    QByteArray sync = "0201040306050807";
+    int dataCounter = 0;
+    int n = 0;
+    QString data;
+    do{
+        //data = DebugLog->readLine(10);
+        data = inputStream.readLine();
+        if(data.contains(sync)){
+            dataCounter++;
+            qDebug() << "Data was find: " << dataCounter << data;
+            emit Interrupt_ReadPacket(data, dataCounter);                    //signal
+        }
+        n++;
+    }while(!DebugLog->atEnd() || n <= 4);
+
+}
 int RADAR_AWR1843::sortData(QByteArray data,TLV_dat outData){
     int length = data.length();
     int n = 1;
+    int pos = n +ofset;
     while(n<=data.length()){
     //FrameHeaderStructType     defaultPosition
+        //
         //sync
         if(n<= 8){
             //outData.fHST->sync = {'x02', 'x01', 'x04', 'x03', 'x06', 'x05', 'x08', 'x07'};
@@ -368,9 +393,9 @@ int RADAR_AWR1843::sortData(QByteArray data,TLV_dat outData){
             //outData.fHST.sync = {0x02,0x01,0x04,0x03,0x06,0x05,0x08,0x07};
             //outData.fHST.sync = QByteArray::fromHex("0201040306050807");
             //outData.fHST.sync = QByteArrayLiteral("\x02\x01\x04");
-            outData.fHST.sync
-            QByteArray abc[5];
-            abc = QByteArrayLiteral("\x02\x01\x04");
+            //outData.fHST.sync
+            //QByteArray abc[5];
+            //abc = QByteArrayLiteral("\x02\x01\x04");
         }
         //version
         else if(n <= 12){

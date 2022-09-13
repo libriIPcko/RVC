@@ -236,6 +236,8 @@ debug/moc_radar_awr1843.cpp: ../../radar_awr1843.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfile.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfiledevice.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTextStream \
+		../untitled4/tlv_dat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QByteArray \
 		debug/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
 	'C:\Qt\6.2.0\mingw81_64\bin\moc.exe' $(DEFINES) --include C:/Users/RPlsicik/Documents/GitHub/RVC/tst/build-untitled4-Desktop_Qt_6_2_0_MinGW_64_bit-Debug/debug/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4 -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtSerialPort -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -I. -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include ../../radar_awr1843.h -o debug/moc_radar_awr1843.cpp
@@ -371,46 +373,17 @@ debug/moc_dialog.cpp: ../untitled4/dialog.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
 		ui_dialog.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QVariant \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QApplication \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qapplication.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qeventloop.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfuture.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfutureinterface.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmutex.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qresultstore.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfuture_impl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qthreadpool.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qthread.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdeadlinetimer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qelapsedtimer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qrunnable.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qexception.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qapplicationpermission.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication_platform.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qguiapplication.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qinputmethod.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qguiapplication_platform.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextdocument.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QPushButton \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qpushbutton.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qicon.h \
 		../untitled4/mythread.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QtCore \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QtCoreDepends \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractanimation.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstracteventdispatcher.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qeventloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractnativeeventfilter.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractproxymodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qanimationgroup.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qapplicationpermission.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qassociativeiterable.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasictimer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbitarray.h \
@@ -418,6 +391,7 @@ debug/moc_dialog.cpp: ../untitled4/dialog.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearraymatcher.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcache.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcalendar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborarray.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborvalue.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdatetime.h \
@@ -432,6 +406,19 @@ debug/moc_dialog.cpp: ../untitled4/dialog.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcollator.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcommandlineoption.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcommandlineparser.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfuture.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfutureinterface.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmutex.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qresultstore.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfuture_impl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qthreadpool.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qthread.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdeadlinetimer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qelapsedtimer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qrunnable.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qexception.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication_platform.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qconcatenatetablesproxymodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcryptographichash.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdir.h \
@@ -522,6 +509,8 @@ debug/moc_dialog.cpp: ../untitled4/dialog.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTime \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QFile \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTextStream \
+		../untitled4/tlv_dat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QByteArray \
 		debug/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
 	'C:\Qt\6.2.0\mingw81_64\bin\moc.exe' $(DEFINES) --include C:/Users/RPlsicik/Documents/GitHub/RVC/tst/build-untitled4-Desktop_Qt_6_2_0_MinGW_64_bit-Debug/debug/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4 -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtSerialPort -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -I. -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include ../untitled4/dialog.h -o debug/moc_dialog.cpp
@@ -847,6 +836,8 @@ debug/moc_testc.cpp: ../untitled4/testc.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfile.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfiledevice.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTextStream \
+		../untitled4/tlv_dat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QByteArray \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QDebug \
 		debug/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
@@ -1072,6 +1063,8 @@ debug/radar_awr1843.o: ../../radar_awr1843.cpp ../../radar_awr1843.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfile.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfiledevice.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTextStream \
+		../untitled4/tlv_dat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QByteArray \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QCoreApplication \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qeventloop.h \
@@ -1224,46 +1217,17 @@ debug/dialog.o: ../untitled4/dialog.cpp ../untitled4/dialog.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
 		ui_dialog.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QVariant \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QApplication \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qapplication.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qeventloop.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfuture.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfutureinterface.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmutex.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qresultstore.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfuture_impl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qthreadpool.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qthread.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdeadlinetimer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qelapsedtimer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qrunnable.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qexception.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qapplicationpermission.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication_platform.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qguiapplication.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qinputmethod.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qguiapplication_platform.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextdocument.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QPushButton \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qpushbutton.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qicon.h \
 		../untitled4/mythread.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QtCore \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QtCoreDepends \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractanimation.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstracteventdispatcher.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qeventloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractnativeeventfilter.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractproxymodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qanimationgroup.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qapplicationpermission.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qassociativeiterable.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasictimer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbitarray.h \
@@ -1271,6 +1235,7 @@ debug/dialog.o: ../untitled4/dialog.cpp ../untitled4/dialog.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearraymatcher.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcache.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcalendar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborarray.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborvalue.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdatetime.h \
@@ -1285,6 +1250,19 @@ debug/dialog.o: ../untitled4/dialog.cpp ../untitled4/dialog.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcollator.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcommandlineoption.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcommandlineparser.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfuture.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfutureinterface.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmutex.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qresultstore.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfuture_impl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qthreadpool.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qthread.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdeadlinetimer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qelapsedtimer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qrunnable.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qexception.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication_platform.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qconcatenatetablesproxymodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcryptographichash.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdir.h \
@@ -1374,7 +1352,9 @@ debug/dialog.o: ../untitled4/dialog.cpp ../untitled4/dialog.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTime \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QFile \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTextStream
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTextStream \
+		../untitled4/tlv_dat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QByteArray
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/dialog.o ../untitled4/dialog.cpp
 
 debug/main.o: ../untitled4/main.cpp C:/Qt/6.2.0/mingw81_64/include/QtCore/QCoreApplication \
@@ -1493,6 +1473,8 @@ debug/main.o: ../untitled4/main.cpp C:/Qt/6.2.0/mingw81_64/include/QtCore/QCoreA
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfile.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfiledevice.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTextStream \
+		../untitled4/tlv_dat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QByteArray \
 		../untitled4/testc.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QDebug \
 		../untitled4/mythread.h \
@@ -1646,21 +1628,11 @@ debug/main.o: ../untitled4/main.cpp C:/Qt/6.2.0/mingw81_64/include/QtCore/QCoreA
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSizeF \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
 		ui_dialog.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QVariant \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QApplication \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qapplication.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qguiapplication.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qinputmethod.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qguiapplication_platform.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextdocument.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QPushButton \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qpushbutton.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qicon.h
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qguiapplication_platform.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/main.o ../untitled4/main.cpp
 
 debug/mythread.o: ../untitled4/mythread.cpp ../untitled4/mythread.h \
@@ -1982,6 +1954,8 @@ debug/testc.o: ../untitled4/testc.cpp ../untitled4/testc.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfile.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfiledevice.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTextStream \
+		../untitled4/tlv_dat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QByteArray \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/testc.o ../untitled4/testc.cpp
 
