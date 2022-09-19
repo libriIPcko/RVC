@@ -11,7 +11,7 @@
 #include <QTextStream>
 #include <tlv_dat.h>
 
-class RADAR_AWR1843 : virtual QThread, QSerialPort
+class RADAR_AWR1843 : QSerialPort, virtual QThread
 {
     Q_OBJECT
 public:
