@@ -8,7 +8,7 @@
 #include <QDir>
 #include <QTimer>
 
-RADAR_AWR1843::RADAR_AWR1843(QObject *parent) : QThread(parent)
+RADAR_AWR1843::RADAR_AWR1843(QObject *parent) //: QThread(parent)
 {
     port_AUXILIARY = new QSerialPort;
     port_COMM = new QSerialPort;
@@ -50,7 +50,7 @@ void RADAR_AWR1843::tim_debug_handler(){
         outstr << "";
         debug_file.close();
         send_COMM(temporary_arrayCMD[marker]);
-        RADAR_AWR1843::connect(RADAR_AWR1843::watchdog_RX,SIGNAL(timeout()),this,SLOT(watchdog_RX_handler()));
+        QObject::connect(watchdog_RX,SIGNAL(timeout()),this,SLOT(watchdog_RX_handler()));
 
         watchdog_RX->start(watchdog_RX_period);
         marker++;
@@ -58,7 +58,7 @@ void RADAR_AWR1843::tim_debug_handler(){
     else if(marker>=29){
         tim_debug->stop();
         watchdog_RX->stop();
-        RADAR_AWR1843::disconnect(tim_debug);
+        disconnect(tim_debug);
         qDebug() << "End of Init";
         qDebug() << stopwatch.currentTime();
         //port_COMM->close();
@@ -372,8 +372,8 @@ int RADAR_AWR1843::DEBUG_allignData_fromFile(){
         data = inputStream.readLine();
         if(data.contains(sync)){
             dataCounter++;
-            qDebug() << "Data was find: " << dataCounter << data;
-            emit Interrupt_ReadPacket(data, dataCounter);                    //signal
+            //qDebug() << "Data was find: " << dataCounter << data;
+            Q_EMIT Interrupt_ReadPacket(data, dataCounter);                    //signal
         }
         n++;
     }while(!DebugLog->atEnd() || n <= 4);

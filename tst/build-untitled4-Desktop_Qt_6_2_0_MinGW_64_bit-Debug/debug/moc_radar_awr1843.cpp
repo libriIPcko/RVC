@@ -156,8 +156,6 @@ void *RADAR_AWR1843::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_RADAR_AWR1843.stringdata0))
         return static_cast<void*>(this);
-    if (!strcmp(_clname, "QThread"))
-        return static_cast< QThread*>(this);
     return QSerialPort::qt_metacast(_clname);
 }
 

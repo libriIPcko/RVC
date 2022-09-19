@@ -137,10 +137,8 @@ compiler_moc_header_make_all: release/moc_radar_awr1843.cpp release/moc_dialog.c
 compiler_moc_header_clean:
 	-$(DEL_FILE) release/moc_radar_awr1843.cpp release/moc_dialog.cpp release/moc_mythread.cpp release/moc_testc.cpp release/moc_trainthread.cpp
 release/moc_radar_awr1843.cpp: ../../radar_awr1843.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QObject \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobject.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobjectdefs.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnamespace.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QIODevice \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevice.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qglobal.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qconfig.h \
@@ -161,6 +159,10 @@ release/moc_radar_awr1843.cpp: ../../radar_awr1843.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qglobalstatic.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnumeric.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qversiontagging.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevicebase.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobject.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobjectdefs.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnamespace.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtmetamacros.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobjectdefs_impl.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstring.h \
@@ -195,7 +197,6 @@ release/moc_radar_awr1843.cpp: ../../radar_awr1843.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qvarlengtharray.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qscopeguard.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdatastream.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevicebase.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiterable.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmetacontainer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontainerinfo.h \
@@ -205,8 +206,6 @@ release/moc_radar_awr1843.cpp: ../../radar_awr1843.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qproperty.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qshareddata.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpropertyprivate.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QIODevice \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevice.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtSerialPort/QSerialPort \
 		C:/Qt/6.2.0/mingw81_64/include/QtSerialPort/qserialport.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtSerialPort/qserialportglobal.h \
@@ -964,10 +963,8 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 ####### Compile
 
 release/radar_awr1843.o: ../../radar_awr1843.cpp ../../radar_awr1843.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QObject \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobject.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobjectdefs.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnamespace.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QIODevice \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevice.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qglobal.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qconfig.h \
@@ -988,6 +985,10 @@ release/radar_awr1843.o: ../../radar_awr1843.cpp ../../radar_awr1843.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qglobalstatic.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnumeric.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qversiontagging.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevicebase.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobject.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobjectdefs.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnamespace.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtmetamacros.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobjectdefs_impl.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstring.h \
@@ -1022,7 +1023,6 @@ release/radar_awr1843.o: ../../radar_awr1843.cpp ../../radar_awr1843.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qvarlengtharray.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qscopeguard.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdatastream.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevicebase.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiterable.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmetacontainer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontainerinfo.h \
@@ -1032,8 +1032,6 @@ release/radar_awr1843.o: ../../radar_awr1843.cpp ../../radar_awr1843.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qproperty.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qshareddata.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpropertyprivate.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QIODevice \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevice.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtSerialPort/QSerialPort \
 		C:/Qt/6.2.0/mingw81_64/include/QtSerialPort/qserialport.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtSerialPort/qserialportglobal.h \
@@ -1455,7 +1453,6 @@ release/main.o: ../untitled4/main.cpp C:/Qt/6.2.0/mingw81_64/include/QtCore/QCor
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcoreapplication_platform.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qvariant.h \
 		C:/Users/RPlsicik/Documents/GitHub/RVC/radar_awr1843.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QObject \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QIODevice \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevice.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtSerialPort/QSerialPort \
@@ -1476,6 +1473,7 @@ release/main.o: ../untitled4/main.cpp C:/Qt/6.2.0/mingw81_64/include/QtCore/QCor
 		../untitled4/tlv_dat.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QByteArray \
 		../untitled4/testc.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QObject \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QDebug \
 		../untitled4/mythread.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QtCore \

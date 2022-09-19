@@ -23,8 +23,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Dialog_t {
-    const uint offsetsAndSize[12];
-    char stringdata0[100];
+    const uint offsetsAndSize[16];
+    char stringdata0[117];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_Dialog_t, stringdata0) + ofs), len 
@@ -34,12 +34,14 @@ QT_MOC_LITERAL(0, 6), // "Dialog"
 QT_MOC_LITERAL(7, 15), // "onNumberChanged"
 QT_MOC_LITERAL(23, 0), // ""
 QT_MOC_LITERAL(24, 22), // "onInterrupt_ReadPacket"
-QT_MOC_LITERAL(47, 28), // "on_pushButtons_Start_clicked"
-QT_MOC_LITERAL(76, 23) // "on_pushButton_2_clicked"
+QT_MOC_LITERAL(47, 4), // "data"
+QT_MOC_LITERAL(52, 11), // "dataCounter"
+QT_MOC_LITERAL(64, 28), // "on_pushButtons_Start_clicked"
+QT_MOC_LITERAL(93, 23) // "on_pushButton_2_clicked"
 
     },
     "Dialog\0onNumberChanged\0\0onInterrupt_ReadPacket\0"
-    "on_pushButtons_Start_clicked\0"
+    "data\0dataCounter\0on_pushButtons_Start_clicked\0"
     "on_pushButton_2_clicked"
 };
 #undef QT_MOC_LITERAL
@@ -60,12 +62,12 @@ static const uint qt_meta_data_Dialog[] = {
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
        1,    1,   38,    2, 0x0a,    1 /* Public */,
        3,    2,   41,    2, 0x0a,    3 /* Public */,
-       4,    0,   46,    2, 0x08,    6 /* Private */,
-       5,    0,   47,    2, 0x08,    7 /* Private */,
+       6,    0,   46,    2, 0x0a,    6 /* Public */,
+       7,    0,   47,    2, 0x0a,    7 /* Public */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Int,    2,
-    QMetaType::Void, QMetaType::QByteArray, QMetaType::Int,    2,    2,
+    QMetaType::Void, QMetaType::QString, QMetaType::Int,    4,    5,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -79,7 +81,7 @@ void Dialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         (void)_t;
         switch (_id) {
         case 0: _t->onNumberChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 1: _t->onInterrupt_ReadPacket((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 1: _t->onInterrupt_ReadPacket((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 2: _t->on_pushButtons_Start_clicked(); break;
         case 3: _t->on_pushButton_2_clicked(); break;
         default: ;
@@ -95,7 +97,7 @@ const QMetaObject Dialog::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_Dialog_t
 , QtPrivate::TypeAndForceComplete<Dialog, std::true_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QByteArray, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 >,

@@ -1,7 +1,7 @@
 #ifndef RADAR_AWR1843_H
 #define RADAR_AWR1843_H
 
-#include <QObject>
+//#include <QObject>
 #include "QIODevice"
 #include "QSerialPort"
 #include "QThread"
@@ -11,7 +11,7 @@
 #include <QTextStream>
 #include <tlv_dat.h>
 
-class RADAR_AWR1843 : QSerialPort, virtual QThread
+class RADAR_AWR1843 : public QSerialPort//, public QThread
 {
     Q_OBJECT
 public:
