@@ -12,6 +12,7 @@ CONFIG -= app_bundle
 SOURCES += \
         ../../radar_awr1843.cpp \
         dialog.cpp \
+        dialog_2.cpp \
         main.cpp \
         mythread.cpp \
         testc.cpp \
@@ -26,10 +27,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     ../../radar_awr1843.h \
     dialog.h \
+    dialog_2.h \
     mythread.h \
     testc.h \
     tlv_dat.h \
     trainthread.h
 
 FORMS += \
-    dialog.ui
+    dialog.ui \
+    dialog_2.ui

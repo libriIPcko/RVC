@@ -11,6 +11,8 @@
 #include <QTextStream>
 #include <tlv_dat.h>
 
+#include "QChar"
+
 class RADAR_AWR1843 : public QSerialPort//, public QThread
 {
     Q_OBJECT
@@ -48,7 +50,7 @@ private:
 
     int readPackets(int msec);
 
-    int sortData(QByteArray,TLV_dat);
+    int sortData(QString,TLV_dat);
     std::array<QString, 60> temporary_arrayCMD;
     QSerialPort *port_AUXILIARY;
     QSerialPort *port_COMM;
@@ -76,12 +78,11 @@ public slots:
     //int tim_timeout();
     void tim_debug_handler();
     void watchdog_RX_handler();
+
     /*
 public: signals:
    //QIODevice ReadyRead();
    // QTimer timeout();
-
-
 
 private slots:
     int port_COMM_receive();

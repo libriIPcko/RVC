@@ -31,6 +31,10 @@ void Dialog::on_pushButtons_Start_clicked()
 
     //qDebug() << "APP/User UART status: " << rad->PortConnect("COM66", 9600, "COM");
     qDebug() << "APP/User UART status: " << rad->PortConnect("COM3", rad->port_COMM_baudRate, "COM");
+
+    qDebug() << "Status of interclass connection : ";
+    qDebug() << connect(rad,SIGNAL(Interrupt_ReadPacket(QString,int)),this,SLOT(onInterrupt_ReadPacket(QString,int)));
+
     rad->init(rad->cfgPath); //initialized  //Stop RX
 
     rad->DEBUG_allignData_fromFile();
@@ -47,14 +51,11 @@ void Dialog::on_pushButton_2_clicked()
     //qDebug() << rad->PortDisconnect();    //Disconnecting of radar
     qDebug() << "Stop case";
 
-    qDebug() << "Status of interclass connection : ";
-    qDebug() << connect(rad,SIGNAL(Interrupt_ReadPacket(QString,int)),this,SLOT(onInterrupt_ReadPacket(QString,int)));
+
     ui->textBrowser->append("test\n");
 }
 
 void Dialog::onInterrupt_ReadPacket(QString data, int dataCounter){
-    if(dataCounter%10 ==0){
-        QString txt = QString::number(dataCounter) + "\n" + data;
-        ui->textBrowser->append(txt);
-    }
+    QString txt = QString::number(dataCounter) + "\n" + data;
+    ui->textBrowser->append(txt);
 }

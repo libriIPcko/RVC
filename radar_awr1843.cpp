@@ -367,26 +367,33 @@ int RADAR_AWR1843::DEBUG_allignData_fromFile(){
     int dataCounter = 0;
     int n = 0;
     QString data;
+    std::vector<TLV_dat> TLV_packets;
+    TLV_dat tlvData;
     do{
         //data = DebugLog->readLine(10);
         data = inputStream.readLine();
         if(data.contains(sync)){
             dataCounter++;
             //qDebug() << "Data was find: " << dataCounter << data;
+            sortData(data,tlvData);
+            TLV_packets.push_back(tlvData);
+            //feedback data
             Q_EMIT Interrupt_ReadPacket(data, dataCounter);                    //signal
         }
         n++;
-    }while(!DebugLog->atEnd() || n <= 4);
+    //}while(!DebugLog->atEnd() && n <= 4 && dataCounter <= 10);
+    }while(!DebugLog->atEnd() && dataCounter <= 10);
 
 }
-int RADAR_AWR1843::sortData(QByteArray data,TLV_dat outData){
+int RADAR_AWR1843::sortData(QString data,TLV_dat outData){
     int length = data.length();
     int n = 1;
-    int pos = n +ofset;
+    int pos = 0;
     while(n<=data.length()){
     //FrameHeaderStructType     defaultPosition
         //
         //sync
+
         if(n<= 8){
             //outData.fHST->sync = {'x02', 'x01', 'x04', 'x03', 'x06', 'x05', 'x08', 'x07'};
             //outData.fHST.sync = {'\x02', '\x01', '\x04', '\x03', '\x06', '\x05', '\x08', '\x07'};
@@ -395,11 +402,14 @@ int RADAR_AWR1843::sortData(QByteArray data,TLV_dat outData){
             //outData.fHST.sync = QByteArrayLiteral("\x02\x01\x04");
             //outData.fHST.sync
             //QByteArray abc[5];
-            //abc = QByteArrayLiteral("\x02\x01\x04");
+            //abc = QByteArrayLiteral("\x02\x01\x04");           
+            pos = n;
+            outData.fHST.sync.append(pos) = "0f";
         }
         //version
         else if(n <= 12){
-
+            if(n==9){ofset=9;pos=n-ofset;}
+            //outData.fHST.version.append(pos) =  ;
         }
         //platform
         else if(n <= 16){}
