@@ -1,9 +1,12 @@
 #include "mythread.h"
 #include "QDebug"
 
+//Threads global theory:
+//https://www.geeksforgeeks.org/cpu-scheduling-in-operating-systems/
 
 MyThread::MyThread(QObject *parent) : QThread(parent)
 {
+    MyThread::stop = false;
 }
 MyThread::~MyThread(){
 
@@ -11,14 +14,23 @@ MyThread::~MyThread(){
 
 
 void MyThread::run(){
-    for(int i = 0;i < 1000;i++){
+    for(int i = value;i < 20;i++){
         QMutex mutex;
         mutex.lock();
-        if(this->stop)  break;
+        if(this->stop){
+            MyThread::stop = false; //Enable toogling thread
+            i=value;
+            break;
+        }
         mutex.unlock();
-
-        emit NumberChanged(i);
+        emit NumberChanged(i,name);
+        //emit NumberChanged(i);
         this->msleep(10);
      }
 
+}
+
+void MyThread::randomizer(){
+    QRandomGenerator rand;
+    emit randomizer_out(rand.generate(),MyThread::name);
 }

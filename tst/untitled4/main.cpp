@@ -26,46 +26,7 @@ int main(int argc, char *argv[])
 
 
 
-/*
-    MyThread mThread1;
-    mThread1.name = "mThread1";
 
-
-    MyThread mThread2;
-    mThread2.name = "mThread2";
-
-
-    MyThread mThread3;
-    mThread3.name = "mThread3";
-
-    mThread1.start();
-    //mThread2.start();
-    //mThread3.start();
-    mThread1.stop = true;
-/*
- *
-/*
-    mThread1.start();
-    mThread2.start();
-    mThread3.start(QThread::HighestPriority);
-*/
-
-
-    /*
-    testC *stopwatch = new testC;
-    //stopwatch->testCase_Initialize_RADAR("rad");
-    TrainThread *trainT = new TrainThread;
-
-    *trainT->var_a = trainT->generate(10);
-    for(int n=0;n<=trainT->var_a->length();n++){
-        qDebug() <<"n:" << n << " ->" << trainT->var_a->at(n);
-    }
-    qDebug() << "----------------------------";
-    qDebug() << "End";
-    //trainT->generate(10,*trainT->var_b);
-    //trainT->sum(*trainT->var_a,*trainT->var_b,*trainT->var_c);
-    //trainT->saveToFile('+',*trainT->var_a,*trainT->var_b,*trainT->var_c);
-    */
 
     //Radar receive output to txt
     /*

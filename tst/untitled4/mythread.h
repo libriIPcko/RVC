@@ -6,6 +6,8 @@
 #include "QDebug"
 #include "QThread"
 #include "QObject"
+#include "QSerialPort"
+#include "QRandomGenerator"
 
 
 class MyThread : public QThread
@@ -18,9 +20,14 @@ public:
     QString name;
     bool stop = false;
     void run();
+    void randomizer();
+    int value = 0;
     //void start();
-signals:
+
+public: signals:
+    void NumberChanged(int,QString);
     void NumberChanged(int);
+    void randomizer_out(int,QString);
 public slots:
 };
 

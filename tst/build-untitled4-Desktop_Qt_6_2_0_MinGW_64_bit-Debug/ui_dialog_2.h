@@ -14,6 +14,7 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -24,6 +25,8 @@ public:
     QTabWidget *tabWidget;
     QWidget *tab;
     QPushButton *pushButton;
+    QTextBrowser *textBrowser;
+    QPushButton *pushButton_2;
     QWidget *tab_2;
 
     void setupUi(QDialog *Dialog_2)
@@ -39,6 +42,12 @@ public:
         pushButton = new QPushButton(tab);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setGeometry(QRect(520, 10, 75, 23));
+        textBrowser = new QTextBrowser(tab);
+        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
+        textBrowser->setGeometry(QRect(10, 10, 501, 411));
+        pushButton_2 = new QPushButton(tab);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        pushButton_2->setGeometry(QRect(520, 40, 75, 23));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -52,7 +61,8 @@ public:
     void retranslateUi(QDialog *Dialog_2)
     {
         Dialog_2->setWindowTitle(QCoreApplication::translate("Dialog_2", "Dialog", nullptr));
-        pushButton->setText(QCoreApplication::translate("Dialog_2", "PushButton", nullptr));
+        pushButton->setText(QCoreApplication::translate("Dialog_2", "Run", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("Dialog_2", "Stop", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("Dialog_2", "Tab 1", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("Dialog_2", "Tab 2", nullptr));
     } // retranslateUi
