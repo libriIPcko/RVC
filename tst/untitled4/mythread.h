@@ -20,6 +20,7 @@ public:
     QString name;
     bool stop = false;
     void run();
+    void cycleNum();
     void randomizer();
     int value = 0;
     //void start();

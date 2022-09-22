@@ -16,6 +16,13 @@ Dialog_2::~Dialog_2()
     delete ui;
 }
 
+void Dialog_2::ThrFunction_1(){
+    ui->textBrowser->append("Thread_1");
+}
+void Dialog_2::ThrFunction_2(){
+    ui->textBrowser->append("Thread_2");
+}
+
 //start
 void Dialog_2::on_pushButton_clicked()
 {
@@ -27,14 +34,16 @@ void Dialog_2::on_pushButton_clicked()
         connect(mThread2,SIGNAL(NumberChanged(int,QString)),this,SLOT(on_NumberChanged(int,QString)));
         connect(mThread3,SIGNAL(NumberChanged(int,QString)),this,SLOT(on_NumberChanged(int,QString)));
 
-        connect(mThread1,SIGNAL(randomizer_out(int,QString)),this,SLOT(on_randomizer_out(int,QString)));
-        connect(mThread2,SIGNAL(randomizer_out(int,QString)),this,SLOT(on_randomizer_out(int,QString)));
-        connect(mThread3,SIGNAL(randomizer_out(int,QString)),this,SLOT(on_randomizer_out(int,QString)));
+        //connect(mThread1,SIGNAL(randomizer_out(int,QString)),this,SLOT(on_randomizer_out(int,QString)));
+        //connect(mThread2,SIGNAL(randomizer_out(int,QString)),this,SLOT(on_randomizer_out(int,QString)));
+        //connect(mThread3,SIGNAL(randomizer_out(int,QString)),this,SLOT(on_randomizer_out(int,QString)));
 
 
-        mThread1->start(QThread::HighPriority);
-        mThread2->start(QThread::NormalPriority);
-        mThread3->start(QThread::HighestPriority);
+        //mThread1->start(QThread::HighPriority);
+        //mThread2->start(QThread::NormalPriority);
+        //mThread3->start(QThread::HighestPriority);
+        //std::thread thread1(&ThrFunction_1(),std::ref(log));
+        QThread thr1(mThread1->cycleNum());
 
 
 

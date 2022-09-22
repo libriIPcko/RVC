@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <mythread.h>
 #include <QObject>
+#include <thread>
 
 namespace Ui {
 class Dialog_2;
@@ -20,6 +21,9 @@ public:
     MyThread *mThread1;
     MyThread *mThread2;
     MyThread *mThread3;
+
+    void ThrFunction_1();
+    void ThrFunction_2();
 
 private:
     Ui::Dialog_2 *ui;
