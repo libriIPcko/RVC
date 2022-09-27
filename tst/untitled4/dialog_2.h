@@ -5,6 +5,7 @@
 #include <mythread.h>
 #include <QObject>
 #include <thread>
+#include <mynon_qthread.h>
 
 namespace Ui {
 class Dialog_2;
@@ -18,9 +19,13 @@ public:
     explicit Dialog_2(QWidget *parent = nullptr);
     ~Dialog_2();
 
-    MyThread *mThread1;
-    MyThread *mThread2;
-    MyThread *mThread3;
+    //MyThread *mThread1;
+    //MyThread *mThread2;
+    //MyThread *mThread3;
+
+    myNon_QThread *obj1;
+    myNon_QThread *obj2;
+
 
     void ThrFunction_1();
     void ThrFunction_2();

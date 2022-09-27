@@ -28,6 +28,7 @@ public slots:
     void onNumberChanged(int);
     //void onInterrupt_ReadPacket(QByteArray,int);
     void onInterrupt_ReadPacket(QString data, int dataCounter);
+
 //private slots:
     void on_pushButtons_Start_clicked();
     void on_pushButton_2_clicked();

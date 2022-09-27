@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
 {
     //QCoreApplication a(argc, argv);
     QApplication a(argc, argv);
-    //Dialog w;   //Dialog oficial code, processing of radar data from the file
-    Dialog_2 w;   //Thread tutorial dialog window
+    Dialog w;   //Dialog oficial code, processing of radar data from the file
+    //Dialog_2 w;   //Thread tutorial dialog window
     w.show();
 
 

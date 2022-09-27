@@ -6,9 +6,13 @@ Dialog_2::Dialog_2(QWidget *parent) :
     ui(new Ui::Dialog_2)
 {
     ui->setupUi(this);
-    mThread1 = new MyThread();
-    mThread2 = new MyThread();
-    mThread3 = new MyThread();
+    //mThread1 = new MyThread();
+    //mThread2 = new MyThread();
+    //mThread3 = new MyThread();
+
+    obj1 = new myNon_QThread;
+    obj2 = new myNon_QThread;
+
 }
 
 Dialog_2::~Dialog_2()
@@ -26,6 +30,7 @@ void Dialog_2::ThrFunction_2(){
 //start
 void Dialog_2::on_pushButton_clicked()
 {
+    /*
         mThread1->name = "mThread1";
         mThread2->name = "mThread2";
         mThread3->name = "mThread3";
@@ -33,25 +38,23 @@ void Dialog_2::on_pushButton_clicked()
         connect(mThread1,SIGNAL(NumberChanged(int,QString)),this,SLOT(on_NumberChanged(int,QString)));
         connect(mThread2,SIGNAL(NumberChanged(int,QString)),this,SLOT(on_NumberChanged(int,QString)));
         connect(mThread3,SIGNAL(NumberChanged(int,QString)),this,SLOT(on_NumberChanged(int,QString)));
+     */
 
         //connect(mThread1,SIGNAL(randomizer_out(int,QString)),this,SLOT(on_randomizer_out(int,QString)));
         //connect(mThread2,SIGNAL(randomizer_out(int,QString)),this,SLOT(on_randomizer_out(int,QString)));
         //connect(mThread3,SIGNAL(randomizer_out(int,QString)),this,SLOT(on_randomizer_out(int,QString)));
 
+        obj1->name = "obj1";
+        obj2->name = "obj2";
+
+        QThread first;
+        QThread second;
 
         //mThread1->start(QThread::HighPriority);
         //mThread2->start(QThread::NormalPriority);
         //mThread3->start(QThread::HighestPriority);
         //std::thread thread1(&ThrFunction_1(),std::ref(log));
-        QThread thr1(mThread1->cycleNum());
 
-
-
-    /*
-        mThread1.start();
-        mThread2.start();
-        mThread3.start(QThread::HighestPriority);
-    */
 
 
         /*
@@ -86,8 +89,8 @@ void Dialog_2::on_randomizer_out(int number, QString name){
 //stop
 void Dialog_2::on_pushButton_2_clicked()
 {
-    mThread1->stop = true;
-    mThread2->stop = true;
-    mThread3->stop = true;
+    //mThread1->stop = true;
+    //mThread2->stop = true;
+    //mThread3->stop = true;
 }
 

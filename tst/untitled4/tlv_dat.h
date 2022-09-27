@@ -3,7 +3,7 @@
 
 #include "QByteArray"
 #include "QString"
-#include "array"
+#include "vector"
 
 class TLV_dat
 {
@@ -41,6 +41,7 @@ public:
             QByteArray  doppler;             //72B    //Doppler, in m/s
             QByteArray  snr;                 //76B    //SNR, ratio
         }point_cloud;
+
         struct TargetObject{    //more TO in one packet                                                             x07
             QByteArray  tid;                 //80B    //Track ID
             QByteArray  posX;                //84B    //Target position in X dimension, m
@@ -60,6 +61,10 @@ public:
              * 255  -   Point not associated, considered as noise
              */
         }target_index;
+
+        std::vector<TargetObject> targetObject_vect;
+        std::vector<TargetIndex> targetIndex_vect;
+        std::vector<PointCloud> pointCloud_vect;
 private:
 };
 #endif // TLV_DAT_H

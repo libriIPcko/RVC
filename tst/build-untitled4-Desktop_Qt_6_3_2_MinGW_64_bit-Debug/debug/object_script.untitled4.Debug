@@ -1,0 +1,15 @@
+debug/radar_awr1843.o
+debug/dialog.o
+debug/dialog_2.o
+debug/main.o
+debug/mynon_qthread.o
+debug/mythread.o
+debug/testc.o
+debug/tlv_dat.o
+debug/trainthread.o
+debug/moc_radar_awr1843.o
+debug/moc_dialog.o
+debug/moc_dialog_2.o
+debug/moc_mythread.o
+debug/moc_testc.o
+debug/moc_trainthread.o

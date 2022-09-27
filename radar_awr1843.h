@@ -39,6 +39,7 @@ public:
     QString RX;
     QString cfgPath = "C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/xwr18xx_profile_2022_05_30T13_05_06_607.txt";
 
+    std::vector<TLV_dat> TLV_packets;
     //Dev-Deb Var DDV
     int DEBUG_allignData_fromFile();
     int ofset = 0;
@@ -47,9 +48,7 @@ private:
     int ReadConfigCMD(QString path,std::array<QString, 60> txtLines);
     int PortDisconnect(QString typePort);
     int send_COMM(QString data);
-
     int readPackets(int msec);
-
     int sortData(QString,TLV_dat);
     std::array<QString, 60> temporary_arrayCMD;
     QSerialPort *port_AUXILIARY;
@@ -70,6 +69,7 @@ public: signals:
     void timeout();
     void readyRead();
     void Interrupt_ReadPacket(QString data, int dataCounter);
+    void Interrupt_ReadTLV_packets(TLV_dat TLV_packets);
 
 
 public slots:

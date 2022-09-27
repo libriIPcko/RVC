@@ -56,6 +56,8 @@ void Dialog::on_pushButton_2_clicked()
 }
 
 void Dialog::onInterrupt_ReadPacket(QString data, int dataCounter){
-    QString txt = QString::number(dataCounter) + "\n" + data;
-    ui->textBrowser->append(txt);
+    //QString txt = QString::number(dataCounter) + "\n" + data;
+    //ui->textBrowser->append(txt);
+
 }
+

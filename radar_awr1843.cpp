@@ -367,7 +367,8 @@ int RADAR_AWR1843::DEBUG_allignData_fromFile(){
     int dataCounter = 0;
     int n = 0;
     QString data;
-    std::vector<TLV_dat> TLV_packets;
+
+
     TLV_dat tlvData;
     do{
         //data = DebugLog->readLine(10);
@@ -382,60 +383,101 @@ int RADAR_AWR1843::DEBUG_allignData_fromFile(){
         }
         n++;
     //}while(!DebugLog->atEnd() && n <= 4 && dataCounter <= 10);
-    }while(!DebugLog->atEnd() && dataCounter <= 10);
+    }while(!DebugLog->atEnd() && dataCounter <= 80);//maximum is set by dataCounter
 
 }
 int RADAR_AWR1843::sortData(QString data,TLV_dat outData){
     int length = data.length();
-    int n = 1;
-    int pos = 0;
+    int n = 0;
+    int offset = 0;
+    QByteArray temp;
+    //int pos = 0;
     while(n<=data.length()){
     //FrameHeaderStructType     defaultPosition
-        //
         //sync
-
-        if(n<= 8){
-            //outData.fHST->sync = {'x02', 'x01', 'x04', 'x03', 'x06', 'x05', 'x08', 'x07'};
-            //outData.fHST.sync = {'\x02', '\x01', '\x04', '\x03', '\x06', '\x05', '\x08', '\x07'};
-            //outData.fHST.sync = {0x02,0x01,0x04,0x03,0x06,0x05,0x08,0x07};
-            //outData.fHST.sync = QByteArray::fromHex("0201040306050807");
-            //outData.fHST.sync = QByteArrayLiteral("\x02\x01\x04");
-            //outData.fHST.sync
-            //QByteArray abc[5];
-            //abc = QByteArrayLiteral("\x02\x01\x04");           
-            pos = n;
-            outData.fHST.sync.append(pos) = "0f";
+        if(n<= 8){        
+            //pos = n;
+            qDebug() << TLV_packets.size() << n << "---" << data.toUtf8().at(n);
+            outData.fHST.sync.append(data.toUtf8().at(n));
         }
         //version
         else if(n <= 12){
-            if(n==9){ofset=9;pos=n-ofset;}
-            //outData.fHST.version.append(pos) =  ;
+            //if(n==9){ofset=9;pos=n-ofset;}
+            qDebug() << TLV_packets.size() << n << "---" << data.toUtf8().at(n);
+            outData.fHST.version.append(data.toUtf8().at(n));
         }
         //platform
-        else if(n <= 16){}
+        else if(n <= 16){
+            qDebug() << TLV_packets.size() << n << "---" << data.toUtf8().at(n);
+            outData.fHST.platform.append(data.toUtf8().at(n));
+        }
         //timestamp
-        else if(n <= 20){}
+        else if(n <= 20){
+            outData.fHST.timestamp.append(data.toUtf8().at(n));
+        }
         //packetLength
-        else if(n <= 24){}
+        else if(n <= 24){
+            outData.fHST.packetLength.append(data.toUtf8().at(n));
+        }
         //frameNumber
-        else if(n <= 28){}
+        else if(n <= 28){
+            outData.fHST.frameNumber.append(data.toUtf8().at(n));
+        }
         //subframeNumber
-        else if(n <= 32){}
+        else if(n <= 32){
+            outData.fHST.subframeNumber.append(data.toUtf8().at(n));
+        }
         //chirpMargin
-        else if(n <= 36){}
+        else if(n <= 36){
+            outData.fHST.chirpMargin.append(data.toUtf8().at(n));
+        }
         //frameMargin
-        else if(n <= 40){}
+        else if(n <= 40){
+            outData.fHST.frameMargin.append(data.toUtf8().at(n));
+        }
         //uartSendTime
-        else if(n <= 44){}
+        else if(n <= 44){
+            outData.fHST.uartSendTime.append(data.toUtf8().at(n));
+        }
         //trackProcessTime
-        else if(n <= 48){}
+        else if(n <= 48){
+            outData.fHST.trackProcessTime.append(data.toUtf8().at(n));
+        }
         // !!! //numTLVs
-        else if(n <= 52){}
+        else if(n <= 52){
+            outData.fHST.numTLVs.append(data.toUtf8().at(n));
+        }
         //checksum
-        else if(n <= 56){}
+        else if(n <= 56){
+            outData.fHST.checksum.append(data.toUtf8().at(n));
+        }
         //TLV_Header OR Point Cloud OR TargetObject dependent on type
         else if((n > 56)&&(n<=length)){
-            //
+            //            
+            temp.append(data.toUtf8().at(n));
+
+            if(temp.size() == 2){//4
+                //QbyteComparrision
+                if(temp.compare("06")){                                         //PointCloud case
+                    qDebug() << temp;
+                }
+                else if(temp.compare("07")){                                    //Target object list case
+                    qDebug() << temp;
+                }
+                else if(temp.compare("08")){                                    //Target index case
+                    qDebug() << temp;
+                }
+                temp.clear();
+                temp.append("0");
+                temp.append("0");
+            }
+            else if(temp.size() == 4){//4+4
+                qDebug() << temp;
+            }
+            else{
+                qDebug() << temp;
+            }
+
         }
         else{
             break;

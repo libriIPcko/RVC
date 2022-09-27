@@ -14,6 +14,7 @@ SOURCES += \
         dialog.cpp \
         dialog_2.cpp \
         main.cpp \
+        mynon_qthread.cpp \
         mythread.cpp \
         testc.cpp \
         tlv_dat.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     ../../radar_awr1843.h \
     dialog.h \
     dialog_2.h \
+    mynon_qthread.h \
     mythread.h \
     testc.h \
     tlv_dat.h \
