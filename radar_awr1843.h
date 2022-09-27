@@ -28,6 +28,8 @@ public:
 
     int port_AUXILIARY_baudRate = 921600;
     int port_COMM_baudRate = 115200;
+    QString port_defaultPort_AUX = "COM4";
+    QString port_defaultPort_COM = "COM3";
 
     //Debug part of SC
     QTimer *tim_debug = new QTimer;
