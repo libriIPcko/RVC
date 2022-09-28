@@ -39,9 +39,11 @@ public:
     //QFile debug_file("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/deb.txt");
     int marker = 0;
     QString RX;
-    QString cfgPath = "C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/xwr18xx_profile_2022_05_30T13_05_06_607.txt";
+    //QString cfgPath = "C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/xwr18xx_profile_2022_05_30T13_05_06_607.txt";
+    QString cfgPath = "C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/template TLV radar data.txt";
 
     std::vector<TLV_dat> TLV_packets;
+    TLV_dat outData;
     //Dev-Deb Var DDV
     int DEBUG_allignData_fromFile();
     int ofset = 0;

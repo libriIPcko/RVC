@@ -376,84 +376,101 @@ int RADAR_AWR1843::DEBUG_allignData_fromFile(){
         if(data.contains(sync)){
             dataCounter++;
             //qDebug() << "Data was find: " << dataCounter << data;
-            sortData(data,tlvData);
-            TLV_packets.push_back(tlvData);
+            //sortData(data,tlvData);
+            sortData(data,outData);
+            //TLV_packets.push_back(tlvData);
+            TLV_packets.push_back(outData);
+
             //feedback data
             Q_EMIT Interrupt_ReadPacket(data, dataCounter);                    //signal
         }
         n++;
-    //}while(!DebugLog->atEnd() && n <= 4 && dataCounter <= 10);
-    }while(!DebugLog->atEnd() && dataCounter <= 80);//maximum is set by dataCounter
+    }while(!DebugLog->atEnd()); //read whole file
+    //}while(!DebugLog->atEnd() && dataCounter <= 80);//maximum is set by dataCounter
 
 }
+
+// - Start here, the outData are filled but not store in the TLV_packets
+//
 int RADAR_AWR1843::sortData(QString data,TLV_dat outData){
     int length = data.length();
     int n = 0;
     int offset = 0;
+    int bO = 2;
     QByteArray temp;
     //int pos = 0;
     while(n<=data.length()){
     //FrameHeaderStructType     defaultPosition
         //sync
-        if(n<= 8){        
+        if(n< 8*bO){
             //pos = n;
-            qDebug() << TLV_packets.size() << n << "---" << data.toUtf8().at(n);
+            qDebug() << TLV_packets.size() << n << "sync" << "---" << data.toUtf8().at(n);
             outData.fHST.sync.append(data.toUtf8().at(n));
         }
         //version
-        else if(n <= 12){
+        else if(n < 12*bO){
             //if(n==9){ofset=9;pos=n-ofset;}
-            qDebug() << TLV_packets.size() << n << "---" << data.toUtf8().at(n);
+            qDebug() << TLV_packets.size() << n << "version" << "---" << data.toUtf8().at(n);
             outData.fHST.version.append(data.toUtf8().at(n));
         }
         //platform
-        else if(n <= 16){
-            qDebug() << TLV_packets.size() << n << "---" << data.toUtf8().at(n);
+        else if(n < 16*bO){
+            qDebug() << TLV_packets.size() << n << "platform"<< "---" << data.toUtf8().at(n);
             outData.fHST.platform.append(data.toUtf8().at(n));
         }
         //timestamp
-        else if(n <= 20){
+        else if(n < 20*bO){
+            qDebug() << TLV_packets.size() << n << "timestamp"<< "---" << data.toUtf8().at(n);
             outData.fHST.timestamp.append(data.toUtf8().at(n));
         }
         //packetLength
-        else if(n <= 24){
+        else if(n < 24*bO){
+            qDebug() << TLV_packets.size() << n << "packetLength"<< "---" << data.toUtf8().at(n);
             outData.fHST.packetLength.append(data.toUtf8().at(n));
         }
         //frameNumber
-        else if(n <= 28){
+        else if(n < 28*bO){
+            qDebug() << TLV_packets.size() << n << "frameNumber"<< "---" << data.toUtf8().at(n);
             outData.fHST.frameNumber.append(data.toUtf8().at(n));
         }
         //subframeNumber
-        else if(n <= 32){
+        else if(n < 32*bO){
+            qDebug() << TLV_packets.size() << n << "subframeNumber"<< "---" << data.toUtf8().at(n);
             outData.fHST.subframeNumber.append(data.toUtf8().at(n));
         }
         //chirpMargin
-        else if(n <= 36){
+        else if(n < 36*bO){
+            qDebug() << TLV_packets.size() << n << "chirpMargin"<< "---" << data.toUtf8().at(n);
             outData.fHST.chirpMargin.append(data.toUtf8().at(n));
         }
         //frameMargin
-        else if(n <= 40){
+        else if(n < 40*bO){
+            qDebug() << TLV_packets.size() << n << "frameMargin"<< "---" << data.toUtf8().at(n);
             outData.fHST.frameMargin.append(data.toUtf8().at(n));
         }
         //uartSendTime
-        else if(n <= 44){
+        else if(n < 44*bO){
+            qDebug() << TLV_packets.size() << n << "uartSendTime"<< "---" << data.toUtf8().at(n);
             outData.fHST.uartSendTime.append(data.toUtf8().at(n));
         }
         //trackProcessTime
-        else if(n <= 48){
+        else if(n < 48*bO){
+            qDebug() << TLV_packets.size() << n << "trackProcessTime"<< "---" << data.toUtf8().at(n);
             outData.fHST.trackProcessTime.append(data.toUtf8().at(n));
         }
         // !!! //numTLVs
-        else if(n <= 52){
+        else if(n < 52*bO){
+            qDebug() << TLV_packets.size() << n << "numTLVs"<< "---" << data.toUtf8().at(n);
             outData.fHST.numTLVs.append(data.toUtf8().at(n));
         }
         //checksum
-        else if(n <= 56){
+        else if((n < 52*bO) && (n < 56*bO)){
+            qDebug() << TLV_packets.size() << n << "checksum"<< "---" << data.toUtf8().at(n);
             outData.fHST.checksum.append(data.toUtf8().at(n));
         }
         //TLV_Header OR Point Cloud OR TargetObject dependent on type
-        else if((n > 56)&&(n<=length)){
-            //            
+        else if((n > 56*bO)&&(n<=length)){
+            /*
             temp.append(data.toUtf8().at(n));
 
             if(temp.size() == 2){//4
@@ -477,6 +494,7 @@ int RADAR_AWR1843::sortData(QString data,TLV_dat outData){
             else{
                 qDebug() << temp;
             }
+            */
 
         }
         else{
