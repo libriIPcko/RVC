@@ -393,6 +393,10 @@ int RADAR_AWR1843::DEBUG_allignData_fromFile(){
 // - Start here, the outData are filled but not store in the TLV_packets
 //
 int RADAR_AWR1843::sortData(QString data,TLV_dat outData){
+
+    QFile outFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/outFile_sortedData.txt");
+    outFile.open(QIODevice::WriteOnly);
+
     int length = data.length();
     int n = 0;
     int offset = 0;
@@ -404,13 +408,21 @@ int RADAR_AWR1843::sortData(QString data,TLV_dat outData){
         //sync
         if(n< 8*bO){
             //pos = n;
-            qDebug() << TLV_packets.size() << n << "sync" << "---" << data.toUtf8().at(n);
+            QString txt = QString::number(TLV_packets.size()) + QString::number(n) + "sync" + "---" + data.toUtf8().at(n);
+            QTextStream out(&outFile);
+            out << txt;
+            qDebug() << txt;
             outData.fHST.sync.append(data.toUtf8().at(n));
         }
         //version
         else if(n < 12*bO){
             //if(n==9){ofset=9;pos=n-ofset;}
-            qDebug() << TLV_packets.size() << n << "version" << "---" << data.toUtf8().at(n);
+            QTextStream out(&outFile);
+            if(n==8){
+                out << "/n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << "sync: /t";
+            }
+            out << data.toUtf8().at(n);
+            qDebug() << data.toUtf8().at(n);
             outData.fHST.version.append(data.toUtf8().at(n));
         }
         //platform
