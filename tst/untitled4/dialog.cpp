@@ -29,16 +29,18 @@ void Dialog::on_pushButtons_Start_clicked()
     //mThread->stop = false;
     //mThread->start();
 
+
     //qDebug() << "APP/User UART status: " << rad->PortConnect("COM66", 9600, "COM");
-    qDebug() << "APP/User UART status: " << rad->PortConnect("COM3", rad->port_COMM_baudRate, "COM");
+    qDebug() << "Comm UART status: " << rad->PortConnect(rad->port_defaultPort_COM, rad->port_COMM_baudRate, "COM");
+    qDebug() << "Auxiliary UART status: " << rad->PortConnect(rad->port_defaultPort_AUX, rad->port_AUXILIARY_baudRate, "AUX");
+    rad->init(rad->cfgPath); //initialized  //Stop RX
 
     qDebug() << "Status of interclass connection : ";
     qDebug() << connect(rad,SIGNAL(Interrupt_ReadPacket(QString,int)),this,SLOT(onInterrupt_ReadPacket(QString,int)));
 
-    rad->init(rad->cfgPath); //initialized  //Stop RX
 
-    rad->DEBUG_allignData_fromFile();
 
+    //rad->DEBUG_allignData_fromFile();
     //qDebug() << rad->PortDisconnect();    //Disconnecting of radar
 
 }
