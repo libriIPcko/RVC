@@ -15,7 +15,7 @@ RADAR_AWR1843::RADAR_AWR1843(QObject *parent) //: QThread(parent)
     //qDebug() << "RX_radar_data File status open: " << RX_radar_data->open(QIODevice::ReadWrite);
     RX_radar_data->open(QIODevice::ReadWrite);
     //qDebug() << "DebugLog File status open: " << DebugLog->open(QIODevice::ReadWrite);
-    DebugLog->open(QIODevice::ReadWrite);
+    //DebugLog->open(QIODevice::ReadWrite);
 }
 RADAR_AWR1843::~RADAR_AWR1843(){
     PortDisconnect();
@@ -363,218 +363,214 @@ int RADAR_AWR1843::port_AUXILIARY_receive(){
         //RX_radar_data.close();
     }    
 }
+int RADAR_AWR1843::openFile(QString DataPath){
+    DebugLog->setFileName(DataPath);
+    qDebug() << DebugLog->open(QIODevice::ReadWrite);
+    return 0;
+}
 
-//allign data from file
-int RADAR_AWR1843::DEBUG_allignData_fromFile(){
+int RADAR_AWR1843::syncDetect(){
     QTextStream inputStream(DebugLog);
     QByteArray sync = "0201040306050807";
-    int dataCounter = 0;
-    int n = 0;
-    QString data;
-
-
-    TLV_dat tlvData;
-    do{
-
-        data = DebugLog->readAll();        
-                                                    //vector of start position of sync chain
-        std::vector<int> pos;
+    //TLV_dat tlvData;
+        data.clear();
+        qDebug() << DebugLog->isOpen();
+        data = DebugLog->readAll();
         pos.push_back(data.indexOf(sync));
         while(pos.at(pos.size()-1) <= data.length()){
-            pos.push_back(data.indexOf(sync,1+pos.at(pos.size()-1)));            
+            pos.push_back(data.indexOf(sync,1+pos.at(pos.size()-1)));
             qDebug() << pos.at((pos.size()-1)) << pos.size();
             if((pos.at(pos.size()-1)== -1)||(pos.at(pos.size()-2)==pos.at(pos.size()-1))){
                 pos.pop_back();
                 break;
+                return 0;
             }
         }
-        qsizetype j = 0;
-        qsizetype i = 0;
-        bool debug = true;
-        QString temp;
-        //for(int i=0;i<=pos.at(j);i++){
-        do{
-            temp.append(data.at(i));
 
-            if(i==pos.at(pos.size()-1)||i==pos.at(j+1)){
-                TLV_RAW_packets.push_back(temp);
-                if((pos.size()-1) == j){
-                    break;
-                }
-                else{
-                    j++;
-                }
-            }
-            i++;
-        }while(i<=pos.at(j+1));
-
-
-        debug = false;
-
-
-        /*
-        while(pos<=data.length())
-            pos = data.indexOf(sync,pos+50);
-        }
-        */
-
-        /*
-        if(data.contains(sync)){
-            dataCounter++;
-            //qDebug() << "Data was find: " << dataCounter << data;
-            //sortData(data,tlvData);
-            sortData(data); //write to outData
-            //TLV_packets.push_back(tlvData);
-            TLV_packets.push_back(outData);
-            //feedback data
-            Q_EMIT Interrupt_ReadPacket(data, dataCounter);                    //signal
-        }
-        */
-        n++;
-    }while(!DebugLog->atEnd()); //read whole file
-    //}while(!DebugLog->atEnd() && dataCounter <= 80);//maximum is set by dataCounter
 }
+int RADAR_AWR1843::loadPackets(){
+    //Read all packets
+    qsizetype j = 0;
+    int i = 0;
+    QString temp;
+    temp.clear();
+    TLV_RAW_packets.clear();
+    do{
+        temp.append(data.at(i));
+        // add if for breakpoint 1390 = j
+        if(i==pos.at(pos.size()-1)||i==pos.at(j+1)){
+            TLV_RAW_packets.push_back(temp);
+            temp.clear();
+            if(i == pos.at(pos.size()-1)){
+                break;
+            }
+            else{
+                j++;
+            }
+        }
+        i++;
+    }while(i<=pos.at(j+1));
+}
+
+int RADAR_AWR1843::algorithm_ReadFromFile(){
+    syncDetect();
+    loadPackets();
+    for(uint16_t i=0;i <= TLV_RAW_packets.size()-1;i++){
+        sortData(TLV_RAW_packets.at(i),i);
+    }
+}
+
+
 
 // - Start here, the outData are filled but not store in the TLV_packets
 //
 //int RADAR_AWR1843::sortData(QString data,TLV_dat outData){
-int RADAR_AWR1843::sortData(QString data){
+int RADAR_AWR1843::sortData(QString data,int num){
     QFile outFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/outFile_sortedData.txt");
-    qDebug() << "Open output file: "<<outFile.open(QIODevice::WriteOnly | QIODevice::Text);
+
+
 
     int length = data.length();
     int n = 0;
     int offset = 0;
     int bO = 2;
     QByteArray temp;
+    QTextStream out(&outFile);
+    out << "\n----" << num << "----\n";
+    if(num == 0){
+        qDebug() << "Open output file: "<<outFile.open(QIODevice::WriteOnly | QIODevice::Text);
+    }
+    else{
+        qDebug() << "Open output file: "<<outFile.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append);
+    }
     //int pos = 0;
-    while(n<=data.length()){
+    while(n<data.length()){
     //FrameHeaderStructType     defaultPosition
         //sync
         if(n < 8*bO){
             //pos = n;
-            QTextStream out(&outFile);
             if(n==0){
                 out << "\n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << " "<< "sync: \t\t\t\t";
             }
             out << data.toUtf8().at(n);
-            qDebug() << data.toUtf8().at(n);
+            //qDebug() << data.toUtf8().at(n);
             outData.fHST.sync.append(data.toUtf8().at(n));
         }
         //version
         else if(n < (12*bO)){
             //if(n==9){ofset=9;pos=n-ofset;}
-            QTextStream out(&outFile);
+            //QTextStream out(&outFile);
             if(n==8*bO){
                 out << "\n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << " "<< "version: \t\t\t";
             }
             out << data.toUtf8().at(n);
-            qDebug() << data.toUtf8().at(n);
+            //qDebug() << data.toUtf8().at(n);
             outData.fHST.version.append(data.toUtf8().at(n));
         }
         //platform
         else if(n < (16*bO)){
-            QTextStream out(&outFile);
+            //QTextStream out(&outFile);
             if(n==12*bO){
                 out << "\n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << " "<< "platform: \t\t\t";
             }
             out << data.toUtf8().at(n);
-            qDebug() << data.toUtf8().at(n);
+            //qDebug() << data.toUtf8().at(n);
             outData.fHST.platform.append(data.toUtf8().at(n));
         }
         //timestamp
         else if(n < 20*bO){
-            QTextStream out(&outFile);
+            //QTextStream out(&outFile);
             if(n==16*bO){
                 out << "\n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << " "<< "timestamp: \t\t";
             }
             out << data.toUtf8().at(n);
-            qDebug() << data.toUtf8().at(n);
+            //qDebug() << data.toUtf8().at(n);
             outData.fHST.timestamp.append(data.toUtf8().at(n));
         }
         //packetLength
         else if(n < 24*bO){
-            QTextStream out(&outFile);
+            //QTextStream out(&outFile);
             if(n==20*bO){
                 out << "\n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << " "<< "packetLength: \t\t";
             }
             out << data.toUtf8().at(n);
-            qDebug() << data.toUtf8().at(n);
+            //qDebug() << data.toUtf8().at(n);
             outData.fHST.packetLength.append(data.toUtf8().at(n));
         }
         //frameNumber
         else if(n < 28*bO){
-            QTextStream out(&outFile);
+            //QTextStream out(&outFile);
             if(n==24*bO){
                 out << "\n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << " "<< "frameNumber: \t\t";
             }
             out << data.toUtf8().at(n);
-            qDebug() << data.toUtf8().at(n);
+            //qDebug() << data.toUtf8().at(n);
             outData.fHST.frameNumber.append(data.toUtf8().at(n));
         }
         //subframeNumber
         else if(n < 32*bO){
-            QTextStream out(&outFile);
+            //QTextStream out(&outFile);
             if(n==28*bO){
                 out << "\n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << " "<< "subframeNumber: \t";
             }
             out << data.toUtf8().at(n);
-            qDebug() << data.toUtf8().at(n);
+            //qDebug() << data.toUtf8().at(n);
             outData.fHST.subframeNumber.append(data.toUtf8().at(n));
         }
         //chirpMargin
         else if(n < 36*bO){
-            QTextStream out(&outFile);
+            //QTextStream out(&outFile);
             if(n==32*bO){
                 out << "\n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << " "<< "chirpMargin: \t\t";
             }
             out << data.toUtf8().at(n);
-            qDebug() << data.toUtf8().at(n);
+            //qDebug() << data.toUtf8().at(n);
             outData.fHST.chirpMargin.append(data.toUtf8().at(n));
         }
         //frameMargin
         else if(n < 40*bO){
-            QTextStream out(&outFile);
+            //QTextStream out(&outFile);
             if(n==36*bO){
                 out << "\n"<< QString::number(TLV_packets.size()) << "/" <<  QString::number(n) << " " << "frameMargin: \t\t";
             }
             out << data.toUtf8().at(n);
-            qDebug() << data.toUtf8().at(n);
+            //qDebug() << data.toUtf8().at(n);
             outData.fHST.frameMargin.append(data.toUtf8().at(n));
         }
         //uartSendTime
         else if(n < 44*bO){
-            QTextStream out(&outFile);
+            //QTextStream out(&outFile);
             if(n==40*bO){
                 out << "\n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << " " << "uartSendTime: \t\t";
             }
             out << data.toUtf8().at(n);
-            qDebug() << data.toUtf8().at(n);
+            //qDebug() << data.toUtf8().at(n);
             outData.fHST.uartSendTime.append(data.toUtf8().at(n));
         }
         //trackProcessTime
         else if(n < 48*bO){
-            QTextStream out(&outFile);
+            //QTextStream out(&outFile);
             if(n==44*bO){
                 out << "\n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << " " << "trackProcessTime: \t";
             }
             out << data.toUtf8().at(n);
-            qDebug() << data.toUtf8().at(n);
+            //qDebug() << data.toUtf8().at(n);
             outData.fHST.trackProcessTime.append(data.toUtf8().at(n));
         }
         // !!! //numTLVs
         else if(n < 52*bO){           
-            QTextStream out(&outFile);
+            //QTextStream out(&outFile);
             if(n==48*bO){
                 out << "\n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << " " << "numTLVs: \t\t\t";
             }
             out << data.toUtf8().at(n);
-            qDebug() << data.toUtf8().at(n);
+            //qDebug() << data.toUtf8().at(n);
             outData.fHST.numTLVs.append(data.toUtf8().at(n));
         }
+        /*
         //checksum
         else if((n < 52*bO) && (n < 56*bO)){
-            QTextStream out(&outFile);
+            //QTextStream out(&outFile);
             if(n==52*bO){
                 out << "\n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << " " << "checksum: \t\t";
             }
@@ -582,8 +578,16 @@ int RADAR_AWR1843::sortData(QString data){
             qDebug() << data.toUtf8().at(n);
             outData.fHST.checksum.append(data.toUtf8().at(n));
         }
+        */
         //TLV_Header OR Point Cloud OR TargetObject dependent on type
-        else if((n > 56*bO)&&(n<=length)){
+        //else if((n > 56*bO)&&(n<=length)){
+        else if((n<=length)){
+            if(n==52*bO){
+                //out << "\n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << " " << "Other: \t\t\n";
+                out << "\n"<< "Other: \t\t\n";
+            }
+            out << data.toUtf8().at(n);
+            qDebug() << n<<"/"<<length << ":" << data.toUtf8().at(n);
             /*
             temp.append(data.toUtf8().at(n));
 

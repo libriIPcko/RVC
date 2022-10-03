@@ -39,9 +39,10 @@ void Dialog::on_pushButtons_Start_clicked()
     qDebug() << connect(rad,SIGNAL(Interrupt_ReadPacket(QString,int)),this,SLOT(onInterrupt_ReadPacket(QString,int)));
     */
 
-    rad->init(rad->cfgPath); //initialized  //Stop RX
+    //rad->init(rad->cfgPath); //initialized  //Stop RX
+    rad->openFile(rad->RadarDataPath);
     //rad->init("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/template TLV radar data.txt");
-    rad->DEBUG_allignData_fromFile();
+    rad->algorithm_ReadFromFile();
     qDebug() << rad->PortDisconnect();    //Disconnecting of radar
 
 }

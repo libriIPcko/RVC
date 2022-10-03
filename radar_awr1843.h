@@ -32,6 +32,7 @@ public:
     QString port_defaultPort_COM = "COM3";
 
     //Debug part of SC
+    int openFile(QString DataPath);
     QTimer *tim_debug = new QTimer;
     int tim_debug_period = 200;
     QTimer *watchdog_RX = new QTimer;
@@ -39,14 +40,19 @@ public:
     //QFile debug_file("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/deb.txt");
     int marker = 0;
     QString RX;
-    //QString cfgPath = "C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/xwr18xx_profile_2022_05_30T13_05_06_607.txt";
-    QString cfgPath = "C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/template TLV radar data.txt";
+    QString cfgPath = "C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/xwr18xx_profile_2022_05_30T13_05_06_607.txt";
+    //QString cfgPath = "C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/template TLV radar data.txt";
+    QString RadarDataPath = "C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/template TLV radar data.txt";
 
     std::vector<QString> TLV_RAW_packets;
     std::vector<TLV_dat> TLV_packets;
+    std::vector<int> pos;                            //vector of start position of sync chain
     TLV_dat outData;
+    QString data;
     //Dev-Deb Var DDV
-    int DEBUG_allignData_fromFile();
+    int algorithm_ReadFromFile();
+    int syncDetect();
+    int loadPackets();
     int ofset = 0;
 
 private:
@@ -54,7 +60,9 @@ private:
     int PortDisconnect(QString typePort);
     int send_COMM(QString data);
     int readPackets(int msec);
-    int sortData(QString);
+    int sortData(QString,int);
+    //1 - point cloud | 2 - target object | 3 - target index
+    int activeType = 0;
     std::array<QString, 60> temporary_arrayCMD;
     QSerialPort *port_AUXILIARY;
     QSerialPort *port_COMM;
@@ -65,7 +73,9 @@ private:
         QFile *RX_radar_data = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/RX_radar_data.txt");
         //QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/DebugLog.txt");             //old path
         //QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/Backup RX data/RX_radar_data - 1h45m 11.8.2022.txt");               //new path
-        QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/Backup RX data/template TLV radar data.txt");               //new path
+        //QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/Backup RX data/template TLV radar data.txt");
+        QFile *DebugLog = new QFile();
+
 
         QTime stopwatch;
 
