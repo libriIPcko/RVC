@@ -33,6 +33,7 @@ public:
 
     //Debug part of SC
     int openFile();
+    int openFile(QString DataPath);
     int closeFile();
     QTimer *tim_debug = new QTimer;
     int tim_debug_period = 200;

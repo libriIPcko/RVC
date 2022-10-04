@@ -369,6 +369,12 @@ int RADAR_AWR1843::openFile(){
     qDebug() << DebugLog->open(QIODevice::ReadOnly);
     return 0;
 }
+int RADAR_AWR1843::openFile(QString DataPath){
+    DebugLog->setFileName(DataPath);
+    qDebug() << DebugLog->open(QIODevice::ReadOnly);
+    return 0;
+}
+
 int RADAR_AWR1843::closeFile(){
     DebugLog->close();
     return 0;
