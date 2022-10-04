@@ -363,9 +363,14 @@ int RADAR_AWR1843::port_AUXILIARY_receive(){
         //RX_radar_data.close();
     }    
 }
-int RADAR_AWR1843::openFile(QString DataPath){
-    DebugLog->setFileName(DataPath);
-    qDebug() << DebugLog->open(QIODevice::ReadWrite);
+//int RADAR_AWR1843::openFile(QString DataPath){
+int RADAR_AWR1843::openFile(){
+    //DebugLog->setFileName(DataPath);
+    qDebug() << DebugLog->open(QIODevice::ReadOnly);
+    return 0;
+}
+int RADAR_AWR1843::closeFile(){
+    DebugLog->close();
     return 0;
 }
 
@@ -376,6 +381,7 @@ int RADAR_AWR1843::syncDetect(){
         data.clear();
         qDebug() << DebugLog->isOpen();
         data = DebugLog->readAll();
+        //data_1 = DebugLog->readAll();
         pos.push_back(data.indexOf(sync));
         while(pos.at(pos.size()-1) <= data.length()){
             pos.push_back(data.indexOf(sync,1+pos.at(pos.size()-1)));
@@ -413,11 +419,13 @@ int RADAR_AWR1843::loadPackets(){
 }
 
 int RADAR_AWR1843::algorithm_ReadFromFile(){
+    openFile();
     syncDetect();
     loadPackets();
     for(uint16_t i=0;i <= TLV_RAW_packets.size()-1;i++){
         sortData(TLV_RAW_packets.at(i),i);
     }
+    closeFile();
 }
 
 

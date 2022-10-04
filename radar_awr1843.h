@@ -32,7 +32,8 @@ public:
     QString port_defaultPort_COM = "COM3";
 
     //Debug part of SC
-    int openFile(QString DataPath);
+    int openFile();
+    int closeFile();
     QTimer *tim_debug = new QTimer;
     int tim_debug_period = 200;
     QTimer *watchdog_RX = new QTimer;
@@ -48,7 +49,7 @@ public:
     std::vector<TLV_dat> TLV_packets;
     std::vector<int> pos;                            //vector of start position of sync chain
     TLV_dat outData;
-    QString data;
+    QString data = "tst";
     //Dev-Deb Var DDV
     int algorithm_ReadFromFile();
     int syncDetect();
@@ -74,7 +75,8 @@ private:
         //QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/DebugLog.txt");             //old path
         //QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/Backup RX data/RX_radar_data - 1h45m 11.8.2022.txt");               //new path
         //QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/Backup RX data/template TLV radar data.txt");
-        QFile *DebugLog = new QFile();
+
+        QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/Backup RX data/template TLV radar data.txt");
 
 
         QTime stopwatch;

@@ -40,8 +40,8 @@ void Dialog::on_pushButtons_Start_clicked()
     */
 
     //rad->init(rad->cfgPath); //initialized  //Stop RX
-    rad->openFile(rad->RadarDataPath);
-    //rad->init("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/template TLV radar data.txt");
+
+    //rad->init("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/template TLV radar data.txt");    
     rad->algorithm_ReadFromFile();
     qDebug() << rad->PortDisconnect();    //Disconnecting of radar
 
