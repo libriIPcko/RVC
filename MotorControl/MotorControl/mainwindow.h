@@ -18,9 +18,8 @@ public:
 private:
     Ui::MainWindow *ui;
 public: signals:
-    void iconSizeChanged();
 private slots:
     void on_dataReceived(QByteArray);
-    int on_iconSizeChanged();
+
 };
 #endif // MAINWINDOW_H
