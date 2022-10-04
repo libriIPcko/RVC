@@ -6,7 +6,7 @@
 
 #include "QObject"
 
-#include "QSignalSpy"
+//#include "QSignalSpy"
 
 
 class USB2CAN_driver : public QSerialPort

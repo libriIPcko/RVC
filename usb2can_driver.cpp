@@ -6,7 +6,7 @@
 #include "QObject"
 #include "QDebug"
 
-#include <QSignalSpy>
+//#include <QSignalSpy>
 
 
 
