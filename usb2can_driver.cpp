@@ -104,8 +104,10 @@ int USB2CAN_driver::init(){
 }
 
 QByteArray USB2CAN_driver::read_USB2CAN(){
-    qDebug() <<"From driver RX" << USB2CAN_driver::readAll();
-    return port_USB2CAN->readAll();
+    //qDebug() <<"From driver RX" << USB2CAN_driver::readAll();
+    QByteArray temporary = port_USB2CAN->readAll();
+    emit dataReceived(temporary);
+    return temporary;
 }
 
 void USB2CAN_driver::writeCANmsg(QString msg){
