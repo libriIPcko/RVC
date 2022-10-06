@@ -11,10 +11,13 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,6 +28,11 @@ public:
     QWidget *centralwidget;
     QTabWidget *tabWidget;
     QWidget *tab;
+    QPushButton *pushButton;
+    QLineEdit *lineEdit;
+    QTextEdit *TX_textEdit;
+    QTextEdit *RX_textEdit;
+    QPushButton *pushButton_SendBtn;
     QWidget *tab_2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -41,6 +49,21 @@ public:
         tabWidget->setGeometry(QRect(0, 0, 801, 551));
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
+        pushButton = new QPushButton(tab);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setGeometry(QRect(10, 10, 75, 24));
+        lineEdit = new QLineEdit(tab);
+        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+        lineEdit->setGeometry(QRect(100, 10, 113, 22));
+        TX_textEdit = new QTextEdit(tab);
+        TX_textEdit->setObjectName(QString::fromUtf8("TX_textEdit"));
+        TX_textEdit->setGeometry(QRect(20, 50, 311, 221));
+        RX_textEdit = new QTextEdit(tab);
+        RX_textEdit->setObjectName(QString::fromUtf8("RX_textEdit"));
+        RX_textEdit->setGeometry(QRect(360, 50, 311, 221));
+        pushButton_SendBtn = new QPushButton(tab);
+        pushButton_SendBtn->setObjectName(QString::fromUtf8("pushButton_SendBtn"));
+        pushButton_SendBtn->setGeometry(QRect(250, 240, 75, 24));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -65,6 +88,9 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        pushButton->setText(QCoreApplication::translate("MainWindow", "Connect", nullptr));
+        lineEdit->setText(QCoreApplication::translate("MainWindow", "COM66", nullptr));
+        pushButton_SendBtn->setText(QCoreApplication::translate("MainWindow", "Send", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Tab 2", nullptr));
     } // retranslateUi

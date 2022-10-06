@@ -88,6 +88,15 @@ void USB2CAN_driver::WriteReg(QByteArray regAdress, QByteArray value[]){
 
     }
 }
+
+int USB2CAN_driver::SendString(QString data){
+    //sendData.fromRawData(*sendVal,sizeof (sendVal));
+    long length;
+    while(!port_USB2CAN->waitForBytesWritten(300)){
+        length = length + port_USB2CAN->write(data.toLatin1());
+    }
+    return length;
+}
 QByteArray USB2CAN_driver::WriteCMD(QByteArray CMD_name, QByteArray value){
 
 }
@@ -97,10 +106,10 @@ QByteArray USB2CAN_driver::ReadReg(QByteArray regAdress){
 
 int USB2CAN_driver::init(){
     //Init CMD by timer period
-        //connect(initListTimer,SIGNAL(timeout()),this,SLOT(initSend()));
-        //initListTimer->start(200);
+        connect(initListTimer,SIGNAL(timeout()),this,SLOT(initSend()));
+        initListTimer->start(200);
     //BadCode
-        initSend_1();
+        //initSend_1();
 }
 
 QByteArray USB2CAN_driver::read_USB2CAN(){
@@ -138,7 +147,7 @@ void USB2CAN_driver::writeCANmsg(QString msg){
 
 }
 
-void USB2CAN_driver::initSend(){
+bool USB2CAN_driver::initSend(){
     bool stop = false;
     int waitForBytesWritten = 300;
     int status;
@@ -259,13 +268,16 @@ void USB2CAN_driver::initSend(){
                 //USB2CAN_driver::write(ModRegDat,qstrlen(ModRegDat));
                 status = port_USB2CAN->write(ModRegDat,5);
                 qDebug() << "TX:" << ModRegDat << "Status" << status << "ModRegDat";
+
             }
         break;
         case 13:              //End of Initialize sub-routine
             stop = true;
+            return true;
         break;
         default:
             qDebug() << "ERROR init !! case" << temporary_init_Counter;
+            return false;
         break;
     }
 

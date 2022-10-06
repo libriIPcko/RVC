@@ -36,6 +36,7 @@ public:
     void WriteReg(QByteArray regAdress, QByteArray value[]);
     QByteArray WriteCMD(QByteArray CMD_name, QByteArray value);
     QByteArray ReadReg(QByteArray regAdress);
+    int SendString(QString data);
 
     void writeCANmsg(QString msg);
 
@@ -57,7 +58,7 @@ private slots:
     //QObject::connect(port_USB2CAN,SIGNAL(readyRead()),ObjWhereIsOwnMethod,SLOT(QByteArray ownMethod()));
 
     QByteArray read_USB2CAN();
-    void initSend();
+    bool initSend();
     void initSend_1();
 };
 

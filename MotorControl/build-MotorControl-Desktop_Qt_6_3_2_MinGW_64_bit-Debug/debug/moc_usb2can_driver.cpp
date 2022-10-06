@@ -81,7 +81,7 @@ static const uint qt_meta_data_USB2CAN_driver[] = {
 
  // slots: parameters
     QMetaType::QByteArray,
-    QMetaType::Void,
+    QMetaType::Bool,
     QMetaType::Void,
 
        0        // eod
@@ -97,7 +97,8 @@ void USB2CAN_driver::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 1: _t->dataReceived((*reinterpret_cast< std::add_pointer_t<QByteArray>>(_a[1]))); break;
         case 2: { QByteArray _r = _t->read_USB2CAN();
             if (_a[0]) *reinterpret_cast< QByteArray*>(_a[0]) = std::move(_r); }  break;
-        case 3: _t->initSend(); break;
+        case 3: { bool _r = _t->initSend();
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         case 4: _t->initSend_1(); break;
         default: ;
         }
@@ -128,7 +129,7 @@ const QMetaObject USB2CAN_driver::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_USB2CAN_driver_t
 , QtPrivate::TypeAndForceComplete<USB2CAN_driver, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QByteArray, std::false_type>
-, QtPrivate::TypeAndForceComplete<QByteArray, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
+, QtPrivate::TypeAndForceComplete<QByteArray, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 >,
