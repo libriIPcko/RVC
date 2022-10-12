@@ -46,12 +46,10 @@ public:
 
 
 public: signals:
-    //void readyRead();
     friend void QIODevice::readyRead();
     void timeout();
     void dataReceived(QByteArray);
-    //void QSerialPort::readyRead();
-    //void USB2CAN_driver::readyRead();
+
 
 private slots:
     //For reading from driver, you have to implemented separately to own

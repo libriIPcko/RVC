@@ -16,6 +16,8 @@ USB2CAN_driver::USB2CAN_driver()
     ListTimer = new QTimer();
     initListTimer = new QTimer();
 
+    qDebug() << "Connection of readyRead to sw interrupt:" <<connect(port_USB2CAN,SIGNAL(readyRead()),this,SLOT(read_USB2CAN()));
+
 }
 
 /*

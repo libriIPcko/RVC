@@ -331,6 +331,16 @@ release/moc_mainwindow.cpp: ../MotorControl/mainwindow.h \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/QTransform \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/QEvent \
+		C:/Users/RPlsicik/Documents/GitHub/RVC/usb2can_driver.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/QSerialPort \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/qserialport.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/qserialportglobal.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/qtserialportexports.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/QTimer \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qtimer.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qbasictimer.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/QByteArray \
 		release/moc_predefs.h \
 		C:/Qt/Qt6/6.3.2/mingw_64/bin/moc.exe
 	'C:\Qt\Qt6\6.3.2\mingw_64\bin\moc.exe' $(DEFINES) --include C:/Users/RPlsicik/Documents/GitHub/RVC/MotorControl/build-MotorControl-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/release/moc_predefs.h -IC:/Qt/Qt6/6.3.2/mingw_64/mkspecs/win32-g++ -IC:/Users/RPlsicik/Documents/GitHub/RVC/MotorControl/MotorControl -IC:/Qt/Qt6/6.3.2/mingw_64/include -IC:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets -IC:/Qt/Qt6/6.3.2/mingw_64/include/QtGui -IC:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort -IC:/Qt/Qt6/6.3.2/mingw_64/include/QtCore -I. -IC:/Qt/Qt6/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ -IC:/Qt/Qt6/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Qt6/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward -IC:/Qt/Qt6/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include -IC:/Qt/Qt6/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed -IC:/Qt/Qt6/Tools/mingw1120_64/x86_64-w64-mingw32/include ../MotorControl/mainwindow.h -o release/moc_mainwindow.cpp
@@ -585,6 +595,16 @@ release/main.o: ../MotorControl/main.cpp ../MotorControl/mainwindow.h \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/QTransform \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/QEvent \
+		C:/Users/RPlsicik/Documents/GitHub/RVC/usb2can_driver.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/QSerialPort \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/qserialport.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/qserialportglobal.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/qtserialportexports.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/QTimer \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qtimer.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qbasictimer.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/QByteArray \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/QApplication \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qapplication.h \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qcoreapplication.h \
@@ -605,15 +625,7 @@ release/main.o: ../MotorControl/main.cpp ../MotorControl/mainwindow.h \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qguiapplication.h \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qinputmethod.h \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qlocale.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qguiapplication_platform.h \
-		C:/Users/RPlsicik/Documents/GitHub/RVC/usb2can_driver.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/QSerialPort \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/qserialport.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/qserialportglobal.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/qtserialportexports.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/QTimer \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qtimer.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qbasictimer.h
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qguiapplication_platform.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/main.o ../MotorControl/main.cpp
 
 release/mainwindow.o: ../MotorControl/mainwindow.cpp ../MotorControl/mainwindow.h \
@@ -751,35 +763,17 @@ release/mainwindow.o: ../MotorControl/mainwindow.cpp ../MotorControl/mainwindow.
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/QTransform \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qtabwidget.h \
-		ui_mainwindow.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/QVariant \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/QApplication \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qapplication.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qcoreapplication.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qeventloop.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qcoreapplication_platform.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qfuture.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qfutureinterface.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qmutex.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qresultstore.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qfuture_impl.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qthreadpool.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qthread.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qdeadlinetimer.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qelapsedtimer.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qrunnable.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qexception.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qpromise.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qguiapplication.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qinputmethod.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qlocale.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qguiapplication_platform.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/QMenuBar \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qmenubar.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qmenu.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/QStatusBar \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qstatusbar.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/QWidget
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/QEvent \
+		C:/Users/RPlsicik/Documents/GitHub/RVC/usb2can_driver.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/QSerialPort \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/qserialport.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/qserialportglobal.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/qtserialportexports.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/QTimer \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qtimer.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qbasictimer.h \
+		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/QByteArray \
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/mainwindow.o ../MotorControl/mainwindow.cpp
 
 release/moc_usb2can_driver.o: release/moc_usb2can_driver.cpp 

@@ -33,6 +33,7 @@ public:
     QTextEdit *TX_textEdit;
     QTextEdit *RX_textEdit;
     QPushButton *pushButton_SendBtn;
+    QPushButton *pushButton_ListSendBtn;
     QWidget *tab_2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -64,6 +65,9 @@ public:
         pushButton_SendBtn = new QPushButton(tab);
         pushButton_SendBtn->setObjectName(QString::fromUtf8("pushButton_SendBtn"));
         pushButton_SendBtn->setGeometry(QRect(250, 240, 75, 24));
+        pushButton_ListSendBtn = new QPushButton(tab);
+        pushButton_ListSendBtn->setObjectName(QString::fromUtf8("pushButton_ListSendBtn"));
+        pushButton_ListSendBtn->setGeometry(QRect(170, 240, 75, 24));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -91,6 +95,7 @@ public:
         pushButton->setText(QCoreApplication::translate("MainWindow", "Connect", nullptr));
         lineEdit->setText(QCoreApplication::translate("MainWindow", "COM66", nullptr));
         pushButton_SendBtn->setText(QCoreApplication::translate("MainWindow", "Send", nullptr));
+        pushButton_ListSendBtn->setText(QCoreApplication::translate("MainWindow", "ListSend", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Tab 2", nullptr));
     } // retranslateUi

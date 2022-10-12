@@ -22,40 +22,37 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    uint offsetsAndSizes[18];
+    uint offsetsAndSizes[16];
     char stringdata0[11];
-    char stringdata1[16];
+    char stringdata1[8];
     char stringdata2[1];
-    char stringdata3[22];
-    char stringdata4[8];
+    char stringdata3[16];
+    char stringdata4[25];
     char stringdata5[23];
-    char stringdata6[25];
-    char stringdata7[28];
-    char stringdata8[30];
+    char stringdata6[30];
+    char stringdata7[35];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_MainWindow_t::offsetsAndSizes) + ofs), len 
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
         QT_MOC_LITERAL(0, 10),  // "MainWindow"
-        QT_MOC_LITERAL(11, 15),  // "on_dataReceived"
-        QT_MOC_LITERAL(27, 0),  // ""
-        QT_MOC_LITERAL(28, 21),  // "on_pushButton_clicked"
-        QT_MOC_LITERAL(50, 7),  // "checked"
-        QT_MOC_LITERAL(58, 22),  // "on_pushButton_released"
-        QT_MOC_LITERAL(81, 24),  // "on_pushButton_2_released"
-        QT_MOC_LITERAL(106, 27),  // "on_pushButton_Send_released"
-        QT_MOC_LITERAL(134, 29)   // "on_pushButton_SendBtn_clicked"
+        QT_MOC_LITERAL(11, 7),  // "timeout"
+        QT_MOC_LITERAL(19, 0),  // ""
+        QT_MOC_LITERAL(20, 15),  // "on_dataReceived"
+        QT_MOC_LITERAL(36, 24),  // "on_timeout_listSendTimer"
+        QT_MOC_LITERAL(61, 22),  // "on_pushButton_released"
+        QT_MOC_LITERAL(84, 29),  // "on_pushButton_SendBtn_clicked"
+        QT_MOC_LITERAL(114, 34)   // "on_pushButton_ListSendBtn_rel..."
     },
     "MainWindow",
-    "on_dataReceived",
+    "timeout",
     "",
-    "on_pushButton_clicked",
-    "checked",
+    "on_dataReceived",
+    "on_timeout_listSendTimer",
     "on_pushButton_released",
-    "on_pushButton_2_released",
-    "on_pushButton_Send_released",
-    "on_pushButton_SendBtn_clicked"
+    "on_pushButton_SendBtn_clicked",
+    "on_pushButton_ListSendBtn_released"
 };
 #undef QT_MOC_LITERAL
 
@@ -70,19 +67,23 @@ static const uint qt_meta_data_MainWindow[] = {
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags, initial metatype offsets
+       1,    0,   50,    2, 0x06,    1 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   50,    2, 0x08,    1 /* Private */,
-       3,    1,   53,    2, 0x08,    3 /* Private */,
-       5,    0,   56,    2, 0x08,    5 /* Private */,
-       6,    0,   57,    2, 0x08,    6 /* Private */,
-       7,    0,   58,    2, 0x08,    7 /* Private */,
-       8,    0,   59,    2, 0x08,    8 /* Private */,
+       3,    1,   51,    2, 0x08,    2 /* Private */,
+       4,    0,   54,    2, 0x08,    4 /* Private */,
+       5,    0,   55,    2, 0x08,    5 /* Private */,
+       6,    0,   56,    2, 0x08,    6 /* Private */,
+       7,    0,   57,    2, 0x08,    7 /* Private */,
+
+ // signals: parameters
+    QMetaType::Void,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QByteArray,    2,
-    QMetaType::Void, QMetaType::Bool,    4,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -97,13 +98,22 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         auto *_t = static_cast<MainWindow *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->on_dataReceived((*reinterpret_cast< std::add_pointer_t<QByteArray>>(_a[1]))); break;
-        //case 1: _t->on_pushButton_clicked((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 2: _t->on_pushButton_released(); break;
-        //case 3: _t->on_pushButton_2_released(); break;
-        //case 4: _t->on_pushButton_Send_released(); break;
-        case 5: _t->on_pushButton_SendBtn_clicked(); break;
+        case 0: _t->timeout(); break;
+        case 1: _t->on_dataReceived((*reinterpret_cast< std::add_pointer_t<QByteArray>>(_a[1]))); break;
+        case 2: _t->on_timeout_listSendTimer(); break;
+        case 3: _t->on_pushButton_released(); break;
+        case 4: _t->on_pushButton_SendBtn_clicked(); break;
+        case 5: _t->on_pushButton_ListSendBtn_released(); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            using _t = void (MainWindow::*)();
+            if (_t _q_method = &MainWindow::timeout; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 0;
+                return;
+            }
         }
     }
 }
@@ -115,8 +125,8 @@ const QMetaObject MainWindow::staticMetaObject = { {
     qt_static_metacall,
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_MainWindow_t
-, QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QByteArray, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
+, QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QByteArray, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 >,
@@ -152,6 +162,12 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 6;
     }
     return _id;
+}
+
+// SIGNAL 0
+void MainWindow::timeout()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

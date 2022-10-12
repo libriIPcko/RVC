@@ -89,6 +89,19 @@
        <string>Send</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton_ListSendBtn">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>240</y>
+        <width>75</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ListSend</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">

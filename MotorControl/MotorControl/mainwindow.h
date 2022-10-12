@@ -5,6 +5,7 @@
 #include <QEvent>
 #include "C:\\Users\RPlsicik\Documents\GitHub\RVC\usb2can_driver.h"
 #include "QByteArray"
+#include "deque"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,19 +19,25 @@ public:
     MainWindow(QWidget *parent = nullptr);
     USB2CAN_driver *u2c;
     bool connectStatus = false;
+    bool connectButton = false;
     ~MainWindow();
 
 private:
     Ui::MainWindow *ui;
     bool event(QEvent *event);
+    std::deque<QString> outputTxt;
+    //std::vector<QString> outputTxt;
+    QTimer *listSendTimer;
+
 public: signals:
+    void timeout();
 private slots:
     void on_dataReceived(QByteArray);
+    void on_timeout_listSendTimer();
 
-    void on_pushButton_clicked(bool checked);
+
     void on_pushButton_released();
-    void on_pushButton_2_released();
-    void on_pushButton_Send_released();
     void on_pushButton_SendBtn_clicked();
+    void on_pushButton_ListSendBtn_released();
 };
 #endif // MAINWINDOW_H
