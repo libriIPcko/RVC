@@ -17,7 +17,7 @@ MainWindow::~MainWindow(){
 
 
 void MainWindow::on_dataReceived(QByteArray data){
-    ui->RX_textEdit->setText(QString::fromLatin1(data));
+    ui->RX_textEdit->append(QString::fromLatin1(data));
 }
 
 bool MainWindow::event(QEvent *event){
@@ -39,7 +39,8 @@ void MainWindow::on_pushButton_released(){
     connectButton = !connectButton;
     if(connectButton == true){
         ui->pushButton->setText("Connected");
-        u2c->connectToPort(ui->lineEdit->text());           //COM5
+        u2c->connectToPort(ui->lineEdit->text(),9600);           //COM5
+        u2c->init();
     }
     else{                                                   //connectButton == false
         u2c->close();
@@ -51,7 +52,16 @@ void MainWindow::on_pushButton_SendBtn_clicked()
 {
     QString txt = ui->TX_textEdit->toPlainText();
     if((txt.isEmpty() == 0)||(u2c->isOpen())){
-        qDebug() << "length: " << u2c->SendString(txt);
+
+        if(txt.at(0) == '#'){
+            //qDebug() << "length: " << u2c->SendString(txt.sliced(1));
+            menu_sendCommands(txt.sliced(1));
+        }
+        else{
+            qDebug() << "length: " << u2c->SendString(txt);
+        }
+
+
     }
 }
 
@@ -84,5 +94,27 @@ void MainWindow::on_timeout_listSendTimer(){
     else{
         u2c->SendString(outputTxt.front()); //???
         outputTxt.pop_front();
+    }
+}
+
+void MainWindow::menu_sendCommands(QString cmd){
+    //Commands:
+
+    try {
+        if(cmd.sliced(0,3).compare("msg") == 0){
+            qDebug() << "msg cmd" << cmd << cmd.sliced(3) << QByteArray::fromHex(cmd.sliced(3).toLocal8Bit());
+            //hex to char
+            QByteArray test = cmd.sliced(3).toLatin1();
+            u2c->SendHex(QByteArray::fromHex(cmd.sliced(3).toLocal8Bit()));
+            //u2c->SendString(QByteArray::fromHex(cmd.sliced(3).toLocal8Bit()));
+
+        }
+        else if(cmd.sliced(0,6).compare("test_1") == 0){
+            qDebug() << "test_1 cmd" << cmd << cmd.sliced(6);
+            u2c->SendString(cmd.sliced(6).toLatin1());
+            //
+        }
+    } catch (const std::exception& e) {
+        qDebug() << e.what();
     }
 }

@@ -29,6 +29,8 @@ private:
     //std::vector<QString> outputTxt;
     QTimer *listSendTimer;
 
+    void menu_sendCommands(QString cmd);
+
 public: signals:
     void timeout();
 private slots:

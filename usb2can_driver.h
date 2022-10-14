@@ -33,15 +33,17 @@ public:
     void LoopBack_Mode();
     QByteArray Get_Mode();
 
-    void WriteReg(QByteArray regAdress, QByteArray value[]);
+    void WriteReg(QByteArray regAdress, QByteArray value[]);    
     QByteArray WriteCMD(QByteArray CMD_name, QByteArray value);
     QByteArray ReadReg(QByteArray regAdress);
     int SendString(QString data);
+    int SendHex(QByteArray data);
 
     void writeCANmsg(QString msg);
 
     QString portName;
     int connectToPort(QString portName);
+    int connectToPort(QString portName,int BaudRate);
     int disconnectedFromPort();
 
 

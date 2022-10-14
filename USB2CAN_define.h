@@ -3,6 +3,8 @@
 
 #endif // USB2CAN_DEFINE_H
 
+#include "QString"
+
 
 
 static const char Config[] =        {'\x0f',    '\x02', '\x00'                 };
@@ -46,3 +48,6 @@ static const char readReg[] =       {'\x0f',    '\x10'};
 
 static const char getMode[] =       {'\x0f',    '\x06',    '\x00'};
 */
+//Commands
+static const QString msg = "msg";
+static const QString test1 = "test1";

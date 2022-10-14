@@ -32,6 +32,12 @@ int USB2CAN_driver::connectToPort(QString portName){
     tim = new QTimer;
     return port_USB2CAN->open(QIODevice::ReadWrite);
 }
+int USB2CAN_driver::connectToPort(QString portName,int BaudRate){
+    port_USB2CAN->setPortName(portName);
+    port_USB2CAN->setBaudRate(BaudRate,AllDirections);
+    tim = new QTimer;
+    return port_USB2CAN->open(QIODevice::ReadWrite);
+}
 
 /*
 void USB2CAN_driver::timEvent(){
@@ -95,7 +101,15 @@ int USB2CAN_driver::SendString(QString data){
     //sendData.fromRawData(*sendVal,sizeof (sendVal));
     long length;
     while(!port_USB2CAN->waitForBytesWritten(300)){
-        length = length + port_USB2CAN->write(data.toLatin1());
+        length = port_USB2CAN->write(data.toUtf8(),data.size());
+    }
+    return length;
+}
+int USB2CAN_driver::SendHex(QByteArray data){
+    //sendData.fromRawData(*sendVal,sizeof (sendVal));
+    long length;
+    while(!port_USB2CAN->waitForBytesWritten(300)){
+        length = port_USB2CAN->write(data);
     }
     return length;
 }
