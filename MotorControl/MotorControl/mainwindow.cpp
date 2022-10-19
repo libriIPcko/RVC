@@ -20,15 +20,19 @@ void MainWindow::on_dataReceived(QByteArray data){
     //ui->RX_textEdit->append(QString::fromLatin1(data));
     QString HtS;// = QByteArray::fromHex(data.at(4));
     QByteArray temp;
+    //HtS = QByteArray::fromHex(data.at(1));
+    uchar c;
     for(int i=0;i<data.size();i++){
-        //HtS  = QByteArray::fromHex();
+        c = data.at(i);
+        HtS.append(QString("%1").arg(c,2,16,QChar('0')));
+        /*
         temp.append(data.at(i));
-        if(i%2){
-            HtS.append(QByteArray::fromHex(temp));
-            temp.clear();
-        }
+        HtS.append(QByteArray::fromHex(temp));
+        temp.clear();
+        */
     }
-    qDebug() << "RX: " << QString();
+
+    qDebug() << "RX: "<< "RAW: " <<data << "fromHex: "<< QByteArray::fromHex(data) << "HtS: " <<HtS;
     //ui->RX_textEdit->append(QString::fromUtf8(QByteArray::fromHex(data)));
     ui->RX_textEdit->append(HtS);
 }
@@ -136,7 +140,19 @@ void MainWindow::menu_sendCommands(QString cmd){
             QByteArray test = cmd.toLatin1();
             u2c->SendHex(QByteArray::fromHex(cmd.toLocal8Bit()));
         }
-    } catch (const std::exception& e) {
+    }catch (const std::exception& e) {
         qDebug() << e.what();
     }
 }
+//pushButton_TX_clean
+void MainWindow::on_pushButton_3_released()
+{
+    ui->TX_textEdit->clear();
+}
+
+
+void MainWindow::on_pushButton_RX_clean_released()
+{
+    ui->RX_textEdit->clear();
+}
+
