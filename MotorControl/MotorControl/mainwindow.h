@@ -33,6 +33,7 @@ private:
 
 public: signals:
     void timeout();
+    void readyRead();
 private slots:
     void on_dataReceived(QByteArray);
     void on_timeout_listSendTimer();

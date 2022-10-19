@@ -41,7 +41,7 @@ public:
 
     void writeCANmsg(QString msg);
 
-    QString portName;
+    //QString portName;
     int connectToPort(QString portName);
     int connectToPort(QString portName,int BaudRate);
     int disconnectedFromPort();

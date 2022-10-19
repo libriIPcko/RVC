@@ -17,7 +17,20 @@ MainWindow::~MainWindow(){
 
 
 void MainWindow::on_dataReceived(QByteArray data){
-    ui->RX_textEdit->append(QString::fromLatin1(data));
+    //ui->RX_textEdit->append(QString::fromLatin1(data));
+    QString HtS;// = QByteArray::fromHex(data.at(4));
+    QByteArray temp;
+    for(int i=0;i<data.size();i++){
+        //HtS  = QByteArray::fromHex();
+        temp.append(data.at(i));
+        if(i%2){
+            HtS.append(QByteArray::fromHex(temp));
+            temp.clear();
+        }
+    }
+    qDebug() << "RX: " << QString();
+    //ui->RX_textEdit->append(QString::fromUtf8(QByteArray::fromHex(data)));
+    ui->RX_textEdit->append(HtS);
 }
 
 bool MainWindow::event(QEvent *event){
@@ -32,8 +45,6 @@ bool MainWindow::event(QEvent *event){
     return QMainWindow::event(event);
 }
 
-
-
 //connect disconnect
 void MainWindow::on_pushButton_released(){
     connectButton = !connectButton;
@@ -41,9 +52,14 @@ void MainWindow::on_pushButton_released(){
         ui->pushButton->setText("Connected");
         u2c->connectToPort(ui->lineEdit->text(),9600);           //COM5
         u2c->init();
+
+        if(u2c->port_USB2CAN->isOpen()){
+            qDebug() << "port is open? "<< u2c->port_USB2CAN->isOpen() << "Port name:" << ui->lineEdit->text();
+        }
     }
     else{                                                   //connectButton == false
-        u2c->close();
+        u2c->port_USB2CAN->close();
+        qDebug() << "Close port" << !u2c->port_USB2CAN->isOpen();
         ui->pushButton->setText("Disconnected");
     }
 }
@@ -52,7 +68,6 @@ void MainWindow::on_pushButton_SendBtn_clicked()
 {
     QString txt = ui->TX_textEdit->toPlainText();
     if((txt.isEmpty() == 0)||(u2c->isOpen())){
-
         if(txt.at(0) == '#'){
             //qDebug() << "length: " << u2c->SendString(txt.sliced(1));
             menu_sendCommands(txt.sliced(1));
@@ -60,8 +75,6 @@ void MainWindow::on_pushButton_SendBtn_clicked()
         else{
             qDebug() << "length: " << u2c->SendString(txt);
         }
-
-
     }
 }
 
@@ -92,27 +105,36 @@ void MainWindow::on_timeout_listSendTimer(){
         listSendTimer->stop();
     }
     else{
-        u2c->SendString(outputTxt.front()); //???
+        //u2c->SendString(outputTxt.front()); //???
+        u2c->SendHex(QByteArray::fromHex(outputTxt.front().toLocal8Bit()));
         outputTxt.pop_front();
     }
 }
 
 void MainWindow::menu_sendCommands(QString cmd){
     //Commands:
-
     try {
         if(cmd.sliced(0,3).compare("msg") == 0){
             qDebug() << "msg cmd" << cmd << cmd.sliced(3) << QByteArray::fromHex(cmd.sliced(3).toLocal8Bit());
             //hex to char
             QByteArray test = cmd.sliced(3).toLatin1();
             u2c->SendHex(QByteArray::fromHex(cmd.sliced(3).toLocal8Bit()));
-            //u2c->SendString(QByteArray::fromHex(cmd.sliced(3).toLocal8Bit()));
-
         }
         else if(cmd.sliced(0,6).compare("test_1") == 0){
             qDebug() << "test_1 cmd" << cmd << cmd.sliced(6);
-            u2c->SendString(cmd.sliced(6).toLatin1());
-            //
+            //u2c->SendString(cmd.sliced(6).toLatin1());
+            u2c->SendHex(QByteArray::fromHex(cmd.sliced(6).toLocal8Bit()));
+        }
+        else if(cmd.sliced(0,6).compare("test_2") == 0){
+            qDebug() << "test_1 cmd" << cmd << cmd.sliced(6);
+            //u2c->SendString(cmd.sliced(6).toLatin1());
+            u2c->SendHex(QByteArray::fromHex(cmd.sliced(6).toLocal8Bit()));
+        }
+        else{
+            qDebug() << "default cmd" << cmd << QByteArray::fromHex(cmd.toLocal8Bit());
+            //hex to char
+            QByteArray test = cmd.toLatin1();
+            u2c->SendHex(QByteArray::fromHex(cmd.toLocal8Bit()));
         }
     } catch (const std::exception& e) {
         qDebug() << e.what();
