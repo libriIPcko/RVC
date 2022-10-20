@@ -48,7 +48,7 @@ void MainWindow::on_pushButton_released(){
     if(connectButton == true){
         ui->pushButton->setText("Connected");
         u2c->connectToPort(ui->lineEdit->text(),9600);           //COM5
-        u2c->init();
+        //u2c->init();
 
         if(u2c->port_USB2CAN->isOpen()){
             qDebug() << "port is open? "<< u2c->port_USB2CAN->isOpen() << "Port name:" << ui->lineEdit->text();
@@ -117,10 +117,9 @@ void MainWindow::menu_sendCommands(QString cmd){
             QByteArray test = cmd.sliced(3).toLatin1();
             u2c->SendHex(QByteArray::fromHex(cmd.sliced(3).toLocal8Bit()));
         }
-        else if(cmd.sliced(0,6).compare("test_1") == 0){
-            qDebug() << "test_1 cmd" << cmd << cmd.sliced(6);
-            //u2c->SendString(cmd.sliced(6).toLatin1());
-            u2c->SendHex(QByteArray::fromHex(cmd.sliced(6).toLocal8Bit()));
+        else if(cmd.compare("init") == 0){
+            qDebug() << "Start init" << cmd;
+            u2c->init();
         }
         else if(cmd.sliced(0,6).compare("test_2") == 0){
             qDebug() << "test_1 cmd" << cmd << cmd.sliced(6);

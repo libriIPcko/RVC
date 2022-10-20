@@ -21,11 +21,13 @@ public:
     QTimer *tim_interrupt_1 = new QTimer();
     QTimer *ListTimer = new QTimer();
     QTimer *initListTimer = new QTimer();
+    int initTimerDelay = 4000;
     QTimer *tim;
     int tim_counter = 0;
 
     int temporary_init_Counter = 0;
     int init();
+    bool activeInit = false;
     void USB_LoopBack();
     void Boot_Mode();
     void Config_Mode();
