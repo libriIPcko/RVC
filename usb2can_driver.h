@@ -40,6 +40,7 @@ public:
     int SendHex(QByteArray data);
 
     void writeCANmsg(QString msg);
+    void writeCANmsg(QByteArray msg);
 
     //QString portName;
     int connectToPort(QString portName);

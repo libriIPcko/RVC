@@ -42,7 +42,7 @@ private slots:
     void on_pushButton_released();
     void on_pushButton_SendBtn_clicked();
     void on_pushButton_ListSendBtn_released();
-    void on_pushButton_3_released();
     void on_pushButton_RX_clean_released();
+    void on_pushButton_TX_clean_released();
 };
 #endif // MAINWINDOW_H

@@ -32,7 +32,7 @@ struct qt_meta_stringdata_MainWindow_t {
     char stringdata6[23];
     char stringdata7[30];
     char stringdata8[35];
-    char stringdata9[25];
+    char stringdata9[32];
     char stringdata10[32];
 };
 #define QT_MOC_LITERAL(ofs, len) \
@@ -48,8 +48,8 @@ static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
         QT_MOC_LITERAL(71, 22),  // "on_pushButton_released"
         QT_MOC_LITERAL(94, 29),  // "on_pushButton_SendBtn_clicked"
         QT_MOC_LITERAL(124, 34),  // "on_pushButton_ListSendBtn_rel..."
-        QT_MOC_LITERAL(159, 24),  // "on_pushButton_3_released"
-        QT_MOC_LITERAL(184, 31)   // "on_pushButton_RX_clean_released"
+        QT_MOC_LITERAL(159, 31),  // "on_pushButton_RX_clean_released"
+        QT_MOC_LITERAL(191, 31)   // "on_pushButton_TX_clean_released"
     },
     "MainWindow",
     "timeout",
@@ -60,8 +60,8 @@ static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     "on_pushButton_released",
     "on_pushButton_SendBtn_clicked",
     "on_pushButton_ListSendBtn_released",
-    "on_pushButton_3_released",
-    "on_pushButton_RX_clean_released"
+    "on_pushButton_RX_clean_released",
+    "on_pushButton_TX_clean_released"
 };
 #undef QT_MOC_LITERAL
 
@@ -120,8 +120,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 4: _t->on_pushButton_released(); break;
         case 5: _t->on_pushButton_SendBtn_clicked(); break;
         case 6: _t->on_pushButton_ListSendBtn_released(); break;
-        case 7: _t->on_pushButton_3_released(); break;
-        case 8: _t->on_pushButton_RX_clean_released(); break;
+        case 7: _t->on_pushButton_RX_clean_released(); break;
+        case 8: _t->on_pushButton_TX_clean_released(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

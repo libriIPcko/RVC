@@ -11,7 +11,6 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -35,8 +34,6 @@ public:
     QTextEdit *RX_textEdit;
     QPushButton *pushButton_SendBtn;
     QPushButton *pushButton_ListSendBtn;
-    QCheckBox *checkBox;
-    QCheckBox *checkBox_2;
     QPushButton *pushButton_RX_clean;
     QPushButton *pushButton_TX_clean;
     QWidget *tab_2;
@@ -73,12 +70,6 @@ public:
         pushButton_ListSendBtn = new QPushButton(tab);
         pushButton_ListSendBtn->setObjectName(QString::fromUtf8("pushButton_ListSendBtn"));
         pushButton_ListSendBtn->setGeometry(QRect(170, 240, 75, 24));
-        checkBox = new QCheckBox(tab);
-        checkBox->setObjectName(QString::fromUtf8("checkBox"));
-        checkBox->setGeometry(QRect(360, 30, 76, 20));
-        checkBox_2 = new QCheckBox(tab);
-        checkBox_2->setObjectName(QString::fromUtf8("checkBox_2"));
-        checkBox_2->setGeometry(QRect(430, 30, 76, 20));
         pushButton_RX_clean = new QPushButton(tab);
         pushButton_RX_clean->setObjectName(QString::fromUtf8("pushButton_RX_clean"));
         pushButton_RX_clean->setGeometry(QRect(650, 50, 21, 24));
@@ -113,8 +104,6 @@ public:
         lineEdit->setText(QCoreApplication::translate("MainWindow", "COM66", nullptr));
         pushButton_SendBtn->setText(QCoreApplication::translate("MainWindow", "Send", nullptr));
         pushButton_ListSendBtn->setText(QCoreApplication::translate("MainWindow", "ListSend", nullptr));
-        checkBox->setText(QCoreApplication::translate("MainWindow", "to HEX", nullptr));
-        checkBox_2->setText(QCoreApplication::translate("MainWindow", "to DEC", nullptr));
         pushButton_RX_clean->setText(QCoreApplication::translate("MainWindow", "C", nullptr));
         pushButton_TX_clean->setText(QCoreApplication::translate("MainWindow", "C", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
