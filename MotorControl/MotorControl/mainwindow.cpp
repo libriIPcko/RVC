@@ -9,6 +9,20 @@ MainWindow::MainWindow(QWidget *parent)
     connect(listSendTimer,SIGNAL(timeout()),this,SLOT(on_timeout_listSendTimer()));
     u2c = new USB2CAN_driver();
     connect(u2c,SIGNAL(dataReceived(QByteArray)),this,SLOT(on_dataReceived(QByteArray)));
+
+    const auto infos = QSerialPortInfo::availablePorts();
+    for (const QSerialPortInfo &info : infos) {
+        QString s = QObject::tr("Port: ") + info.portName() + "\n"
+                    //+ QObject::tr("Location: ") + info.systemLocation() + "\n"
+                    //+ QObject::tr("Description: ") + info.description() + "\n"
+                    //+ QObject::tr("Manufacturer: ") + info.manufacturer() + "\n"
+                    + QObject::tr("Serial number: ") + info.serialNumber();
+                    //+ QObject::tr("Vendor Identifier: ") + (info.hasVendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : QString()) + "\n"
+                    //+ QObject::tr("Product Identifier: ") + (info.hasProductIdentifier() ? QString::number(info.productIdentifier(), 16) : QString()) + "\n";
+                   // + QObject::tr("Busy: ") + (info.isBusy() ? QObject::tr("Yes") : QObject::tr("No")) + "\n";
+        ui->TX_textEdit->append(s);
+    }
+
 }
 
 MainWindow::~MainWindow(){
@@ -102,7 +116,6 @@ void MainWindow::on_timeout_listSendTimer(){
         listSendTimer->stop();
     }
     else{
-        //u2c->SendString(outputTxt.front()); //???
         u2c->SendHex(QByteArray::fromHex(outputTxt.front().toLocal8Bit()));
         outputTxt.pop_front();
     }

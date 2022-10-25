@@ -21,7 +21,7 @@ public:
     QTimer *tim_interrupt_1 = new QTimer();
     QTimer *ListTimer = new QTimer();
     QTimer *initListTimer = new QTimer();
-    int initTimerDelay = 4000;
+    int initTimerDelay = 2000;
     QTimer *tim;
     int tim_counter = 0;
 

@@ -5,6 +5,7 @@
 #include <QEvent>
 #include "C:\\Users\RPlsicik\Documents\GitHub\RVC\usb2can_driver.h"
 #include "QByteArray"
+#include "QSerialPortInfo"
 #include "deque"
 
 QT_BEGIN_NAMESPACE

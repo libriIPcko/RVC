@@ -135,11 +135,14 @@ int USB2CAN_driver::init(){
 QByteArray USB2CAN_driver::read_USB2CAN(){
     //qDebug() <<"From driver RX" << USB2CAN_driver::readAll();
     QByteArray temporary = port_USB2CAN->readAll();
-    if(activeInit){
+    if(activeInit == true){
         initListTimer->stop();
+        emit dataReceived(temporary);
         initSend();
-        initListTimer->setTimerType(Qt::PreciseTimer);
-        initListTimer->start(initTimerDelay);
+        if(activeInit == true){
+            initListTimer->setTimerType(Qt::PreciseTimer);
+            initListTimer->start(initTimerDelay);
+        }
     }
     else{
         emit dataReceived(temporary);
@@ -179,7 +182,7 @@ void USB2CAN_driver::writeCANmsg(QByteArray msg){
 }
 
 bool USB2CAN_driver::initSend(){
-    bool stop = false;
+     bool stop = false;
     qDebug() << "case" << temporary_init_Counter << "time: " << initListTimer->remainingTime();
     initListTimer->stop();
     int waitForBytesWritten = 200;
@@ -324,6 +327,10 @@ bool USB2CAN_driver::initSend(){
         case 13:              //End of Initialize sub-routine
             stop = true;
             temporary_init_Counter = 0;
+            activeInit = false;
+            initListTimer->stop();
+            qDebug() << QObject::disconnect(initListTimer);
+            qDebug() << "initTimer is active? " << initListTimer->isActive();
             //return true;
         break;
         default:
@@ -333,14 +340,14 @@ bool USB2CAN_driver::initSend(){
     }
 
     if(stop == true){        
-        initListTimer->stop();
-        //QObject::disconnect(initListTimer,SIGNAL(timeout()),initListTimer,SLOT(initSend()));
+        initListTimer->stop();        
         QObject::disconnect(initListTimer);
         //temporary_init_Counter = 0;
         return true;
     }
     else{
         temporary_init_Counter++;
+        return false;
     }
 
 
