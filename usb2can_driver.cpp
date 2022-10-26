@@ -131,6 +131,7 @@ QByteArray USB2CAN_driver::ReadReg(QByteArray regAdress){
 }
 
 int USB2CAN_driver::init(){
+    /*
     //Init CMD by timer period
         activeInit = true;
         temporary_init_Counter = 0;
@@ -138,17 +139,38 @@ int USB2CAN_driver::init(){
         initSend();
         initListTimer->setTimerType(Qt::PreciseTimer);
         initListTimer->start(initTimerDelay);
-    //BadCode
-        //initSend_1();
+    */
+    //TestCode
+        activeInit = true;
+        temporary_init_Counter = 0;
+        connect(initListTimer,SIGNAL(timeout()),this,SLOT(initSend_1()));
+        initListTimer->setTimerType(Qt::PreciseTimer);
+        initListTimer->start(initTimerDelay);
 }
 
 QByteArray USB2CAN_driver::read_USB2CAN(){
     //qDebug() <<"From driver RX" << USB2CAN_driver::readAll();
     QByteArray temporary = port_USB2CAN->readAll();
+    //Correct
+    /*
     if(activeInit == true){
         initListTimer->stop();
         emit dataReceived(temporary);
         initSend();
+        if(activeInit == true){
+            initListTimer->setTimerType(Qt::PreciseTimer);
+            initListTimer->start(initTimerDelay);
+        }
+    }
+    else{
+        emit dataReceived(temporary);
+    }
+    */
+    //New initialize subrutine
+    if(activeInit == true){
+        initListTimer->stop();
+        emit dataReceived(temporary);
+        initSend_1();
         if(activeInit == true){
             initListTimer->setTimerType(Qt::PreciseTimer);
             initListTimer->start(initTimerDelay);
@@ -365,19 +387,10 @@ bool USB2CAN_driver::initSend(){
 }
 
 void USB2CAN_driver::initSend_1(){
-    QByteArray initSeq[] = {Config, ResetMod, ClockDivData, AccCode, AccMask, OutCtrl, IE, BT0, BT1, CTL_Code, TRL_Code, NormalMode, ModRegDat};
-    int step = 0;
-    int step_fb = 0;
-    while(step <= sizeof (initSeq)){
-        while(!port_USB2CAN->waitForBytesWritten(waitForBytesWritten())){
-            port_USB2CAN->write(initSeq[step]);
-        }
-        step++;
-        qDebug() << step_fb++ << "/" << sizeof (initSeq);
-        /*
-        if(step_fb>=50){
-            break;
-        }
-        */
-    }
+   bool stop = false;
+   qDebug() << "case" << temporary_init_Counter << "time: " << initListTimer->remainingTime();
+   initListTimer->stop();
+   int waitForBytesWritten = 200;
+   int status;
+   WriteReg(initReg[temporary_init_Counter],initData[temporary_init_Counter]);
 }

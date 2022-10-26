@@ -4,6 +4,7 @@
 #endif // USB2CAN_DEFINE_H
 
 #include "QString"
+#include "QByteArray"
 /*
 0f0200
 0f12020001
@@ -42,7 +43,10 @@ static const char readReg[] =       {'\x0f',    '\x10'};
 
 static const char getMode[] =       {'\x0f',    '\x06',    '\x00'};
 
-
+//QByteArray initReg  =               {0,31,16,17,18,19,20,21,22,23,8,4         };
+//QByteArray initData[]  =           {1,C0,0,0,0,0,ff,ff,ff,ff,DA,03           };
+static const char initReg[]  =       {'\x00','\x31','\x16','\x17','\x18','\x19','\x20','\x21','\x22','\x23','\x08','\x04'};
+static const char initData[] =       {'\x01','\xC0','\x00','\x00','\x00','\x00','\xff','\xff','\xff','\xff','\xDA','\x03'};
 
 /*
 static const char Config[] =        {'\x0f',    '\x02', '\x00', '\x0D'                 };
