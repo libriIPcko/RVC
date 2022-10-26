@@ -392,5 +392,7 @@ void USB2CAN_driver::initSend_1(){
    initListTimer->stop();
    int waitForBytesWritten = 200;
    int status;
+   //WriteReg(QByteArray::fromHex(initReg[temporary_init_Counter]),QByteArray::fromHex(initData[temporary_init_Counter]));
    WriteReg(initReg[temporary_init_Counter],initData[temporary_init_Counter]);
+   initListTimer->start();
 }
