@@ -61,6 +61,7 @@ public:
         TX_textEdit = new QTextEdit(tab);
         TX_textEdit->setObjectName(QString::fromUtf8("TX_textEdit"));
         TX_textEdit->setGeometry(QRect(20, 50, 311, 221));
+        TX_textEdit->setStyleSheet(QString::fromUtf8("gridline-color: rgb(0, 0, 0);"));
         RX_textEdit = new QTextEdit(tab);
         RX_textEdit->setObjectName(QString::fromUtf8("RX_textEdit"));
         RX_textEdit->setGeometry(QRect(360, 50, 311, 221));

@@ -65,6 +65,9 @@
         <height>221</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">gridline-color: rgb(0, 0, 0);</string>
+      </property>
      </widget>
      <widget class="QTextEdit" name="RX_textEdit">
       <property name="geometry">

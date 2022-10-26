@@ -134,10 +134,19 @@ void MainWindow::menu_sendCommands(QString cmd){
             qDebug() << "Start init" << cmd;
             u2c->init();
         }
-        else if(cmd.sliced(0,6).compare("test_2") == 0){
-            qDebug() << "test_1 cmd" << cmd << cmd.sliced(6);
-            //u2c->SendString(cmd.sliced(6).toLatin1());
-            u2c->SendHex(QByteArray::fromHex(cmd.sliced(6).toLocal8Bit()));
+        else if(cmd.sliced(0,1).compare("w") == 0){
+            if(cmd.size() >= 4){
+                qDebug() << "w" << cmd << cmd.sliced(1);
+                //u2c->SendString(cmd.sliced(6).toLatin1());
+                //u2c->SendHex(QByteArray::fromHex(cmd.sliced(1).toLocal8Bit()));
+                //u2c->WriteReg(QByteArray::fromHex(cmd.sliced(0,2).toLocal8Bit()),QByteArray::fromHex(cmd.sliced(2).toLocal8Bit()));
+                u2c->WriteReg(QByteArray::fromHex(cmd.sliced(1,2).toUtf8()),QByteArray::fromHex(cmd.sliced(4).toUtf8()));
+            }
+            else{
+                //CMD is short
+                //QColor errorCol = QColor::red();
+                ui->TX_textEdit->append("ERROR /cmd is short/");
+            }
         }
         else{
             qDebug() << "default cmd" << cmd << QByteArray::fromHex(cmd.toLocal8Bit());

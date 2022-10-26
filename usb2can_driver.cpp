@@ -84,7 +84,17 @@ QByteArray USB2CAN_driver::Get_Mode(){
     return USB2CAN_driver::readAll();
 }
 
-void USB2CAN_driver::WriteReg(QByteArray regAdress, QByteArray value[]){
+void USB2CAN_driver::WriteReg(QByteArray regAdress, QByteArray value){
+    QByteArray sync = "0f";
+    QByteArray out = {QByteArray::fromHex(sync) +QByteArray::fromHex("12") + regAdress + QByteArray::fromHex(QByteArray::number(value.size())) + value};
+    SendHex(out);
+    /*
+    while(!port_USB2CAN->waitForBytesWritten(300)){
+        port_USB2CAN->write(out);
+
+    }
+    */
+    /*
     int length = regAdress.length() + value->length();
     QByteArray len;
     len.setNum(length);
@@ -95,6 +105,7 @@ void USB2CAN_driver::WriteReg(QByteArray regAdress, QByteArray value[]){
         port_USB2CAN->write(sendData);
 
     }
+    */
 }
 
 int USB2CAN_driver::SendString(QString data){
@@ -106,7 +117,6 @@ int USB2CAN_driver::SendString(QString data){
     return length;
 }
 int USB2CAN_driver::SendHex(QByteArray data){
-    //sendData.fromRawData(*sendVal,sizeof (sendVal));
     long length;
     while(!port_USB2CAN->waitForBytesWritten(300)){
         length = port_USB2CAN->write(data);
