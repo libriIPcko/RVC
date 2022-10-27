@@ -5,6 +5,7 @@
 
 #include "QString"
 #include "QByteArray"
+#include "list"
 /*
 0f0200
 0f12020001
@@ -45,8 +46,19 @@ static const char getMode[] =       {'\x0f',    '\x06',    '\x00'};
 
 //QByteArray initReg  =               {0,31,16,17,18,19,20,21,22,23,8,4         };
 //QByteArray initData[]  =           {1,C0,0,0,0,0,ff,ff,ff,ff,DA,03           };
-static const char initReg[]  =       {'\x00','\x31','\x16','\x17','\x18','\x19','\x20','\x21','\x22','\x23','\x08','\x04'};
-static const char initData[] =       {'\x01','\xC0','\x00','\x00','\x00','\x00','\xff','\xff','\xff','\xff','\xDA','\x03'};
+//static const char initReg[]  =       {'\x00','\x31','\x16','\x17','\x18','\x19','\x20','\x21','\x22','\x23','\x08','\x04'};
+//static const char initData[] =       {'\x01','\xC0','\x00','\x00','\x00','\x00','\xff','\xff','\xff','\xff','\xDA','\x03'};
+
+//QByteArray initReg[]  =       {0x00,0x31,0x16,0x17,0x18,0x19,0x20,0x21,0x22,0x23,0x08,0x04};
+//QByteArray initData[] =       {0x01,0xC0,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0xDA,0x03};
+
+//unsigned char initReg[]  =       {0x00,0x31,0x16,0x17,0x18,0x19,0x20,0x21,0x22,0x23,0x08,0x04};
+//unsigned char initData[] =       {0x01,0xC0,0x00,0x00,0x00,0x00,0xff,0xff,0xff,0xff,0xDA,0x03};
+
+//QByteArray initReg[12] = {0x00,0x31,0x16,0x17,0x18,0x19,0x20,0x21,0x22,0x23,0x08,0x04};
+QString initReg  = {"003116171819202122230804"};
+QString initData = {"01C000000000ffffffffDA03"};
+
 
 /*
 static const char Config[] =        {'\x0f',    '\x02', '\x00', '\x0D'                 };

@@ -392,7 +392,36 @@ void USB2CAN_driver::initSend_1(){
    initListTimer->stop();
    int waitForBytesWritten = 200;
    int status;
-   //WriteReg(QByteArray::fromHex(initReg[temporary_init_Counter]),QByteArray::fromHex(initData[temporary_init_Counter]));
-   WriteReg(initReg[temporary_init_Counter],initData[temporary_init_Counter]);
+   QByteArray reg,dat;
+   bool ok;
+   //reg = QByteArray::fromHex(initReg.toInt(&ok,16));
+   reg = QByteArray::fromHex(initReg.toUtf8());
+   dat = QByteArray::fromHex(initData.toUtf8());
+   char a = reg.at(temporary_init_Counter);
+   char b = dat.at(temporary_init_Counter);
+   WriteReg(QByteArray::fromRawData(&a,1),QByteArray::fromRawData(&b,1));
+   if(temporary_init_Counter<11){
+       temporary_init_Counter++;
+       initListTimer->start();
+   }
+   else{
+       temporary_init_Counter = 0;
+       activeInit = false;
+       initListTimer->stop();
+       initListTimer->disconnect();
+   }
+
+
+   /*
+   qDebug() << "Reg contained: ";
+   for(int i=0;i<12;i++){
+       qDebug() << i << reg.at(i);
+   }
+   qDebug() << "Data contained: ";
+   for(int i=0;i<12;i++){
+       qDebug() << i << dat.at(i);
+   }
+   WriteReg(reg,dat);
    initListTimer->start();
+   */
 }

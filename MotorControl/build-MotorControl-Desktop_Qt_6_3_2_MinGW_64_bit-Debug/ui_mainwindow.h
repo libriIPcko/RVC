@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -36,6 +37,9 @@ public:
     QPushButton *pushButton_ListSendBtn;
     QPushButton *pushButton_RX_clean;
     QPushButton *pushButton_TX_clean;
+    QLineEdit *lineEdit_lineEdit_timdelaylist;
+    QLabel *label;
+    QLabel *label_2;
     QWidget *tab_2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -54,10 +58,10 @@ public:
         tab->setObjectName(QString::fromUtf8("tab"));
         pushButton = new QPushButton(tab);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(10, 10, 75, 24));
+        pushButton->setGeometry(QRect(10, 20, 75, 24));
         lineEdit = new QLineEdit(tab);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-        lineEdit->setGeometry(QRect(100, 10, 113, 22));
+        lineEdit->setGeometry(QRect(100, 20, 113, 22));
         TX_textEdit = new QTextEdit(tab);
         TX_textEdit->setObjectName(QString::fromUtf8("TX_textEdit"));
         TX_textEdit->setGeometry(QRect(20, 50, 311, 221));
@@ -77,6 +81,15 @@ public:
         pushButton_TX_clean = new QPushButton(tab);
         pushButton_TX_clean->setObjectName(QString::fromUtf8("pushButton_TX_clean"));
         pushButton_TX_clean->setGeometry(QRect(310, 50, 21, 24));
+        lineEdit_lineEdit_timdelaylist = new QLineEdit(tab);
+        lineEdit_lineEdit_timdelaylist->setObjectName(QString::fromUtf8("lineEdit_lineEdit_timdelaylist"));
+        lineEdit_lineEdit_timdelaylist->setGeometry(QRect(240, 20, 51, 22));
+        label = new QLabel(tab);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(230, 0, 71, 21));
+        label_2 = new QLabel(tab);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setGeometry(QRect(300, 20, 31, 21));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -107,6 +120,9 @@ public:
         pushButton_ListSendBtn->setText(QCoreApplication::translate("MainWindow", "ListSend", nullptr));
         pushButton_RX_clean->setText(QCoreApplication::translate("MainWindow", "C", nullptr));
         pushButton_TX_clean->setText(QCoreApplication::translate("MainWindow", "C", nullptr));
+        lineEdit_lineEdit_timdelaylist->setText(QCoreApplication::translate("MainWindow", "800", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "TX list delay:", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "[ms]", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Tab 2", nullptr));
     } // retranslateUi

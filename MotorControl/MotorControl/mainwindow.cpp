@@ -107,7 +107,10 @@ void MainWindow::on_pushButton_ListSendBtn_released(){
         }
     }
     //RUN timer or Thread
-    listSendTimer->setInterval(800);
+
+    //listSendTimer->setInterval(QString::number(ui->lineEdit_lineEdit_timdelaylist->text()));
+    //QString value = ui->lineEdit_lineEdit_timdelaylist->text();
+    listSendTimer->setInterval(ui->lineEdit_lineEdit_timdelaylist->text().toInt());
     listSendTimer->start();
 }
 
@@ -116,7 +119,8 @@ void MainWindow::on_timeout_listSendTimer(){
         listSendTimer->stop();
     }
     else{
-        u2c->SendHex(QByteArray::fromHex(outputTxt.front().toLocal8Bit()));
+        //u2c->SendHex(QByteArray::fromHex(outputTxt.front().toLocal8Bit()));
+        menu_sendCommands(outputTxt.front().toLocal8Bit().sliced(1));
         outputTxt.pop_front();
     }
 }
@@ -136,7 +140,9 @@ void MainWindow::menu_sendCommands(QString cmd){
         }
         else if(cmd.sliced(0,1).compare("w") == 0){
             if(cmd.size() >= 4){
-                u2c->WriteReg(QByteArray::fromHex(cmd.sliced(1,2).toUtf8()),QByteArray::fromHex(cmd.sliced(4).toUtf8()));
+                //qDebug() << QByteArray::fromHex(cmd.sliced(4).toUtf8());
+                //u2c->WriteReg(QByteArray::fromHex(cmd.sliced(1,2).toUtf8()),QByteArray::fromHex(cmd.sliced(4).toUtf8()));
+                u2c->WriteReg(QByteArray::fromHex(cmd.sliced(1,2).toUtf8()),QByteArray::fromHex(cmd.sliced(3).toUtf8()));
             }
             else{
                 //CMD is short
