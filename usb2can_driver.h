@@ -51,6 +51,9 @@ public:
     int connectToPort(QString portName,int BaudRate);
     int disconnectedFromPort();
 
+    bool correctInit = false;
+    int msgCounter = 0;
+
 
 public: signals:
     friend void QIODevice::readyRead();

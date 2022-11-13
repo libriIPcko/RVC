@@ -152,9 +152,12 @@ int USB2CAN_driver::init_test(){
 QByteArray USB2CAN_driver::read_USB2CAN(){
     //qDebug() <<"From driver RX" << USB2CAN_driver::readAll();
     QByteArray temporary = port_USB2CAN->readAll();
+    msgCounter++;
 
     if(temporary.compare("\017\t\002\002\002") == 0){
         qDebug()<< "filtered\n";
+        msgCounter = 0;
+        correctInit = true;
     }
     else{
         emit dataReceived(temporary);
@@ -175,6 +178,9 @@ QByteArray USB2CAN_driver::read_USB2CAN(){
                 initListTimer->setTimerType(Qt::PreciseTimer);
                 initListTimer->start(initTimerDelay);
             }
+        }
+        if(msgCounter%3 == 0){
+            correctInit = false;
         }
     }
     return 0;

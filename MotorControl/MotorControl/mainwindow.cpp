@@ -26,9 +26,19 @@ void MainWindow::on_dataReceived(QByteArray data){
         c = data.at(i);
         HtS.append(QString("%1").arg(c,2,16,QChar('0')));
     }
-
     ui->RX_textEdit->append(HtS);
     HtS.clear();
+
+    if(u2c->correctInit == true){
+        //ui->initStatus->setChecked(1);
+        ui->initStatus->setVisible(true);
+        ui->initStatus->update();
+    }
+    else{
+        //ui->initStatus->setChecked(0);
+        ui->initStatus->setVisible(false);
+        ui->initStatus->update();
+    }
 }
 
 bool MainWindow::event(QEvent *event){
@@ -71,7 +81,7 @@ void MainWindow::on_pushButton_released(){
 void MainWindow::on_pushButton_SendBtn_clicked()
 {
     QString txt = ui->TX_textEdit->toPlainText();
-    if((txt.isEmpty() == 0)||(u2c->isOpen())){
+    if((txt.isEmpty() == 0)&&(u2c->port_USB2CAN->isOpen())){
         if(txt.at(0) == '#'){
             menu_sendCommands(txt.sliced(1));
         }
@@ -79,6 +89,9 @@ void MainWindow::on_pushButton_SendBtn_clicked()
             qDebug() << "length: " << u2c->SendHex(QByteArray::fromHex(txt.toLocal8Bit()));
             //u2c->SendHex(QByteArray::fromHex(outputTxt.front().toLocal8Bit()));
         }
+    }
+    else if (!u2c->port_USB2CAN->isOpen()){
+       ui->RX_textEdit->setText("ERROR: Device is not connected !\n");
     }
 }
 
@@ -100,7 +113,6 @@ void MainWindow::on_pushButton_ListSendBtn_released(){
         }
     }
     //RUN timer or Thread
-
     //listSendTimer->setInterval(QString::number(ui->lineEdit_lineEdit_timdelaylist->text()));
     //QString value = ui->lineEdit_lineEdit_timdelaylist->text();
     listSendTimer->setInterval(ui->lineEdit_lineEdit_timdelaylist->text().toInt());

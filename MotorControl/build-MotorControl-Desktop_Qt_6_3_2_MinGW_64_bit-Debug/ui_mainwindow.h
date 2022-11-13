@@ -16,6 +16,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTextEdit>
@@ -41,6 +42,7 @@ public:
     QLabel *label;
     QLabel *label_2;
     QPushButton *pushButton_showDev;
+    QRadioButton *initStatus;
     QWidget *tab_2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -94,6 +96,12 @@ public:
         pushButton_showDev = new QPushButton(tab);
         pushButton_showDev->setObjectName(QString::fromUtf8("pushButton_showDev"));
         pushButton_showDev->setGeometry(QRect(10, 280, 75, 24));
+        initStatus = new QRadioButton(tab);
+        initStatus->setObjectName(QString::fromUtf8("initStatus"));
+        initStatus->setGeometry(QRect(370, 20, 89, 20));
+        initStatus->setMouseTracking(false);
+        initStatus->setCheckable(false);
+        initStatus->setAutoExclusive(false);
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -137,6 +145,7 @@ public:
         label->setText(QCoreApplication::translate("MainWindow", "TX list delay:", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "[ms]", nullptr));
         pushButton_showDev->setText(QCoreApplication::translate("MainWindow", "ShowDev", nullptr));
+        initStatus->setText(QCoreApplication::translate("MainWindow", "init status", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Tab 2", nullptr));
     } // retranslateUi
