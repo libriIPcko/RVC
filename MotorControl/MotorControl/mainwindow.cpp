@@ -27,14 +27,8 @@ void MainWindow::on_dataReceived(QByteArray data){
         HtS.append(QString("%1").arg(c,2,16,QChar('0')));
     }
 
-    if(HtS.compare("0f09020202")==0){
-        qDebug() << "RX: "<< "RAW: " <<data << "fromHex: "<< QByteArray::fromHex(data) << "HtS: " <<HtS;
-    }
-    else{
-        ui->RX_textEdit->append(HtS);
-    }
+    ui->RX_textEdit->append(HtS);
     HtS.clear();
-
 }
 
 bool MainWindow::event(QEvent *event){

@@ -15,9 +15,8 @@ USB2CAN_driver::USB2CAN_driver()
     port_USB2CAN = new QSerialPort();
     ListTimer = new QTimer();
     initListTimer = new QTimer();
-
-    qDebug() << "Connection of readyRead to sw interrupt:" <<connect(port_USB2CAN,SIGNAL(readyRead()),this,SLOT(read_USB2CAN()));
-
+    //qDebug() << "Connection of readyRead to sw interrupt:" <<
+    connect(port_USB2CAN,SIGNAL(readyRead()),this,SLOT(read_USB2CAN()));
 }
 
 /*
@@ -153,24 +152,29 @@ int USB2CAN_driver::init_test(){
 QByteArray USB2CAN_driver::read_USB2CAN(){
     //qDebug() <<"From driver RX" << USB2CAN_driver::readAll();
     QByteArray temporary = port_USB2CAN->readAll();
-    emit dataReceived(temporary);
-    //Correct
 
-    if(activeInit == true){
-        initListTimer->stop();
-        initSend();
-        if(activeInit == true){
-            initListTimer->setTimerType(Qt::PreciseTimer);
-            initListTimer->start(initTimerDelay);
-        }
+    if(temporary.compare("\017\t\002\002\002") == 0){
+        qDebug()<< "filtered\n";
     }
-    //New initialize subrutine
-    if(active_init_test == true){
-        initListTimer->stop();
-        initSend_1();
+    else{
+        emit dataReceived(temporary);
+        //Correct
+        if(activeInit == true){
+            initListTimer->stop();
+            initSend();
+            if(activeInit == true){
+                initListTimer->setTimerType(Qt::PreciseTimer);
+                initListTimer->start(initTimerDelay);
+            }
+        }
+        //New initialize subrutine
         if(active_init_test == true){
-            initListTimer->setTimerType(Qt::PreciseTimer);
-            initListTimer->start(initTimerDelay);
+            initListTimer->stop();
+            initSend_1();
+            if(active_init_test == true){
+                initListTimer->setTimerType(Qt::PreciseTimer);
+                initListTimer->start(initTimerDelay);
+            }
         }
     }
     return 0;
