@@ -183,26 +183,31 @@
        <string>ShowDev</string>
       </property>
      </widget>
-     <widget class="QRadioButton" name="initStatus">
+     <widget class="QLabel" name="label_3">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>370</x>
+        <x>360</x>
         <y>20</y>
-        <width>89</width>
-        <height>20</height>
+        <width>101</width>
+        <height>16</height>
        </rect>
       </property>
-      <property name="mouseTracking">
-       <bool>false</bool>
+      <property name="font">
+       <font>
+        <strikeout>false</strikeout>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
       </property>
       <property name="text">
-       <string>init status</string>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <property name="autoExclusive">
-       <bool>false</bool>
+       <string>USB2CAN works...</string>
       </property>
      </widget>
     </widget>

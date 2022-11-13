@@ -16,7 +16,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTextEdit>
@@ -42,7 +41,7 @@ public:
     QLabel *label;
     QLabel *label_2;
     QPushButton *pushButton_showDev;
-    QRadioButton *initStatus;
+    QLabel *label_3;
     QWidget *tab_2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -96,12 +95,15 @@ public:
         pushButton_showDev = new QPushButton(tab);
         pushButton_showDev->setObjectName(QString::fromUtf8("pushButton_showDev"));
         pushButton_showDev->setGeometry(QRect(10, 280, 75, 24));
-        initStatus = new QRadioButton(tab);
-        initStatus->setObjectName(QString::fromUtf8("initStatus"));
-        initStatus->setGeometry(QRect(370, 20, 89, 20));
-        initStatus->setMouseTracking(false);
-        initStatus->setCheckable(false);
-        initStatus->setAutoExclusive(false);
+        label_3 = new QLabel(tab);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setEnabled(true);
+        label_3->setGeometry(QRect(360, 20, 101, 16));
+        QFont font;
+        font.setStrikeOut(false);
+        label_3->setFont(font);
+        label_3->setFrameShape(QFrame::NoFrame);
+        label_3->setFrameShadow(QFrame::Plain);
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -145,7 +147,7 @@ public:
         label->setText(QCoreApplication::translate("MainWindow", "TX list delay:", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "[ms]", nullptr));
         pushButton_showDev->setText(QCoreApplication::translate("MainWindow", "ShowDev", nullptr));
-        initStatus->setText(QCoreApplication::translate("MainWindow", "init status", nullptr));
+        label_3->setText(QCoreApplication::translate("MainWindow", "USB2CAN works...", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Tab 2", nullptr));
     } // retranslateUi

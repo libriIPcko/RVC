@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(listSendTimer,SIGNAL(timeout()),this,SLOT(on_timeout_listSendTimer()));
     u2c = new USB2CAN_driver();
     connect(u2c,SIGNAL(dataReceived(QByteArray)),this,SLOT(on_dataReceived(QByteArray)));
+    ui->label_3->setVisible(false);
 }
 
 MainWindow::~MainWindow(){
@@ -30,14 +31,12 @@ void MainWindow::on_dataReceived(QByteArray data){
     HtS.clear();
 
     if(u2c->correctInit == true){
-        //ui->initStatus->setChecked(1);
-        ui->initStatus->setVisible(true);
-        ui->initStatus->update();
+        ui->label_3->setVisible(true);
+        ui->label_3->setStyleSheet("font-weight: strike; color: green");
     }
     else{
-        //ui->initStatus->setChecked(0);
-        ui->initStatus->setVisible(false);
-        ui->initStatus->update();
+        //ui->label_3->setStyleSheet("font-weight: bold; color: red");
+        ui->label_3->setVisible(false);
     }
 }
 
