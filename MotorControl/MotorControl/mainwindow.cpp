@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+  #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -9,20 +9,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(listSendTimer,SIGNAL(timeout()),this,SLOT(on_timeout_listSendTimer()));
     u2c = new USB2CAN_driver();
     connect(u2c,SIGNAL(dataReceived(QByteArray)),this,SLOT(on_dataReceived(QByteArray)));
-
-    const auto infos = QSerialPortInfo::availablePorts();
-    for (const QSerialPortInfo &info : infos) {
-        QString s = QObject::tr("Port: ") + info.portName() + "\n"
-                    //+ QObject::tr("Location: ") + info.systemLocation() + "\n"
-                    //+ QObject::tr("Description: ") + info.description() + "\n"
-                    //+ QObject::tr("Manufacturer: ") + info.manufacturer() + "\n"
-                    + QObject::tr("Serial number: ") + info.serialNumber();
-                    //+ QObject::tr("Vendor Identifier: ") + (info.hasVendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : QString()) + "\n"
-                    //+ QObject::tr("Product Identifier: ") + (info.hasProductIdentifier() ? QString::number(info.productIdentifier(), 16) : QString()) + "\n";
-                   // + QObject::tr("Busy: ") + (info.isBusy() ? QObject::tr("Yes") : QObject::tr("No")) + "\n";
-        ui->TX_textEdit->append(s);
-    }
-
 }
 
 MainWindow::~MainWindow(){
@@ -40,8 +26,15 @@ void MainWindow::on_dataReceived(QByteArray data){
         c = data.at(i);
         HtS.append(QString("%1").arg(c,2,16,QChar('0')));
     }
-    qDebug() << "RX: "<< "RAW: " <<data << "fromHex: "<< QByteArray::fromHex(data) << "HtS: " <<HtS;
-    ui->RX_textEdit->append(HtS);
+
+    if(HtS.compare("0f09020202")==0){
+        qDebug() << "RX: "<< "RAW: " <<data << "fromHex: "<< QByteArray::fromHex(data) << "HtS: " <<HtS;
+    }
+    else{
+        ui->RX_textEdit->append(HtS);
+    }
+    HtS.clear();
+
 }
 
 bool MainWindow::event(QEvent *event){
@@ -62,8 +55,6 @@ void MainWindow::on_pushButton_released(){
     if(connectButton == true){
         ui->pushButton->setText("Connected");
         u2c->connectToPort(ui->lineEdit->text(),9600);           //COM5
-        //u2c->init();
-
         if(u2c->port_USB2CAN->isOpen()){
             qDebug() << "port is open? "<< u2c->port_USB2CAN->isOpen() << "Port name:" << ui->lineEdit->text();
         }
@@ -72,6 +63,14 @@ void MainWindow::on_pushButton_released(){
         u2c->port_USB2CAN->close();
         qDebug() << "Close port" << !u2c->port_USB2CAN->isOpen();
         ui->pushButton->setText("Disconnected");
+    }
+
+    if(u2c->port_USB2CAN->isOpen() == true){
+        ui->pushButton->setText("conn");
+        qDebug() << "port is open? "<< u2c->port_USB2CAN->isOpen() << "Port name:" << ui->lineEdit->text();
+    }
+    else{
+        ui->pushButton->setText("disconn");
     }
 }
 
@@ -138,6 +137,10 @@ void MainWindow::menu_sendCommands(QString cmd){
             qDebug() << "Start init" << cmd;
             u2c->init();
         }
+        else if(cmd.compare("initTest") == 0){
+            qDebug() << "Start init" << cmd;
+            u2c->init_test();
+        }
         else if(cmd.sliced(0,1).compare("w") == 0){
             if(cmd.size() >= 4){
                 //qDebug() << QByteArray::fromHex(cmd.sliced(4).toUtf8());
@@ -178,3 +181,55 @@ void MainWindow::on_pushButton_TX_clean_released(){
     ui->TX_textEdit->clear();
 }
 
+
+void MainWindow::on_pushButton_showDev_released()
+{
+    infoCOM();
+}
+void MainWindow::infoCOM(){
+    const auto infos = QSerialPortInfo::availablePorts();
+    for (const QSerialPortInfo &info : infos) {
+        if(info.serialNumber().isEmpty()){
+            /*
+            QString s = QObject::tr("Port: ") + info.portName()
+            + QObject::tr("\tSerial number: ") + info.serialNumber() + "\n"
+            + QObject::tr("\tProduct Identifier: ") + (info.hasProductIdentifier() ? QString::number(info.productIdentifier(), 16) : QString()) + "\n"
+            + QObject::tr("\tVendor Identifier: ") + (info.hasVendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : QString()) + "\n";
+            */
+
+                QString s = QObject::tr("Port: ") + info.portName()
+                + QObject::tr("\tLocation: ") + info.systemLocation() + "\n"
+                + QObject::tr("\tDescription: ") + info.description() + "\n"
+                + QObject::tr("\tManufacturer: ") + info.manufacturer() + "\n"
+                + QObject::tr("\tSerial number: ") + info.serialNumber()
+                + QObject::tr("\tVendor Identifier: ") + (info.hasVendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : QString()) + "\n"
+                + QObject::tr("\tProduct Identifier: ") + (info.hasProductIdentifier() ? QString::number(info.productIdentifier(), 16) : QString()) + "\n";
+            ui->TX_textEdit->append(s);
+        }
+    else{
+            /*
+            QString s = QObject::tr("Port: ") + info.portName()
+                    + QObject::tr("\tSerial number: ") + info.serialNumber() + "\n"
+                    + QObject::tr("\tProduct Identifier: ") + (info.hasProductIdentifier() ? QString::number(info.productIdentifier(), 16) : QString()) + "\n"
+                    + QObject::tr("\tVendor Identifier: ") + (info.hasVendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : QString()) + "\n";
+            */
+        //    QString s = QObject::tr("Port: ") + info.portName() + "\n";
+        //+ QObject::tr("Location: ") + info.systemLocation() + "\n"
+        //+ QObject::tr("Description: ") + info.description() + "\n"
+        //+ QObject::tr("Manufacturer: ") + info.manufacturer() + "\n"
+        //+ QObject::tr("Serial number: ") + info.serialNumber();
+        //+ QObject::tr("Vendor Identifier: ") + (info.hasVendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : QString()) + "\n"
+        //+ QObject::tr("Product Identifier: ") + (info.hasProductIdentifier() ? QString::number(info.productIdentifier(), 16) : QString()) + "\n";
+       // + QObject::tr("Busy: ") + (info.isBusy() ? QObject::tr("Yes") : QObject::tr("No")) + "\n";
+
+            QString s = QObject::tr("Port: ") + info.portName()
+            + QObject::tr("\tLocation: ") + info.systemLocation() + "\n"
+            + QObject::tr("\tDescription: ") + info.description() + "\n"
+            + QObject::tr("\tManufacturer: ") + info.manufacturer() + "\n"
+            + QObject::tr("\tSerial number: ") + info.serialNumber()
+            + QObject::tr("\tVendor Identifier: ") + (info.hasVendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : QString()) + "\n"
+            + QObject::tr("\tProduct Identifier: ") + (info.hasProductIdentifier() ? QString::number(info.productIdentifier(), 16) : QString()) + "\n";
+        ui->TX_textEdit->append(s);
+        }
+    }
+}

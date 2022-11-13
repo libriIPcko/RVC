@@ -131,7 +131,6 @@ QByteArray USB2CAN_driver::ReadReg(QByteArray regAdress){
 }
 
 int USB2CAN_driver::init(){
-    /*
     //Init CMD by timer period
         activeInit = true;
         temporary_init_Counter = 0;
@@ -139,9 +138,12 @@ int USB2CAN_driver::init(){
         initSend();
         initListTimer->setTimerType(Qt::PreciseTimer);
         initListTimer->start(initTimerDelay);
-    */
+
+}
+
+int USB2CAN_driver::init_test(){
     //TestCode
-        activeInit = true;
+        active_init_test = true;
         temporary_init_Counter = 0;
         connect(initListTimer,SIGNAL(timeout()),this,SLOT(initSend_1()));
         initListTimer->setTimerType(Qt::PreciseTimer);
@@ -151,33 +153,25 @@ int USB2CAN_driver::init(){
 QByteArray USB2CAN_driver::read_USB2CAN(){
     //qDebug() <<"From driver RX" << USB2CAN_driver::readAll();
     QByteArray temporary = port_USB2CAN->readAll();
+    emit dataReceived(temporary);
     //Correct
-    /*
+
     if(activeInit == true){
         initListTimer->stop();
-        emit dataReceived(temporary);
         initSend();
         if(activeInit == true){
             initListTimer->setTimerType(Qt::PreciseTimer);
             initListTimer->start(initTimerDelay);
         }
     }
-    else{
-        emit dataReceived(temporary);
-    }
-    */
     //New initialize subrutine
-    if(activeInit == true){
+    if(active_init_test == true){
         initListTimer->stop();
-        emit dataReceived(temporary);
         initSend_1();
-        if(activeInit == true){
+        if(active_init_test == true){
             initListTimer->setTimerType(Qt::PreciseTimer);
             initListTimer->start(initTimerDelay);
         }
-    }
-    else{
-        emit dataReceived(temporary);
     }
     return 0;
 }
@@ -406,7 +400,7 @@ void USB2CAN_driver::initSend_1(){
    }
    else{
        temporary_init_Counter = 0;
-       activeInit = false;
+       active_init_test = false;
        initListTimer->stop();
        initListTimer->disconnect();
    }

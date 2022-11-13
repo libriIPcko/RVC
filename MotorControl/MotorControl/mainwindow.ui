@@ -170,6 +170,19 @@
        <string>[ms]</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton_showDev">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>280</y>
+        <width>75</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ShowDev</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -190,6 +203,18 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>TX_textEdit</tabstop>
+  <tabstop>RX_textEdit</tabstop>
+  <tabstop>pushButton_SendBtn</tabstop>
+  <tabstop>pushButton_ListSendBtn</tabstop>
+  <tabstop>pushButton_RX_clean</tabstop>
+  <tabstop>pushButton_TX_clean</tabstop>
+  <tabstop>lineEdit_lineEdit_timdelaylist</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -27,7 +27,9 @@ public:
 
     int temporary_init_Counter = 0;
     int init();
+    int init_test();
     bool activeInit = false;
+    bool active_init_test = false;
     void USB_LoopBack();
     void Boot_Mode();
     void Config_Mode();

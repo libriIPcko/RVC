@@ -40,6 +40,7 @@ public:
     QLineEdit *lineEdit_lineEdit_timdelaylist;
     QLabel *label;
     QLabel *label_2;
+    QPushButton *pushButton_showDev;
     QWidget *tab_2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -90,6 +91,9 @@ public:
         label_2 = new QLabel(tab);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setGeometry(QRect(300, 20, 31, 21));
+        pushButton_showDev = new QPushButton(tab);
+        pushButton_showDev->setObjectName(QString::fromUtf8("pushButton_showDev"));
+        pushButton_showDev->setGeometry(QRect(10, 280, 75, 24));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -102,6 +106,15 @@ public:
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
+        QWidget::setTabOrder(tabWidget, pushButton);
+        QWidget::setTabOrder(pushButton, lineEdit);
+        QWidget::setTabOrder(lineEdit, TX_textEdit);
+        QWidget::setTabOrder(TX_textEdit, RX_textEdit);
+        QWidget::setTabOrder(RX_textEdit, pushButton_SendBtn);
+        QWidget::setTabOrder(pushButton_SendBtn, pushButton_ListSendBtn);
+        QWidget::setTabOrder(pushButton_ListSendBtn, pushButton_RX_clean);
+        QWidget::setTabOrder(pushButton_RX_clean, pushButton_TX_clean);
+        QWidget::setTabOrder(pushButton_TX_clean, lineEdit_lineEdit_timdelaylist);
 
         retranslateUi(MainWindow);
 
@@ -123,6 +136,7 @@ public:
         lineEdit_lineEdit_timdelaylist->setText(QCoreApplication::translate("MainWindow", "800", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "TX list delay:", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "[ms]", nullptr));
+        pushButton_showDev->setText(QCoreApplication::translate("MainWindow", "ShowDev", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Tab 2", nullptr));
     } // retranslateUi

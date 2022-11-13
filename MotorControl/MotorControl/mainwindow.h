@@ -21,6 +21,7 @@ public:
     USB2CAN_driver *u2c;
     bool connectStatus = false;
     bool connectButton = false;
+    void infoCOM();
     ~MainWindow();
 
 private:
@@ -45,5 +46,6 @@ private slots:
     void on_pushButton_ListSendBtn_released();
     void on_pushButton_RX_clean_released();
     void on_pushButton_TX_clean_released();
+    void on_pushButton_showDev_released();
 };
 #endif // MAINWINDOW_H
