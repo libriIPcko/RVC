@@ -61,24 +61,19 @@ int USB2CAN_driver::disconnectedFromPort(){
 
 
 void USB2CAN_driver::USB_LoopBack(){
-
 }
 void USB2CAN_driver::Boot_Mode(){
-
 }
 void USB2CAN_driver::Config_Mode(){
-
 }
 void USB2CAN_driver::Normal_Mode(){
-
 }
 void USB2CAN_driver::LoopBack_Mode(){
-
 }
+
 QByteArray USB2CAN_driver::Get_Mode(){
     while(!port_USB2CAN->waitForBytesWritten(300)){
         port_USB2CAN->write(getMode);
-
     }
     return USB2CAN_driver::readAll();
 }
@@ -123,10 +118,8 @@ int USB2CAN_driver::SendHex(QByteArray data){
     return length;
 }
 QByteArray USB2CAN_driver::WriteCMD(QByteArray CMD_name, QByteArray value){
-
 }
 QByteArray USB2CAN_driver::ReadReg(QByteArray regAdress){
-
 }
 
 int USB2CAN_driver::init(){
@@ -155,12 +148,17 @@ QByteArray USB2CAN_driver::read_USB2CAN(){
     msgCounter++;
 
     if(temporary.compare("\017\t\002\002\002") == 0){
-        qDebug()<< "filtered\n";
+        //qDebug()<< "filtered\n";
         msgCounter = 0;
         correctInit = true;
     }
+    //Add re-formating CAN message
+
+
+    //All other readed datas
     else{
         emit dataReceived(temporary);
+        //for init sub-rutine
         //Correct
         if(activeInit == true){
             initListTimer->stop();
@@ -170,6 +168,7 @@ QByteArray USB2CAN_driver::read_USB2CAN(){
                 initListTimer->start(initTimerDelay);
             }
         }
+        //for init sub-rutine
         //New initialize subrutine
         if(active_init_test == true){
             initListTimer->stop();
@@ -179,39 +178,48 @@ QByteArray USB2CAN_driver::read_USB2CAN(){
                 initListTimer->start(initTimerDelay);
             }
         }
-        if(msgCounter%3 == 0){
+        if(msgCounter%3 == 0){//after every 3 CAN RX message without OK string set corectInit to false
             correctInit = false;
         }
     }
     return 0;
 }
 
-void USB2CAN_driver::writeCANmsg(QString msg){
-    //WRITE_MESSAGE 65 N,L Odoslanie CAN spravy
-    /*
-                    Tato zpráva nese požadavek na odeslání zprávy na CAN. Struktura datové ásti
-                    zprávy odpovídá struktue transmit bufferu obvodu SJA 1000. Tzn. nejprve hodnota
-                    registru, TX frame Information, dále pak 2 (standardní 11 bitový identifikátor) nebo 4
-                    (rozšíený 29 bitový identifikátor) bajty registr TX identifier a následn 0 až 8
-                    datových bajt CAN zprávy. Délka USB zprávy je tedy závislá na délce CAN zprávy.
-    */
-    //0F +  CMD + Length(0x00-0x10) + Data bytes {RegName + TX frame information + 11bit ID + CAN data}
-                                            //Datahseet SJA1000 -   39page
-    //Tato zpráva nese požadavek na odeslání zprávy na CAN. Struktura datové ásti zprávy odpovídá struktue transmit bufferu obvodu SJA 1000. Tzn. nejprve hodnota
-    //registru, TX frame Information, dále pak
-    //x0F 40 xyxy  d10 00 d11 ff d12 01 d13 02 d14 03
-    //0F 40 xyxy TX_frame TX_ID1 TX_ID2 TX_DatB-1-8
-    //TX Frame information SFF
-                //B7   B6 B5  B4  B3       B2       B1      B0
-                //FF  RTR X   X   DLC.3   DLC.2   DLC.1   DLC.0
-            //FF - 0 Standard Frame Format
-            //RTR   1 - remote frame    0 - data frame
-            //B7   B6 B5  B4       B3             B2       B1        B0
-            //0     0 0   0     DataLength DataLength DataLength DataLength
-    //TX Identifier 1-2 16b CAN_ID
-    //CAN Data
+int USB2CAN_driver::writeCANmsg(QString msg){
+    bool ok = false;
+    unsigned char prefixRawDat[] = {0x0f,0x40,0x0B,0x08}; //The last is length of data YOU MUST CALCULATE FROM DATA LENGTH
+    unsigned char suffixRawDat[] = {0xD7,0x39};
+    QByteArray prefixDat = QByteArray::fromRawData((char*)prefixRawDat,4);
+    QByteArray suffixDat = QByteArray::fromRawData((char*)suffixRawDat,2);
+    QByteArray outDat;
+    outDat.append(prefixDat);
+    QStringList inDat = msg.split("/");
+    if(inDat.length() < 2){
+        //Giver return = 999;
+        return 999;
+    }
+    //QString CAN_ID = inDat.at(2);
+    //QByteArray CAN_ID_temp = QByteArray::fromHex(inDat.at(2).toLocal8Bit());
+    int CAN_ID_dec = inDat.at(1).toUInt(&ok,16);
+    //recalculate CAN_ID
+    CAN_ID_dec = (CAN_ID_dec)/0.03125;
+    //qDebug() << "aC:" << CAN_ID_dec << QString::number(CAN_ID_dec).toLocal8Bit() << QString("%1").arg(CAN_ID_dec, 8, 16, QLatin1Char( '0' )).toLocal8Bit();
 
+    //QByteArray CAN_ID = QByteArray::fromHex(QString::number(CAN_ID_dec).toLocal8Bit());
+    //or
+    QByteArray CAN_ID = QByteArray::fromHex(QString("%1").arg(CAN_ID_dec, 8, 16, QLatin1Char( '0' )).toLocal8Bit());
+    CAN_ID.remove(0,2);
+    outDat.append(CAN_ID);
 
+    QByteArray CAN_DATA = QByteArray::fromHex(inDat.at(2).toLocal8Bit());
+    outDat.append(CAN_DATA);
+    outDat.append(suffixDat);
+    qDebug() <<CAN_ID_dec << QString(QByteArray::fromHex(outDat));
+    SendHex(outDat);
+    //QString CAN_ID_out = QString::number((CAN_ID.toUInt(&ok,16)+1)/0.50171568627);
+    //   outDat.append();
+
+    return 0;
 }
 
 void USB2CAN_driver::writeCANmsg(QByteArray msg){
@@ -223,7 +231,7 @@ bool USB2CAN_driver::initSend(){
     initListTimer->stop();
     int waitForBytesWritten = 200;
     int status;
-    switch (temporary_init_Counter) {
+    switch (temporary_init_Counter){
         case 0:                     //1-Set to Config Mode [0x02]
             while(!port_USB2CAN->waitForBytesWritten(waitForBytesWritten)){
                 status = port_USB2CAN->write(Config,3);
@@ -232,7 +240,6 @@ bool USB2CAN_driver::initSend(){
             initListTimer->start(initTimerDelay);
                 /*
                 //USB2CAN_driver::write(Config,qstrlen(Config));
-
                 bool ok = false;
                 int cycle = 0;
                 while(ok == true){
@@ -247,7 +254,6 @@ bool USB2CAN_driver::initSend(){
                         qDebug() << cycle++;
                     }
                 }
-
             }
             */
         break;
@@ -414,18 +420,4 @@ void USB2CAN_driver::initSend_1(){
        initListTimer->stop();
        initListTimer->disconnect();
    }
-
-
-   /*
-   qDebug() << "Reg contained: ";
-   for(int i=0;i<12;i++){
-       qDebug() << i << reg.at(i);
-   }
-   qDebug() << "Data contained: ";
-   for(int i=0;i<12;i++){
-       qDebug() << i << dat.at(i);
-   }
-   WriteReg(reg,dat);
-   initListTimer->start();
-   */
 }

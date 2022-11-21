@@ -29,13 +29,25 @@ void MainWindow::on_dataReceived(QByteArray data){
     }
     ui->RX_textEdit->append(HtS);
     HtS.clear();
-
+    /*
     if(u2c->correctInit == true){
         ui->label_3->setVisible(true);
         ui->label_3->setStyleSheet("font-weight: strike; color: green");
     }
     else{
         //ui->label_3->setStyleSheet("font-weight: bold; color: red");
+        ui->label_3->setVisible(false);
+    }
+    */
+    if(u2c->correctInit == true){
+        if(ui->label_3->isVisible() == true){
+            ui->label_3->setVisible(false);
+        }
+        else{
+            ui->label_3->setVisible(true);
+        }
+    }
+    else{
         ui->label_3->setVisible(false);
     }
 }
@@ -85,7 +97,8 @@ void MainWindow::on_pushButton_SendBtn_clicked()
             menu_sendCommands(txt.sliced(1));
         }
         else{
-            qDebug() << "length: " << u2c->SendHex(QByteArray::fromHex(txt.toLocal8Bit()));
+            //qDebug() << "length: " << u2c->SendHex(QByteArray::fromHex(txt.toLocal8Bit()));
+            ui->RX_textEdit->setText("\n WRONG CMD- use #\n");
             //u2c->SendHex(QByteArray::fromHex(outputTxt.front().toLocal8Bit()));
         }
     }
@@ -135,8 +148,9 @@ void MainWindow::menu_sendCommands(QString cmd){
         if(cmd.sliced(0,3).compare("msg") == 0){
             qDebug() << "msg cmd" << cmd << cmd.sliced(3) << QByteArray::fromHex(cmd.sliced(3).toLocal8Bit());
             //hex to char
-            QByteArray test = cmd.sliced(3).toLatin1();
-            u2c->SendHex(QByteArray::fromHex(cmd.sliced(3).toLocal8Bit()));
+            //QByteArray test = cmd.sliced(3).toLatin1();
+            //u2c->SendHex(QByteArray::fromHex(cmd.sliced(3).toLocal8Bit())); //this argument put to the u2c->writeCANmsg()
+            u2c->writeCANmsg(cmd.sliced(3));
         }
         else if(cmd.compare("init") == 0){
             qDebug() << "Start init" << cmd;
