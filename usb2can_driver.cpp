@@ -186,39 +186,51 @@ QByteArray USB2CAN_driver::read_USB2CAN(){
 }
 
 int USB2CAN_driver::writeCANmsg(QString msg){
-    bool ok = false;
-    unsigned char prefixRawDat[] = {0x0f,0x40,0x0B,0x08}; //The last is length of data YOU MUST CALCULATE FROM DATA LENGTH
-    unsigned char suffixRawDat[] = {0xD7,0x39};
-    QByteArray prefixDat = QByteArray::fromRawData((char*)prefixRawDat,4);
-    QByteArray suffixDat = QByteArray::fromRawData((char*)suffixRawDat,2);
-    QByteArray outDat;
-    outDat.append(prefixDat);
     QStringList inDat = msg.split("/");
     if(inDat.length() < 2){
         //Giver return = 999;
-        return 999;
+        return 999; // BAD syntax
     }
-    //QString CAN_ID = inDat.at(2);
-    //QByteArray CAN_ID_temp = QByteArray::fromHex(inDat.at(2).toLocal8Bit());
+
+
+    bool ok = false;
+    unsigned char prefixRawDat[] = {0x0f,0x40,0x0B}; //This (0x08) is length of data YOU MUST CALCULATE FROM DATA LENGTH
+    unsigned char suffixRawDat[] = {0xD7,0x39};
+    QByteArray prefixDat = QByteArray::fromRawData((char*)prefixRawDat,3);
+    QByteArray suffixDat = QByteArray::fromRawData((char*)suffixRawDat,2);
+    QByteArray outDat;
+
+
+    QByteArray CAN_DATA = QByteArray::fromHex(inDat.at(2).toLocal8Bit());
+    //Emergency if. If data set of CAN data is odd
+    /*
+    if((inDat.at(2).size()%2 != 0)&&(inDat.at(2) != 1)){
+        return 4;   //The size of CAN data are odd
+    }
+    */
+    //QByteArray length = (int*)CAN_DATA.length();
+    QByteArray length = QByteArray::fromHex(QString("%1").arg(CAN_DATA.length(), 8, 16, QLatin1Char( '0' )).toLocal8Bit());
+    length.remove(0,3);
+    //outDat.append()
+    //qDebug() << "length of data: " << length.size() << length.at(length.size()-1);// << QString(QByteArray::fromHex(length.at(length.length())));
+
+    outDat.append(prefixDat);
+    //outDat.append(length.at(length.length()-1));
+    outDat.append(length);
+
     int CAN_ID_dec = inDat.at(1).toUInt(&ok,16);
     //recalculate CAN_ID
     CAN_ID_dec = (CAN_ID_dec)/0.03125;
-    //qDebug() << "aC:" << CAN_ID_dec << QString::number(CAN_ID_dec).toLocal8Bit() << QString("%1").arg(CAN_ID_dec, 8, 16, QLatin1Char( '0' )).toLocal8Bit();
 
-    //QByteArray CAN_ID = QByteArray::fromHex(QString::number(CAN_ID_dec).toLocal8Bit());
-    //or
     QByteArray CAN_ID = QByteArray::fromHex(QString("%1").arg(CAN_ID_dec, 8, 16, QLatin1Char( '0' )).toLocal8Bit());
     CAN_ID.remove(0,2);
     outDat.append(CAN_ID);
 
-    QByteArray CAN_DATA = QByteArray::fromHex(inDat.at(2).toLocal8Bit());
+
     outDat.append(CAN_DATA);
     outDat.append(suffixDat);
     qDebug() <<CAN_ID_dec << QString(QByteArray::fromHex(outDat));
     SendHex(outDat);
-    //QString CAN_ID_out = QString::number((CAN_ID.toUInt(&ok,16)+1)/0.50171568627);
-    //   outDat.append();
-
     return 0;
 }
 
