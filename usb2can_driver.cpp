@@ -141,23 +141,65 @@ int USB2CAN_driver::init_test(){
         initListTimer->setTimerType(Qt::PreciseTimer);
         initListTimer->start(initTimerDelay);
 }
+int USB2CAN_driver::setReceiveDataType(int type){
+    receiveDataType = type;
+}
+int USB2CAN_driver::whatReceiveDataType(){
+    return receiveDataType;
+}
 
 QByteArray USB2CAN_driver::read_USB2CAN(){
     //qDebug() <<"From driver RX" << USB2CAN_driver::readAll();
     QByteArray temporary = port_USB2CAN->readAll();
     msgCounter++;
-
+    //Filtering of the continuously cmd,
     if(temporary.compare("\017\t\002\002\002") == 0){
         //qDebug()<< "filtered\n";
         msgCounter = 0;
         correctInit = true;
     }
-    //Add re-formating CAN message
-
 
     //All other readed datas
     else{
-        emit dataReceived(temporary);
+        //Add re-formating CAN message
+        if(receiveDataType == 2){
+            //Add QString rewrited from QByteArray
+            QString out;
+            QString recMsg[2];
+            uchar c;
+            for(int i=0;i<temporary.size();i++){
+                c = temporary.at(i);
+                out.append(QString("%1").arg(c,2,16,QChar('0')));
+            }
+            if(out.contains("0f410d88",Qt::CaseInsensitive)){   //Extend CAN message
+                recMsg[0] = out.sliced(8,4);
+                recMsg[1] = out.sliced(12,out.length()-12);
+                out.clear();
+                out.append(recMsg[0]);
+                out.append(recMsg[1]);
+                emit dataReceived(out);
+            }
+            else if(out.contains("0f410b08",Qt::CaseInsensitive)){  //Standard CAN message
+                recMsg[0] = out.sliced(8,4);
+                recMsg[1] = out.sliced(12,out.length()-12);
+                out.clear();
+                out.append("ID: ");
+                out.append(recMsg[0]);
+                out.append("\tDATA: ");
+                out.append(recMsg[1]);
+                emit dataReceived(out);
+            }
+            else{
+                emit dataReceived(out); //different message than CAN receive message
+            }
+
+
+        }
+        else{
+            emit dataReceived(temporary);
+        }
+
+
         //for init sub-rutine
         //Correct
         if(activeInit == true){
@@ -192,14 +234,12 @@ int USB2CAN_driver::writeCANmsg(QString msg){
         return 999; // BAD syntax
     }
 
-
     bool ok = false;
     unsigned char prefixRawDat[] = {0x0f,0x40,0x0B}; //This (0x08) is length of data YOU MUST CALCULATE FROM DATA LENGTH
     unsigned char suffixRawDat[] = {0xD7,0x39};
     QByteArray prefixDat = QByteArray::fromRawData((char*)prefixRawDat,3);
     QByteArray suffixDat = QByteArray::fromRawData((char*)suffixRawDat,2);
     QByteArray outDat;
-
 
     QByteArray CAN_DATA = QByteArray::fromHex(inDat.at(2).toLocal8Bit());
     //Emergency if. If data set of CAN data is odd
@@ -229,7 +269,7 @@ int USB2CAN_driver::writeCANmsg(QString msg){
 
     outDat.append(CAN_DATA);
     outDat.append(suffixDat);
-    qDebug() <<CAN_ID_dec << QString(QByteArray::fromHex(outDat));
+    //qDebug() <<CAN_ID_dec << QString(QByteArray::fromHex(outDat));
     SendHex(outDat);
     return 0;
 }

@@ -8,15 +8,35 @@ MainWindow::MainWindow(QWidget *parent)
     listSendTimer = new QTimer();
     connect(listSendTimer,SIGNAL(timeout()),this,SLOT(on_timeout_listSendTimer()));
     u2c = new USB2CAN_driver();
-    connect(u2c,SIGNAL(dataReceived(QByteArray)),this,SLOT(on_dataReceived(QByteArray)));
+
     ui->label_3->setVisible(false);
+    //u2c->setReceiveDataType(1);
+    //connect(u2c,SIGNAL(dataReceived(QByteArray)),this,SLOT(on_dataReceived(QByteArray)));
+    u2c->setReceiveDataType(2);
+    connect(u2c,SIGNAL(dataReceived(QString)),this,SLOT(on_dataReceived(QString)));
 }
 
 MainWindow::~MainWindow(){
     delete ui;
 }
+/////
+void MainWindow::on_dataReceived(QString data){
+    ui->RX_textEdit->append(data);
 
 
+    if(u2c->correctInit == true){
+        if(ui->label_3->isVisible() == true){
+            ui->label_3->setVisible(false);
+        }
+        else{
+            ui->label_3->setVisible(true);
+        }
+    }
+    else{
+        ui->label_3->setVisible(false);
+    }
+}
+/////
 void MainWindow::on_dataReceived(QByteArray data){
     //ui->RX_textEdit->append(QString::fromLatin1(data));
     QString HtS;// = QByteArray::fromHex(data.at(4));
@@ -28,7 +48,10 @@ void MainWindow::on_dataReceived(QByteArray data){
         HtS.append(QString("%1").arg(c,2,16,QChar('0')));
     }
     ui->RX_textEdit->append(HtS);
+    ui->RX_textEdit->append("\n");
+    //ui->RX_textEdit->append(QString(data));
     HtS.clear();
+
     /*
     if(u2c->correctInit == true){
         ui->label_3->setVisible(true);
@@ -39,6 +62,7 @@ void MainWindow::on_dataReceived(QByteArray data){
         ui->label_3->setVisible(false);
     }
     */
+
     if(u2c->correctInit == true){
         if(ui->label_3->isVisible() == true){
             ui->label_3->setVisible(false);

@@ -38,6 +38,7 @@ public: signals:
     void readyRead();
 private slots:
     void on_dataReceived(QByteArray);
+    void on_dataReceived(QString);
     void on_timeout_listSendTimer();
 
 

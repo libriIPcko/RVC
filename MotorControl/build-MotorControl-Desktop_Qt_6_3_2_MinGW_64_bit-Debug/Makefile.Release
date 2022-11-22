@@ -781,50 +781,7 @@ release/mainwindow.o: ../MotorControl/mainwindow.cpp ../MotorControl/mainwindow.
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/QByteArray \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/QSerialPortInfo \
 		C:/Qt/Qt6/6.3.2/mingw_64/include/QtSerialPort/qserialportinfo.h \
-		ui_mainwindow.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/QVariant \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/QApplication \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qapplication.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qcoreapplication.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qeventloop.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qcoreapplication_platform.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qfuture.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qfutureinterface.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qmutex.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qresultstore.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qfuture_impl.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qthreadpool.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qthread.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qdeadlinetimer.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qelapsedtimer.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qrunnable.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qexception.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qpromise.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qguiapplication.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qinputmethod.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtCore/qlocale.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qguiapplication_platform.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/QLineEdit \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qlineedit.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qframe.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qtextcursor.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qtextformat.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qpen.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qtextoption.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/QMenuBar \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qmenubar.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qmenu.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/QPushButton \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qpushbutton.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/QStatusBar \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qstatusbar.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/QTabWidget \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/QTextEdit \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qtextedit.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtGui/qtextdocument.h \
-		C:/Qt/Qt6/6.3.2/mingw_64/include/QtWidgets/QWidget
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/mainwindow.o ../MotorControl/mainwindow.cpp
 
 release/moc_usb2can_driver.o: release/moc_usb2can_driver.cpp 

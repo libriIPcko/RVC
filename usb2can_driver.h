@@ -54,11 +54,22 @@ public:
     bool correctInit = false;
     int msgCounter = 0;
 
+    //@ 1 - QByteArray
+    //@ 2 - QString
+    int receiveDataType = 1;
+    //@ 1 - QByteArray
+    //@ 2 - QString
+    int setReceiveDataType(int type);
+    //@ 1 - QByteArray
+    //@ 2 - QString
+    int whatReceiveDataType();
+
 
 public: signals:
     friend void QIODevice::readyRead();
     void timeout();
-    void dataReceived(QByteArray);
+    void dataReceived(QByteArray);          //signal with QByteArray output
+    void dataReceived(QString);             //signal with QString output
 
 
 private slots:
