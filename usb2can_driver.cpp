@@ -433,19 +433,15 @@ bool USB2CAN_driver::initSend(){
         break;
         case 11:              //9-Set Normal Mode
             while(!port_USB2CAN->waitForBytesWritten(waitForBytesWritten)){
-                //USB2CAN_driver::write(NormalMode);
-                //USB2CAN_driver::write(NormalMode,qstrlen(NormalMode));
                 status = port_USB2CAN->write(NormalMode,3);
-                qDebug() << "TX:" << QString::fromLocal8Bit(NormalMode) << "Status" << status << "NormalMode"<< temporary_init_Counter;
+                qDebug() << "TX:" << QString::fromLocal8Bit(ModRegDat) << "Status" << status << "NormalMode"<< temporary_init_Counter;
             }
             initListTimer->start(initTimerDelay);
         break;
         case 12:              //10-Set Mode register [0x00], the value depends on Message Filter   (by WriteReg[x12])
             while(!port_USB2CAN->waitForBytesWritten(waitForBytesWritten)){
-                //USB2CAN_driver::write(ModRegDat);
-                //USB2CAN_driver::write(ModRegDat,qstrlen(ModRegDat));
                 status = port_USB2CAN->write(ModRegDat,5);
-                qDebug() << "TX:" << QString::fromLocal8Bit(ModRegDat) << "Status" << status << "ModRegDat - final"<< temporary_init_Counter;
+                qDebug() << "TX:" << QString::fromLocal8Bit(NormalMode) << "Status" << status << "ModRegDat - final"<< temporary_init_Counter;
 
             }
             initListTimer->start(initTimerDelay);
@@ -455,6 +451,10 @@ bool USB2CAN_driver::initSend(){
             temporary_init_Counter = 0;
             activeInit = false;
             initListTimer->stop();
+            while(!port_USB2CAN->waitForBytesWritten(waitForBytesWritten)){
+                status = port_USB2CAN->write(NormalMode,3);
+                qDebug() << "TX:" << QString::fromLocal8Bit(ModRegDat) << "Status" << status << "NormalMode"<< temporary_init_Counter;
+            }
             qDebug() << QObject::disconnect(initListTimer);
             qDebug() << "initTimer is active? " << initListTimer->isActive();
             //return true;

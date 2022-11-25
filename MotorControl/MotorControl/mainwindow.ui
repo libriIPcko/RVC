@@ -59,7 +59,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>COM12</string>
+       <string>COM6</string>
       </property>
      </widget>
      <widget class="QTextEdit" name="TX_textEdit">

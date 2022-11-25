@@ -161,7 +161,7 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "Connect", nullptr));
-        lineEdit->setText(QCoreApplication::translate("MainWindow", "COM12", nullptr));
+        lineEdit->setText(QCoreApplication::translate("MainWindow", "COM6", nullptr));
         pushButton_SendBtn->setText(QCoreApplication::translate("MainWindow", "Send", nullptr));
         pushButton_ListSendBtn->setText(QCoreApplication::translate("MainWindow", "ListSend", nullptr));
         pushButton_RX_clean->setText(QCoreApplication::translate("MainWindow", "C", nullptr));
