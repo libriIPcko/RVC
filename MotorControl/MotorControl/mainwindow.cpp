@@ -184,6 +184,10 @@ void MainWindow::menu_sendCommands(QString cmd){
             qDebug() << "Start init" << cmd;
             u2c->init_test();
         }
+        else if(cmd.compare("deinit") == 0){
+            qDebug() << "Start init" << cmd;
+            u2c->deinit();
+        }
         else if(cmd.sliced(0,1).compare("w") == 0){
             if(cmd.size() >= 4){
                 //qDebug() << QByteArray::fromHex(cmd.sliced(4).toUtf8());

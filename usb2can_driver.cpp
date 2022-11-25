@@ -15,6 +15,7 @@ USB2CAN_driver::USB2CAN_driver()
     port_USB2CAN = new QSerialPort();
     ListTimer = new QTimer();
     initListTimer = new QTimer();
+    deinitListTimer = new QTimer();
     //qDebug() << "Connection of readyRead to sw interrupt:" <<
     connect(port_USB2CAN,SIGNAL(readyRead()),this,SLOT(read_USB2CAN()));
 }
@@ -131,6 +132,12 @@ int USB2CAN_driver::init(){
         initListTimer->setTimerType(Qt::PreciseTimer);
         initListTimer->start(initTimerDelay);
 
+}
+void USB2CAN_driver::deinit(){
+    //connect deinitialization Timer
+    connect(deinitListTimer,SIGNAL(timeout()),this,SLOT(deinitSend()));
+    //start deinitialization Timer
+    deinitListTimer->start(400);
 }
 
 int USB2CAN_driver::init_test(){
@@ -276,6 +283,30 @@ int USB2CAN_driver::writeCANmsg(QString msg){
 }
 
 void USB2CAN_driver::writeCANmsg(QByteArray msg){
+}
+bool USB2CAN_driver::deinitSend(){
+    if(deinit_Counter == 0){
+        while(!port_USB2CAN->waitForBytesWritten(200)){
+            bool status;
+            status = port_USB2CAN->write(Config,3);
+            qDebug() << "TX:" << QString::fromLocal8Bit(Config) << "Status" << status << "Config" << deinit_Counter;
+        }
+    }
+    else if(deinit_Counter == 1){
+        while(!port_USB2CAN->waitForBytesWritten(200)){
+            bool status;
+            status = port_USB2CAN->write(ResetMod,3);
+            qDebug() << "TX:" << QString::fromLocal8Bit(ResetMod) << "Status" << status << "ResetMod" << deinit_Counter;
+        }
+        //deinitListTimer->disconnect(timeout(),deinitSend());
+        qDebug() << "disconnected?" << deinitListTimer->disconnect();
+        deinit_Counter = 0;
+        return 0;
+    }
+    else{
+        return 1;
+    }
+    deinit_Counter++;
 }
 
 bool USB2CAN_driver::initSend(){

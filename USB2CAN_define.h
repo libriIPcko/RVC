@@ -6,6 +6,7 @@
 #include "QString"
 #include "QByteArray"
 #include "list"
+
 /*
 0f0200
 0f12020001
@@ -14,8 +15,10 @@
 0f120214ff
 0f120208DA
 0f12020403
+
 0f12020600
 0f12020714
+
 0f200118
 0f200201
 0f0300
@@ -25,17 +28,18 @@
 
 static const char Config[] =        {'\x0f',    '\x02', '\x00'                         };
 static const char ResetMod[] =      {'\x0f',    '\x12', '\x02', '\x00', '\x01'         };
-static const char ClockDivData[] =  {'\x0f',    '\x12', '\x02', '\x1F', '\xC0'         };
-static const char AccCode[] =       {'\x0f',    '\x12', '\x02', '\x10', '\x00'         };
-static const char AccMask[] =       {'\x0f',    '\x12', '\x02', '\x14', '\xff'         };
+static const char ClockDivData[] =  {'\x0f',    '\x12', '\x02', '\x1F', '\xC0'         };   //Clock divider
+static const char AccCode[] =       {'\x0f',    '\x12', '\x02', '\x10', '\x00'         };   //0x00  without filtration CAN adress
+static const char AccMask[] =       {'\x0f',    '\x12', '\x02', '\x14', '\xff'         };   //0ff   without filtratio CAN adress
 static const char OutCtrl[] =       {'\x0f',    '\x12', '\x02', '\x08', '\xDA'         };
 static const char IE[] =            {'\x0f',    '\x12', '\x02', '\x04', '\x03'         };
 static const char BT0[] =           {'\x0f',    '\x12', '\x02', '\x06', '\x00'         };
-static const char BT1[] =           {'\x0f',    '\x12', '\x02', '\x07', '\x14'         };
+static const char BT1[] =           {'\x0f',    '\x12', '\x02', '\x07', '\x14'         };   //BT0/1 Bus Timing set on the 1M
 static const char CTL_Code[] =      {'\x0f',    '\x20', '\x01', '\x18'                 };
 static const char TRL_Code[] =      {'\x0f',    '\x20', '\x02', '\x01'                 };
-static const char NormalMode[] =    {'\x0f',    '\x03', '\x00'                         };
-static const char ModRegDat[] =     {'\x0f',    '\x12', '\x02', '\x00', '\x00'         };
+static const char NormalMode[] =    {'\x0f',    '\x03', '\x00'                         };   //Set Normal mod
+static const char ModRegDat[] =     {'\x0f',    '\x12', '\x02', '\x00', '\x00'         };   //withou filtration message 0x00
+                                                                                            //value is dependent on msg filtration
 
 static const char synchr =          {'\x0f' };
 static const char CMD_writeReg =    {'\x12'};

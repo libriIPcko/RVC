@@ -21,12 +21,15 @@ public:
     QTimer *tim_interrupt_1 = new QTimer();
     QTimer *ListTimer = new QTimer();
     QTimer *initListTimer = new QTimer();
+    QTimer *deinitListTimer = new QTimer();
     int initTimerDelay = 2000;
     QTimer *tim;
     int tim_counter = 0;
 
     int temporary_init_Counter = 0;
+    int deinit_Counter = 0;
     int init();
+    void deinit();
     int init_test();
     bool activeInit = false;
     bool active_init_test = false;
@@ -79,6 +82,7 @@ private slots:
     QByteArray read_USB2CAN();
     bool initSend();
     void initSend_1();
+    bool deinitSend();
 };
 
 #endif // USB2CAN_DRIVER_H
