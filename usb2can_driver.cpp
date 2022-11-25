@@ -182,6 +182,7 @@ QByteArray USB2CAN_driver::read_USB2CAN(){
             else if(out.contains("0f410b08",Qt::CaseInsensitive)){  //Standard CAN message
                 recMsg[0] = out.sliced(8,4);
                 recMsg[1] = out.sliced(12,out.length()-12);
+                qDebug() << "OK";
                 out.clear();
                 out.append("ID: ");
                 out.append(recMsg[0]);
