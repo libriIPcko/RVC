@@ -33,13 +33,16 @@ static const char AccCode[] =       {'\x0f',    '\x12', '\x02', '\x10', '\x00'  
 static const char AccMask[] =       {'\x0f',    '\x12', '\x02', '\x14', '\xff'         };   //0ff   without filtratio CAN adress
 static const char OutCtrl[] =       {'\x0f',    '\x12', '\x02', '\x08', '\xDA'         };
 static const char IE[] =            {'\x0f',    '\x12', '\x02', '\x04', '\x03'         };
-static const char BT0[] =           {'\x0f',    '\x12', '\x02', '\x06', '\x00'         };
-static const char BT1[] =           {'\x0f',    '\x12', '\x02', '\x07', '\x14'         };   //BT0/1 Bus Timing set on the 1M
+static const char BT0[] =           {'\x0f',    '\x12', '\x02', '\x06', '\x00'         };   //BT0 Bus Timing 0x00 prescaller
+static const char BT1[] =           {'\x0f',    '\x12', '\x02', '\x07', '\x14'         };   //BT1 Bus Timing set on the 1M This setting the finest value of baudrate
 static const char CTL_Code[] =      {'\x0f',    '\x20', '\x01', '\x18'                 };
 static const char TRL_Code[] =      {'\x0f',    '\x20', '\x02', '\x01'                 };
 static const char NormalMode[] =    {'\x0f',    '\x03', '\x00'                         };   //Set Normal mod
 static const char ModRegDat[] =     {'\x0f',    '\x12', '\x02', '\x00', '\x00'         };   //withou filtration message 0x00
                                                                                             //value is dependent on msg filtration
+            //BusTiming0Reg = SJW_MB_24 | Presc_MB_24;
+            //BusTiming1Reg = TSEG2_MB_24 | TSEG1_MB_24;
+            //SJA1000 Clock frequency 24MHz 6-24MHz
 
 static const char synchr =          {'\x0f' };
 static const char CMD_writeReg =    {'\x12'};
