@@ -471,17 +471,21 @@ void MainWindow::SendNextRow(){
 }
 
 //Error in receive signal or slot
-void MainWindow::readSerial_2(){
-    //ui->textBrowser_Port2->setPlainText("Received: ");
-    //ui->textBrowser_Port2->setPlainText(port2->readAll());
+void MainWindow::readSerial_2(){    
+    //Old correct data
+    /*
     QString ReadData = port2->readAll();
     qDebug() << "Received_port2" << ReadData;
-    //ui->textBrowser_Port2->setTextColor(QColor(0,0,255));
-    //ui->textBrowser_Port2->setPlainText(ReadData + "\n");
-    //ui->textBrowser_port2_RX->setPlainText(ReadData + "\n");
     ui->textBrowser_port2_RX->append(ReadData);
-    //ui->textBrowser_Port2->setTextColor(QColor(255,255,255));
+    */
 
+    //output to hex format
+    QString out;
+    QByteArray readData = port2->readAll();
+    for(int n=0; n<=readData.length(); n++){
+        char temp_char = readData.at(n);
+        out.append(QString("%1").arg(temp_char,2,16,QChar('0')));
+    }
 
 }
 
