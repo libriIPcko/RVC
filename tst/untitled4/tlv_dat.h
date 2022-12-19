@@ -50,7 +50,7 @@ public:
             QByteArray  velY;                //96B    //Target velocity in Y dimension, m
             QByteArray  accX;                //100B   //Target acceleration in X dimension, m/s2
             QByteArray  accY;                //104B   //Target acceleration in Y dimension, m/s2
-            QByteArray  EC;                 //108B   //Error covariance matrix[3x3], in range/angle/doppler coordinates
+            QByteArray  EC;                  //108B   //Error covariance matrix[3x3], in range/angle/doppler coordinates
             QByteArray  G;                   //144B   //Gating function gain
         }target_object;
         struct TargetIndex{     //more TI in one packet                                                             x08
@@ -62,6 +62,7 @@ public:
              */
         }target_index;
 
+        std::vector<TLV_Header> tlvHeader_vect;
         std::vector<TargetObject> targetObject_vect;
         std::vector<TargetIndex> targetIndex_vect;
         std::vector<PointCloud> pointCloud_vect;

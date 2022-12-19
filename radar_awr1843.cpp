@@ -8,6 +8,8 @@
 #include <QDir>
 #include <QTimer>
 
+#include "tlv_dat.h"
+
 RADAR_AWR1843::RADAR_AWR1843(QObject *parent) //: QThread(parent)
 {
     port_AUXILIARY = new QSerialPort;
@@ -434,20 +436,17 @@ int RADAR_AWR1843::algorithm_ReadFromFile(){
     closeFile();
 }
 
-
-
 // - Start here, the outData are filled but not store in the TLV_packets
 //
 //int RADAR_AWR1843::sortData(QString data,TLV_dat outData){
 int RADAR_AWR1843::sortData(QString data,int num){
     QFile outFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/outFile_sortedData.txt");
 
-
-
     int length = data.length();
     int n = 0;
     int offset = 0;
     int bO = 2;
+    int vect_iterator = 0;
     QByteArray temp;
     QTextStream out(&outFile);
     out << "\n----" << num << "----\n";
@@ -571,7 +570,9 @@ int RADAR_AWR1843::sortData(QString data,int num){
             //qDebug() << data.toUtf8().at(n);
             outData.fHST.trackProcessTime.append(data.toUtf8().at(n));
         }
+
         // !!! //numTLVs
+
         else if(n < 52*bO){           
             //QTextStream out(&outFile);
             if(n==48*bO){
@@ -581,6 +582,8 @@ int RADAR_AWR1843::sortData(QString data,int num){
             //qDebug() << data.toUtf8().at(n);
             outData.fHST.numTLVs.append(data.toUtf8().at(n));
         }
+
+
         /*
         //checksum
         else if((n < 52*bO) && (n < 56*bO)){
@@ -596,43 +599,96 @@ int RADAR_AWR1843::sortData(QString data,int num){
         //TLV_Header OR Point Cloud OR TargetObject dependent on type
         //else if((n > 56*bO)&&(n<=length)){
         else if((n<=length)){
-            if(n==52*bO){
+            //if(n==52*bO){
+            if(n<=length-25){
                 //out << "\n"<< QString::number(TLV_packets.size()) << "/" << QString::number(n)  << " " << "Other: \t\t\n";
-                out << "\n"<< "Other: \t\t\n";
-            }
-            out << data.toUtf8().at(n);
-            qDebug() << n<<"/"<<length << ":" << data.toUtf8().at(n);
-            /*
-            temp.append(data.toUtf8().at(n));
+                //TLV Header 4+4 = 8
+                    int i = 0;
+                    outData.tlvHeader_vect.resize(vect_iterator+1);
+                    outData.pointCloud_vect.resize(vect_iterator+1);
+                    while(i<4){
+                        outData.tlvHeader_vect[vect_iterator].type.append(data.toUtf8().at(n));
+                        i++;
+                        n++;
+                    }
+                        out << "\n type:" << outData.tlvHeader_vect[vect_iterator].type;
+                    while(i>=4 && i<8){
+                        outData.tlvHeader_vect[vect_iterator].length.append(data.toUtf8().at(n));
+                        i++;
+                        n++;
+                    }
+                        out << "\n length:" << outData.tlvHeader_vect[vect_iterator].length;
+                    //PointCloud
+                    if(outData.tlvHeader_vect[vect_iterator].type.compare("0600") == 0){
+                        //Point Cloud 4+4+4+4 = 16
+                            while(i>=8 && i<24){
+                                if(i>=8 && i<12){    //range, in m
+                                    outData.point_cloud.range.append(data.toUtf8().at(n));
+                                }
+                                else if(i>=12 && i<16){    //azimuth, in rad
+                                    outData.point_cloud.azimuth.append(data.toUtf8().at(n));
+                                }
+                                else if(i>=16 && i<20){    //Doppler, in m/s
+                                    outData.point_cloud.doppler.append(data.toUtf8().at(n));
+                                }
+                                else if(i>=20 && i<24){    //SNR, ratio
+                                    outData.point_cloud.snr.append(data.toUtf8().at(n));
+                                }
+                                i++;
+                                n++;
+                            }
+                            //outData.pointCloud_vect.insert(outData.point_cloud.range)->range;
+                            outData.pointCloud_vect.resize(vect_iterator+1);
 
-            if(temp.size() == 2){//4
-                //QbyteComparrision
-                if(temp.compare("06")){                                         //PointCloud case
-                    qDebug() << temp;
-                }
-                else if(temp.compare("07")){                                    //Target object list case
-                    qDebug() << temp;
-                }
-                else if(temp.compare("08")){                                    //Target index case
-                    qDebug() << temp;
-                }
-                temp.clear();
-                temp.append("0");
-                temp.append("0");
-            }
-            else if(temp.size() == 4){//4+4
-                qDebug() << temp;
-            }
-            else{
-                qDebug() << temp;
-            }
-            */
+                            outData.pointCloud_vect[vect_iterator].range = outData.point_cloud.range;
+                            outData.pointCloud_vect[vect_iterator].azimuth = outData.point_cloud.azimuth;
+                            outData.pointCloud_vect[vect_iterator].doppler = outData.point_cloud.doppler;
+                            outData.pointCloud_vect[vect_iterator].snr = outData.point_cloud.snr;
 
+                            out << "\n range: " << outData.pointCloud_vect[vect_iterator].range;
+                            out << "\n azimuth: " << outData.pointCloud_vect[vect_iterator].azimuth;
+                            out << "\n doppler: " << outData.pointCloud_vect[vect_iterator].doppler;
+                            out << "\n snr: " << outData.pointCloud_vect[vect_iterator].snr;
+                    }
+
+                    //Target Object List
+                    else if(outData.tlvHeader_vect[vect_iterator].type.compare("0700") == 0){
+                        //Target Object 4+4+4+4+4+4+4+9*4+4 = 36
+                            while(i > 16  && i<=36){
+                                out << " \nTargetObjectList: \t" << data.toUtf8().at(n);
+                                i++;
+                                n++;
+                            }
+                    }
+                    //Target index
+                    else if(outData.tlvHeader_vect[vect_iterator].type.compare("0800") == 0){
+                        //Target Object list 1 byte
+                            while(i > 36){
+                                out << " \nTargetObjectList: \t" << data.toUtf8().at(n);
+                                i++;
+                                n++;
+                            }
+                    }
+                    vect_iterator++;
+
+
+                    //The TLV data
+                    /*
+                    else{
+
+                    }
+                    */
+                //out << "\n"<< "Other: \t\t\n";
+            }
+            out <<"\n other:" <<  data.toUtf8().at(n);
+            //qDebug() << n <<"/"<<length << ":" << data.toUtf8().at(n);
         }
+
         else{
             break;
         }
         n++;
+
     }
 }
 int RADAR_AWR1843::readPackets(int msec){

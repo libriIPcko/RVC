@@ -76,10 +76,7 @@ private:
         //QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/DebugLog.txt");             //old path
         //QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/Backup RX data/RX_radar_data - 1h45m 11.8.2022.txt");               //new path
         //QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/Backup RX data/template TLV radar data.txt");
-
         QFile *DebugLog = new QFile("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/Backup RX data/template TLV radar data.txt");
-
-
         QTime stopwatch;
 
 

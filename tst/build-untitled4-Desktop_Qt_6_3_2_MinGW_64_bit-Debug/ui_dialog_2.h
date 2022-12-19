@@ -55,6 +55,9 @@ public:
 
         retranslateUi(Dialog_2);
 
+        tabWidget->setCurrentIndex(0);
+
+
         QMetaObject::connectSlotsByName(Dialog_2);
     } // setupUi
 

@@ -25,9 +25,6 @@ int main(int argc, char *argv[])
     w.show();
 
 
-
-
-
     //Radar receive output to txt
     /*
     RADAR_AWR1843 *rad;
@@ -36,7 +33,6 @@ int main(int argc, char *argv[])
     //qDebug() << "APP/User UART status: " << rad->PortConnect("COM66", 9600, "COM");
     qDebug() << "APP/User UART status: " << rad->PortConnect("COM3", rad->port_COMM_baudRate, "COM");
     rad->init(cfgPath); //initialized
-
 
     qDebug() << rad->PortDisconnect();
     */

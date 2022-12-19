@@ -11,11 +11,14 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QDial>
+#include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTextEdit>
@@ -45,6 +48,12 @@ public:
     QLabel *label_4;
     QLabel *label_5;
     QWidget *tab_2;
+    QDial *dial_position;
+    QLCDNumber *lcdNumber;
+    QLCDNumber *lcdNumber_speed;
+    QRadioButton *radioButton;
+    QLabel *label_6;
+    QLabel *label_7;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -130,6 +139,24 @@ public:
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
+        dial_position = new QDial(tab_2);
+        dial_position->setObjectName(QString::fromUtf8("dial_position"));
+        dial_position->setGeometry(QRect(280, 10, 181, 141));
+        lcdNumber = new QLCDNumber(tab_2);
+        lcdNumber->setObjectName(QString::fromUtf8("lcdNumber"));
+        lcdNumber->setGeometry(QRect(630, 20, 64, 23));
+        lcdNumber_speed = new QLCDNumber(tab_2);
+        lcdNumber_speed->setObjectName(QString::fromUtf8("lcdNumber_speed"));
+        lcdNumber_speed->setGeometry(QRect(630, 50, 64, 23));
+        radioButton = new QRadioButton(tab_2);
+        radioButton->setObjectName(QString::fromUtf8("radioButton"));
+        radioButton->setGeometry(QRect(20, 10, 121, 31));
+        label_6 = new QLabel(tab_2);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
+        label_6->setGeometry(QRect(710, 20, 49, 16));
+        label_7 = new QLabel(tab_2);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+        label_7->setGeometry(QRect(710, 50, 49, 16));
         tabWidget->addTab(tab_2, QString());
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
@@ -172,6 +199,9 @@ public:
         pushButton_showDev->setText(QCoreApplication::translate("MainWindow", "ShowDev", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "USB2CAN works...", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Connect", nullptr));
+        radioButton->setText(QCoreApplication::translate("MainWindow", "Motor Activation", nullptr));
+        label_6->setText(QCoreApplication::translate("MainWindow", "angle", nullptr));
+        label_7->setText(QCoreApplication::translate("MainWindow", "speed", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "MotorControl", nullptr));
     } // retranslateUi
 
