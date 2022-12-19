@@ -73,7 +73,9 @@ void MainWindow::on_pushButton_connect1_toggled(bool checked)
     //4GetTxt
    //QSerialPort port1;
     port1 = new QSerialPort(this);
-    port1->setBaudRate(9600);   //115200        //9600
+    port1->setBaudRate(ui->plainTextEdit_1_BaudRate->toPlainText().toInt());
+    qDebug()<< port1->baudRate();
+    //port1->setBaudRate(9600);   //115200        //9600
     //checked = !checked;
     if (checked == 1){
         port1->setPortName(ui->textEdit_Port1->toPlainText());
@@ -149,7 +151,9 @@ void MainWindow::on_pushButton_connect2_toggled(bool checked)
     temp_count++;
     ui->textBrowser_Port2->clear();
     port2 = new QSerialPort(this);
-    port2->setBaudRate(9600);
+    port2->setBaudRate(ui->plainTextEdit_2_BaudRate->toPlainText().toInt());
+    qDebug() << port2->baudRate();
+    //port2->setBaudRate(9600);
     //checked = !checked;
     if (checked == 1){
         port2->setPortName(ui->textEdit_Port2->toPlainText());
