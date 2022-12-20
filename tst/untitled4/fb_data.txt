@@ -1,22 +1,11 @@
-0 --- sensorStop	RX: ommand
-1 --- flushCfg	RX: mmwDemo:/>dMaxVelocity -1 0
-2 --- dfeDataOutputMode 1	RX: 'dMaxVelocity' is not recognized as a CLI command
-3 --- channelCfg 15 5 0	RX: mmwDemo:/> 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0
-4 --- adcCfg 2 1	RX: '0' is not recognized as a CLI command
-5 --- adcbufCfg -1 0 1 1 1	RX: mmwDemo:/>onitor 0 3 4 63 0
-6 --- profileCfg 0 76 464 7 28.49 0 0 30 1 256 12499 0 0 30	RX: 'onitor' is not recognized as a CLI command
-7 --- chirpCfg 0 0 0 0 0 0 0 1	RX: mmwDemo:/> -90 90 -90 90
-8 --- chirpCfg 1 1 0 0 0 0 0 4	RX: '-90' is not recognized as a CLI command
-9 --- frameCfg 0 1 16 0 250 1 0	RX: mmwDemo:/>libData 1 0 0x1F0000
-10 --- lowPower 0 0	RX: 'libData' is not recognized as a CLI command
-11 --- guiMonitor -1 1 0 0 1 0 1	RX: mmwDemo:/>
-12 --- cfarCfg -1 0 2 8 4 3 0 15 1	RX: mmwDemo:/>sensorStop
-13 --- cfarCfg -1 1 0 4 2 3 1 15 1	RX: Ignored: Sensor is already stopped
-14 --- multiObjBeamForming -1 1 0.5	RX: Done
-15 --- clutterRemoval -1 0	RX: mmwDemo:/>adcCfg 2 1
-16 --- calibDcRangeSig -1 0 -5 8 256	RX: Done
-17 --- extendedMaxVelocity -1 0	RX: mmwDemo:/> 1 1
-18 --- lvdsStreamCfg -1 0 0 0	RX: '1' is not recognized as a CLI command
-19 --- compRangeBiasAndRxChanPhase 0.0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0	RX: mmwDemo:/> 30
+0 --- sensorStop	RX: sensorSt1 --- flushCfg	RX: op
+2 --- dfeDataOutputMode 1	RX: Done
+3 --- channelCfg 15 5 0	RX: mmwDemo:/>4 --- adcCfg 2 1	RX: hannelCf5 --- adcbufCfg -1 0 1 1 1	RX: g 15 5 06 --- profileCfg 0 76 464 7 28.49 0 0 30 1 256 12499 0 0 30	RX: 
+7 --- chirpCfg 0 0 0 0 0 0 0 1	RX: 'hannelCfg' is8 --- chirpCfg 1 1 0 0 0 0 0 4	RX:  not rec9 --- frameCfg 0 1 16 0 250 1 0	RX: ognized 10 --- lowPower 0 0	RX: as a CLI11 --- guiMonitor -1 1 0 0 1 0 1	RX:  command12 --- cfarCfg -1 0 2 8 4 3 0 15 1	RX: 
+13 --- cfarCfg -1 1 0 4 2 3 1 15 1	RX: mmwDemo:/>.49 14 --- multiObjBeamForming -1 1 0.5	RX: 0 0 30 115 --- clutterRemoval -1 0	RX:  256 12416 --- calibDcRangeSig -1 0 -5 8 256	RX: 99 0 0 317 --- extendedMaxVelocity -1 0	RX: 0
+18 --- lvdsStreamCfg -1 0 0 0	RX: '.49' is not 19 --- compRangeBiasAndRxChanPhase 0.0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0	RX: recogniz20 --- measureRangeBiasAndRxChanPhase 0 1.5 0.2	RX: ed as a 21 --- CQRxSatMonitor 0 3 4 63 0	RX: CLI comm22 --- CQSigImgMonitor 0 127 4	RX: and
+23 --- analogMonitor 0 0	RX: mmwDemo:/>f24 --- aoaFovCfg -1 -90 90 -90 90	RX: rameCfg 25 --- cfarFovCfg -1 0 0 49.99	RX: 0 1 16 026 --- cfarFovCfg -1 1 -1 1.00	RX:  250 1 027 --- calibData 1 0 0x1F0000	RX: 
+28 --- sensorStart	RX: Done
+	RX:  250 1 0 mmwDemo:/> 30
 20 --- measureRangeBiasAndRxChanPhase 0 1.5 0.2	RX: '30' is not rec21 --- CQRxSatMonitor 0 3 4 63 0	RX: ognized 22 --- CQSigImgMonitor 0 127 4	RX: as a CLI23 --- analogMonitor 0 0	RX:  command24 --- aoaFovCfg -1 -90 90 -90 90	RX: 
 25 --- cfarFovCfg -1 0 0 49.99	RX: mmwDemo:/>fram26 --- cfarFovCfg -1 1 -1 1.00	RX: eCfg 0 127 --- calibData 1 0 0x1F0000	RX:  16 0 2528 --- sensorStart	RX: 0 1 0

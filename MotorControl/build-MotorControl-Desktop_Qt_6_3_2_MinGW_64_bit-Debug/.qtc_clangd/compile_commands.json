@@ -35,7 +35,7 @@
         "-I",
         "C:\\Qt\\Qt6\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedQtHeaders\\QtCore",
         "-I",
-        "C:\\Users\\RPlsicik\\Documents\\GitHub\\USB2CAN_driver",
+        "C:\\Users\\RPlsicik\\Documents\\GitHub\\RVC\\MotorControl\\MotorControl",
         "-I",
         "C:\\Qt\\Qt6\\6.3.2\\mingw_64\\include",
         "-I",
@@ -69,10 +69,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++",
-        "C:\\Users\\RPlsicik\\Documents\\GitHub\\USB2CAN_driver\\main.cpp"
+        "C:\\Users\\RPlsicik\\Documents\\GitHub\\RVC\\usb2can_driver.cpp"
     ],
     "directory": "C:/Users/RPlsicik/Documents/GitHub/RVC/MotorControl/build-MotorControl-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/RPlsicik/Documents/GitHub/USB2CAN_driver/main.cpp"
+    "file": "C:/Users/RPlsicik/Documents/GitHub/RVC/usb2can_driver.cpp"
 },
 {
     "arguments": [
@@ -110,7 +110,7 @@
         "-I",
         "C:\\Qt\\Qt6\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedQtHeaders\\QtCore",
         "-I",
-        "C:\\Users\\RPlsicik\\Documents\\GitHub\\USB2CAN_driver",
+        "C:\\Users\\RPlsicik\\Documents\\GitHub\\RVC\\MotorControl\\MotorControl",
         "-I",
         "C:\\Qt\\Qt6\\6.3.2\\mingw_64\\include",
         "-I",
@@ -144,10 +144,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++",
-        "C:\\Users\\RPlsicik\\Documents\\GitHub\\USB2CAN_driver\\mainwindow.cpp"
+        "C:\\Users\\RPlsicik\\Documents\\GitHub\\RVC\\MotorControl\\MotorControl\\main.cpp"
     ],
     "directory": "C:/Users/RPlsicik/Documents/GitHub/RVC/MotorControl/build-MotorControl-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/RPlsicik/Documents/GitHub/USB2CAN_driver/mainwindow.cpp"
+    "file": "C:/Users/RPlsicik/Documents/GitHub/RVC/MotorControl/MotorControl/main.cpp"
 },
 {
     "arguments": [
@@ -185,7 +185,7 @@
         "-I",
         "C:\\Qt\\Qt6\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedQtHeaders\\QtCore",
         "-I",
-        "C:\\Users\\RPlsicik\\Documents\\GitHub\\USB2CAN_driver",
+        "C:\\Users\\RPlsicik\\Documents\\GitHub\\RVC\\MotorControl\\MotorControl",
         "-I",
         "C:\\Qt\\Qt6\\6.3.2\\mingw_64\\include",
         "-I",
@@ -219,10 +219,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++",
-        "C:\\Users\\RPlsicik\\Documents\\GitHub\\USB2CAN_driver\\usb2can_driver.cpp"
+        "C:\\Users\\RPlsicik\\Documents\\GitHub\\RVC\\MotorControl\\MotorControl\\mainwindow.cpp"
     ],
     "directory": "C:/Users/RPlsicik/Documents/GitHub/RVC/MotorControl/build-MotorControl-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/RPlsicik/Documents/GitHub/USB2CAN_driver/usb2can_driver.cpp"
+    "file": "C:/Users/RPlsicik/Documents/GitHub/RVC/MotorControl/MotorControl/mainwindow.cpp"
 },
 {
     "arguments": [
@@ -260,7 +260,7 @@
         "-I",
         "C:\\Qt\\Qt6\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedQtHeaders\\QtCore",
         "-I",
-        "C:\\Users\\RPlsicik\\Documents\\GitHub\\USB2CAN_driver",
+        "C:\\Users\\RPlsicik\\Documents\\GitHub\\RVC\\MotorControl\\MotorControl",
         "-I",
         "C:\\Qt\\Qt6\\6.3.2\\mingw_64\\include",
         "-I",
@@ -294,10 +294,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++-header",
-        "C:\\Users\\RPlsicik\\Documents\\GitHub\\USB2CAN_driver\\USB2CAN_define.h"
+        "C:\\Users\\RPlsicik\\Documents\\GitHub\\RVC\\USB2CAN_define.h"
     ],
     "directory": "C:/Users/RPlsicik/Documents/GitHub/RVC/MotorControl/build-MotorControl-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/RPlsicik/Documents/GitHub/USB2CAN_driver/USB2CAN_define.h"
+    "file": "C:/Users/RPlsicik/Documents/GitHub/RVC/USB2CAN_define.h"
 },
 {
     "arguments": [
@@ -335,7 +335,7 @@
         "-I",
         "C:\\Qt\\Qt6\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedQtHeaders\\QtCore",
         "-I",
-        "C:\\Users\\RPlsicik\\Documents\\GitHub\\USB2CAN_driver",
+        "C:\\Users\\RPlsicik\\Documents\\GitHub\\RVC\\MotorControl\\MotorControl",
         "-I",
         "C:\\Qt\\Qt6\\6.3.2\\mingw_64\\include",
         "-I",
@@ -369,10 +369,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++-header",
-        "C:\\Users\\RPlsicik\\Documents\\GitHub\\USB2CAN_driver\\mainwindow.h"
+        "C:\\Users\\RPlsicik\\Documents\\GitHub\\RVC\\usb2can_driver.h"
     ],
     "directory": "C:/Users/RPlsicik/Documents/GitHub/RVC/MotorControl/build-MotorControl-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/RPlsicik/Documents/GitHub/USB2CAN_driver/mainwindow.h"
+    "file": "C:/Users/RPlsicik/Documents/GitHub/RVC/usb2can_driver.h"
 },
 {
     "arguments": [
@@ -410,7 +410,7 @@
         "-I",
         "C:\\Qt\\Qt6\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedQtHeaders\\QtCore",
         "-I",
-        "C:\\Users\\RPlsicik\\Documents\\GitHub\\USB2CAN_driver",
+        "C:\\Users\\RPlsicik\\Documents\\GitHub\\RVC\\MotorControl\\MotorControl",
         "-I",
         "C:\\Qt\\Qt6\\6.3.2\\mingw_64\\include",
         "-I",
@@ -444,10 +444,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++-header",
-        "C:\\Users\\RPlsicik\\Documents\\GitHub\\USB2CAN_driver\\usb2can_driver.h"
+        "C:\\Users\\RPlsicik\\Documents\\GitHub\\RVC\\MotorControl\\MotorControl\\mainwindow.h"
     ],
     "directory": "C:/Users/RPlsicik/Documents/GitHub/RVC/MotorControl/build-MotorControl-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/RPlsicik/Documents/GitHub/USB2CAN_driver/usb2can_driver.h"
+    "file": "C:/Users/RPlsicik/Documents/GitHub/RVC/MotorControl/MotorControl/mainwindow.h"
 },
 {
     "arguments": [
@@ -485,7 +485,7 @@
         "-I",
         "C:\\Qt\\Qt6\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedQtHeaders\\QtCore",
         "-I",
-        "C:\\Users\\RPlsicik\\Documents\\GitHub\\USB2CAN_driver",
+        "C:\\Users\\RPlsicik\\Documents\\GitHub\\RVC\\MotorControl\\MotorControl",
         "-I",
         "C:\\Qt\\Qt6\\6.3.2\\mingw_64\\include",
         "-I",

@@ -18,6 +18,9 @@ RADAR_AWR1843::RADAR_AWR1843(QObject *parent) //: QThread(parent)
     RX_radar_data->open(QIODevice::ReadWrite);
     //qDebug() << "DebugLog File status open: " << DebugLog->open(QIODevice::ReadWrite);
     //DebugLog->open(QIODevice::ReadWrite);
+
+    QObject::connect(port_COMM,SIGNAL(readyRead()),this,SLOT(port_COMM_receive()));
+    QObject::connect(port_AUXILIARY,SIGNAL(readyRead()),this,SLOT(port_AUXILIARY_receive()));
 }
 RADAR_AWR1843::~RADAR_AWR1843(){
     PortDisconnect();
@@ -30,8 +33,8 @@ int RADAR_AWR1843::initialization(QString path){
     ReadConfigCMD(path,temporary_arrayCMD);
     marker = 0;
         //Stop RX
-        //QObject::connect(port_COMM,SIGNAL(readyRead()),this,SLOT(port_COMM_receive()));
-        //QObject::connect(port_AUXILIARY,SIGNAL(readyRead()),this,SLOT(port_AUXILIARY_receive()));
+        QObject::connect(port_COMM,SIGNAL(readyRead()),this,SLOT(port_COMM_receive()));
+        QObject::connect(port_AUXILIARY,SIGNAL(readyRead()),this,SLOT(port_AUXILIARY_receive()));
 
     //QObject::connect(tim_debug,SIGNAL(timeout()),this,SLOT(tim_debug_handler()));
 
@@ -305,7 +308,22 @@ int RADAR_AWR1843::connect(){
         //COM 4 - AUxiliary Data Port
     int status = 0;
     status = PortConnect("COM14",port_COMM_baudRate,"COM");
-    status = status + PortConnect("COM15",port_AUXILIARY_baudRate,"AUX");
+    status = status + 2*PortConnect("COM15",port_AUXILIARY_baudRate,"AUX");
+    //if status == 1 only connected COMM
+    //if status == 2 only connected AUX
+    //if status == 3 succesfull connection
+    return status;
+}
+int RADAR_AWR1843::connect(QString COMM,QString AUX){
+    //Default path
+        //COM 3 - APP\User UART
+        //COM 4 - AUxiliary Data Port
+    int status = 0;
+    status = PortConnect(COMM,port_COMM_baudRate,"COM");
+    status = status + 2*PortConnect(AUX,port_AUXILIARY_baudRate,"AUX");
+    //if status == 1 only connected COMM
+    //if status == 2 only connected AUX
+    //if status == 3 succesfull connection
     return status;
 }
 
@@ -323,6 +341,7 @@ int RADAR_AWR1843::port_COMM_receive(){
         debug_file.close();
         tim_debug->start(tim_debug_period);
     }
+    emit received_comm(RX);
 }
 
 void RADAR_AWR1843::watchdog_RX_handler(){
@@ -344,13 +363,59 @@ void RADAR_AWR1843::watchdog_RX_handler(){
 }
 
 int RADAR_AWR1843::port_AUXILIARY_receive(){
+    qDebug() << "tim: "  << timer_debug.nsecsElapsed();
+    timer_debug.restart();
     //QFile RX_radar_data("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/RX_radar_data.txt");
     //RX_radar_data->open(QIODevice::ReadWrite | QFile::Append | QFile::Text);    
     QTextStream DebugLogStream(DebugLog);
-
     QByteArray RX_byte_array = port_AUXILIARY->readAll();
     DebugLogStream << RX_byte_array.length();
     QString RX = RX_byte_array.toHex();
+    //to global variable
+    QString packet;
+    std::vector<QString> datForProcess;
+    bool cont;
+
+    QString sync = "0201040306050807";
+    if(RX.contains("0201040306050807")){
+        int pos = RX.indexOf(sync);
+        int pos_next = RX.indexOf(sync,pos+1);
+
+        if(will continue){
+
+        }
+        else{   //new set
+            for(int n = pos;n<RX.length() && n < pos_next;n++){
+                //datForProcess.push_back(RX.at(n));
+                if(n == RX.length()){
+                    //The end of packet does not reached.
+                    //The code in the next receive interrupt will continuous in the
+                    //filling packet from iteration, which was before actual
+
+                    //will continue variable
+                }
+                else if(n==pos_next){
+                    datForProcess.push_back(packet);
+                    emit received_aux(packet);
+                    packet.clear();
+                    packet.append(RX.at(n));
+                    //will continue
+                }
+                else{
+                    packet.append(RX.at(n));
+                }
+            }
+        }
+
+
+    }
+    //the data do not contain of synch an intermediate step
+    else{
+        for(int n=0;n<RX.length();n++){
+            packet.append(RX.at(n));
+        }
+    }
+    /*
     if(!RX.contains("0201040306050807")){
         RX_byte_array.clear();
     }
@@ -363,8 +428,14 @@ int RADAR_AWR1843::port_AUXILIARY_receive(){
         //out << marker << " --- " << temporary_arrayCMD[marker] << "\nRX:\t Nothing received\n";
         //out << marker << " --- " << temporary_arrayCMD[marker] <<"\n";
         //RX_radar_data.close();
-    }    
+    }
+    */
+    //0201040306050807 - sync
+
+
+    timer_debug.start();
 }
+
 //int RADAR_AWR1843::openFile(QString DataPath){
 int RADAR_AWR1843::openFile(){
     //DebugLog->setFileName(DataPath);

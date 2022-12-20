@@ -5,6 +5,7 @@
 #include <QTextBrowser>
 #include <QSerialPort>
 #include "usb2can_driver.h"
+#include "radar_awr1843.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -25,6 +26,8 @@ public:
     QSerialPort *port1;
     QSerialPort *port2;
     USB2CAN_driver *u2c;
+
+    RADAR_AWR1843 *rad;
     //QSerialPort port2;
     //QSerialPort port1;
 
@@ -37,7 +40,11 @@ private: signals:
     void readyRead();
 
 
+
 private slots:
+    void on_rad_DatProcessing(QString);
+
+    void on_rad_COMM(QString);
 
     void SendNextRow();
 

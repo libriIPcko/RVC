@@ -23,8 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     //port1 = new QSerialPort(this);
     //port2 = new QSerialPort(this);
     u2c = new USB2CAN_driver();
-
-
+    rad = new RADAR_AWR1843();
 }
 
 MainWindow::~MainWindow()
@@ -243,10 +242,8 @@ void MainWindow::on_pushButton_4_clicked()
     if(txt.at(i) == QChar('x') || txt.at(i) == QChar('X')){
         qDebug()<<"Hex code has been detected" << txt;
         //bool ok;
-
         QByteArray tst;
         QString dat;
-
         for(qsizetype i = 0;i<txt.length();i++){
             if(txt.at(i) == QChar('x') || txt.at(2) == QChar('X')){
                 dat = txt.sliced(++i,2);
@@ -263,8 +260,12 @@ void MainWindow::on_pushButton_4_clicked()
     else if(txt.at(0) == QChar('#')){
         i = 1;
         txt = txt.sliced(i);
-
-        if(QString::compare(txt,"getmode") == 0){
+        if(QString::compare(txt,"radinit") == 0){
+            //rad->connect(ui->textEdit_Port1->toPlainText(),ui->textEdit_Port2->toPlainText());
+            //send config file
+            rad->init(rad->cfgPath);
+        }
+        else if(QString::compare(txt,"getmode") == 0){
            static const char initData[] = {
                 '\x0f', '\x06' , '\x00'
             };
@@ -703,11 +704,40 @@ void MainWindow::SendNextRow_InitUSB2CAN()
 
 void MainWindow::on_checkBox_toggled(bool checked)
 {
+    /*
     if(checked == 1){
         qDebug() << ui->textEdit_Port1->toPlainText() << "Status of open COMport" << u2c->connectToPort(ui->textEdit_Port1->toPlainText());
     }
     else{
         qDebug() << "Status of open COMport {1...open/0...close}" << u2c->disconnectedFromPort();
     }
+    */
+    if(checked == 1){
+        //rad->connect();
+        if(rad->connect(ui->textEdit_Port1->toPlainText(),ui->textEdit_Port2->toPlainText()) !=3){
+            qDebug() << "Unsucesfull radar connect;" ;
+            ui->checkBox->setChecked(false);
+        }
+        else{
+            qDebug() << "Sucesfull radar connect;" ;
+            //connect(rad,SIGNAL(received_aux(QString)),this,SLOT(on_rad_DatProcessing(QString)));
+
+            qDebug() << "AUX: " << connect(rad,SIGNAL(received_aux(QString)),this,SLOT(on_rad_DatProcessing(QString)));
+            qDebug() << "COMM: " << connect(rad,SIGNAL(received_comm(QString)),this,SLOT(on_rad_COMM(QString)));
+        }
+
+    }
+    else{
+        rad->PortDisconnect();
+        qDebug() << "Sucesfull radar disconnect;" ;
+    }
+
 }
 
+void MainWindow::on_rad_DatProcessing(QString data){
+    ui->textBrowser_port2_RX->append(data + "\n");
+}
+
+void MainWindow::on_rad_COMM(QString data){
+    ui->textBrowser_port1_RX->append(data + "\n");
+}

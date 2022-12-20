@@ -17,11 +17,14 @@ class RADAR_AWR1843 : public QSerialPort//, public QThread
 {
     Q_OBJECT
 public:
+    QElapsedTimer timer_debug;
+
     explicit RADAR_AWR1843(QObject *parent = 0);
     ~RADAR_AWR1843();
     int init(QString path);
     int initialization(QString path);
     int connect();
+    int connect(QString COMM,QString AUX);
 
     int PortConnect(QString portName, int BaudRate, QString portType);
     int PortDisconnect();
@@ -86,6 +89,8 @@ public: signals:
     void readyRead();
     void Interrupt_ReadPacket(QString data, int dataCounter);
     void Interrupt_ReadTLV_packets(TLV_dat TLV_packets);
+    void received_aux(QString);
+    void received_comm(QString);
 
 
 public slots:
