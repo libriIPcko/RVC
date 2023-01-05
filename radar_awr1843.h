@@ -59,6 +59,7 @@ public:
     int syncDetect();
     int loadPackets();
     int ofset = 0;
+    std::vector<QString> datForProcess;
 
 private:
     int ReadConfigCMD(QString path,std::array<QString, 60> txtLines);
@@ -71,6 +72,10 @@ private:
     std::array<QString, 60> temporary_arrayCMD;
     QSerialPort *port_AUXILIARY;
     QSerialPort *port_COMM;
+
+    //Global variable of port_AUXILIARY_receive()
+    QString packet;
+    bool packet_ongoing_fullfilement;
 
     //RX_radar_data obj and variables
         //QFile  = new QFile;

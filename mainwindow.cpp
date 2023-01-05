@@ -735,7 +735,7 @@ void MainWindow::on_checkBox_toggled(bool checked)
 }
 
 void MainWindow::on_rad_DatProcessing(QString data){
-    ui->textBrowser_port2_RX->append(data + "\n");
+    ui->textBrowser_port2_RX->append(data + "\n\n");
 }
 
 void MainWindow::on_rad_COMM(QString data){

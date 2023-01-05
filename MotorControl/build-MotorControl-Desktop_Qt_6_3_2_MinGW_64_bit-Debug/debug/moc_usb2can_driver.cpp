@@ -22,7 +22,7 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_USB2CAN_driver_t {
-    uint offsetsAndSizes[16];
+    uint offsetsAndSizes[20];
     char stringdata0[15];
     char stringdata1[8];
     char stringdata2[1];
@@ -31,6 +31,8 @@ struct qt_meta_stringdata_USB2CAN_driver_t {
     char stringdata5[9];
     char stringdata6[11];
     char stringdata7[11];
+    char stringdata8[16];
+    char stringdata9[5];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_USB2CAN_driver_t::offsetsAndSizes) + ofs), len 
@@ -43,7 +45,9 @@ static const qt_meta_stringdata_USB2CAN_driver_t qt_meta_stringdata_USB2CAN_driv
         QT_MOC_LITERAL(37, 12),  // "read_USB2CAN"
         QT_MOC_LITERAL(50, 8),  // "initSend"
         QT_MOC_LITERAL(59, 10),  // "initSend_1"
-        QT_MOC_LITERAL(70, 10)   // "deinitSend"
+        QT_MOC_LITERAL(70, 10),  // "deinitSend"
+        QT_MOC_LITERAL(81, 15),  // "listCANmsg_slot"
+        QT_MOC_LITERAL(97, 4)   // "list"
     },
     "USB2CAN_driver",
     "timeout",
@@ -52,7 +56,9 @@ static const qt_meta_stringdata_USB2CAN_driver_t qt_meta_stringdata_USB2CAN_driv
     "read_USB2CAN",
     "initSend",
     "initSend_1",
-    "deinitSend"
+    "deinitSend",
+    "listCANmsg_slot",
+    "list"
 };
 #undef QT_MOC_LITERAL
 
@@ -62,7 +68,7 @@ static const uint qt_meta_data_USB2CAN_driver[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -70,15 +76,16 @@ static const uint qt_meta_data_USB2CAN_driver[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   56,    2, 0x06,    1 /* Public */,
-       3,    1,   57,    2, 0x06,    2 /* Public */,
-       3,    1,   60,    2, 0x06,    4 /* Public */,
+       1,    0,   62,    2, 0x06,    1 /* Public */,
+       3,    1,   63,    2, 0x06,    2 /* Public */,
+       3,    1,   66,    2, 0x06,    4 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       4,    0,   63,    2, 0x08,    6 /* Private */,
-       5,    0,   64,    2, 0x08,    7 /* Private */,
-       6,    0,   65,    2, 0x08,    8 /* Private */,
-       7,    0,   66,    2, 0x08,    9 /* Private */,
+       4,    0,   69,    2, 0x08,    6 /* Private */,
+       5,    0,   70,    2, 0x08,    7 /* Private */,
+       6,    0,   71,    2, 0x08,    8 /* Private */,
+       7,    0,   72,    2, 0x08,    9 /* Private */,
+       8,    1,   73,    2, 0x08,   10 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -90,6 +97,7 @@ static const uint qt_meta_data_USB2CAN_driver[] = {
     QMetaType::Bool,
     QMetaType::Void,
     QMetaType::Bool,
+    QMetaType::Int, QMetaType::QStringList,    9,
 
        0        // eod
 };
@@ -110,6 +118,8 @@ void USB2CAN_driver::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 5: _t->initSend_1(); break;
         case 6: { bool _r = _t->deinitSend();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
+        case 7: { int _r = _t->listCANmsg_slot((*reinterpret_cast< std::add_pointer_t<QStringList>>(_a[1])));
+            if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -146,7 +156,7 @@ const QMetaObject USB2CAN_driver::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_USB2CAN_driver_t
 , QtPrivate::TypeAndForceComplete<USB2CAN_driver, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QByteArray, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>
-, QtPrivate::TypeAndForceComplete<QByteArray, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>
+, QtPrivate::TypeAndForceComplete<QByteArray, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<QStringList, std::false_type>
 
 
 >,
@@ -173,13 +183,13 @@ int USB2CAN_driver::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 8)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }

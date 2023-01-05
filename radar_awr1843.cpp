@@ -371,21 +371,14 @@ int RADAR_AWR1843::port_AUXILIARY_receive(){
     QByteArray RX_byte_array = port_AUXILIARY->readAll();
     DebugLogStream << RX_byte_array.length();
     QString RX = RX_byte_array.toHex();
-    //to global variable
-    QString packet;
-    std::vector<QString> datForProcess;
-    bool cont;
 
     QString sync = "0201040306050807";
     if(RX.contains("0201040306050807")){
         int pos = RX.indexOf(sync);
         int pos_next = RX.indexOf(sync,pos+1);
 
-        if(will continue){
-
-        }
-        else{   //new set
-            for(int n = pos;n<RX.length() && n < pos_next;n++){
+        if(packet_ongoing_fullfilement == true){
+            for(int n = 0;n<=RX.length() && n <= pos_next;n++){
                 //datForProcess.push_back(RX.at(n));
                 if(n == RX.length()){
                     //The end of packet does not reached.
@@ -393,10 +386,37 @@ int RADAR_AWR1843::port_AUXILIARY_receive(){
                     //filling packet from iteration, which was before actual
 
                     //will continue variable
+                    packet_ongoing_fullfilement = true;
                 }
                 else if(n==pos_next){
                     datForProcess.push_back(packet);
                     emit received_aux(packet);
+                    packet.clear();
+                    packet.append(RX.at(n));
+                    //will continue
+                }
+                else{
+                    packet.append(RX.at(n));
+                }
+            }
+        }
+        else{   //new set
+            for(int n = pos;n<=RX.length() && n <= pos_next;n++){
+                //datForProcess.push_back(RX.at(n));
+                if(n == RX.length()){
+                    //The end of packet does not reached.
+                    //The code in the next receive interrupt will continuous in the
+                    //filling packet from iteration, which was before actual
+
+                    //will continue variable
+                    packet_ongoing_fullfilement = true;
+                }
+                else if(n==pos_next){
+                    datForProcess.push_back(packet);
+                    emit received_aux(packet);
+                  //There will be train the operation with vector...
+                    //emit received_aux(datForProcess.);
+                    //datForProcess.at(datForProcess.end())
                     packet.clear();
                     packet.append(RX.at(n));
                     //will continue
