@@ -40,8 +40,8 @@
    <widget class="QTextEdit" name="textEdit_Port1">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>10</y>
+      <x>420</x>
+      <y>50</y>
       <width>104</width>
       <height>21</height>
      </rect>
@@ -58,8 +58,8 @@ hr { height: 1px; border-width: 0; }
    <widget class="QPushButton" name="pushButton_connect1">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>10</y>
+      <x>540</x>
+      <y>50</y>
       <width>81</width>
       <height>23</height>
      </rect>
@@ -77,8 +77,8 @@ hr { height: 1px; border-width: 0; }
    <widget class="QTextEdit" name="textEdit_Port2">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>40</y>
+      <x>420</x>
+      <y>80</y>
       <width>104</width>
       <height>21</height>
      </rect>
@@ -95,8 +95,8 @@ hr { height: 1px; border-width: 0; }
    <widget class="QPushButton" name="pushButton_connect2">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>40</y>
+      <x>540</x>
+      <y>80</y>
       <width>81</width>
       <height>23</height>
      </rect>
@@ -368,8 +368,8 @@ hr { height: 1px; border-width: 0; }
    <widget class="QCheckBox" name="checkBox">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>70</y>
+      <x>550</x>
+      <y>110</y>
       <width>91</width>
       <height>17</height>
      </rect>
@@ -381,8 +381,8 @@ hr { height: 1px; border-width: 0; }
    <widget class="QPlainTextEdit" name="plainTextEdit_1_BaudRate">
     <property name="geometry">
      <rect>
-      <x>630</x>
-      <y>10</y>
+      <x>640</x>
+      <y>50</y>
       <width>101</width>
       <height>21</height>
      </rect>
@@ -394,8 +394,8 @@ hr { height: 1px; border-width: 0; }
    <widget class="QPlainTextEdit" name="plainTextEdit_2_BaudRate">
     <property name="geometry">
      <rect>
-      <x>630</x>
-      <y>40</y>
+      <x>640</x>
+      <y>80</y>
       <width>101</width>
       <height>21</height>
      </rect>
@@ -407,8 +407,8 @@ hr { height: 1px; border-width: 0; }
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>740</x>
-      <y>10</y>
+      <x>750</x>
+      <y>50</y>
       <width>81</width>
       <height>20</height>
      </rect>
@@ -420,14 +420,40 @@ hr { height: 1px; border-width: 0; }
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>740</x>
-      <y>40</y>
+      <x>750</x>
+      <y>80</y>
       <width>81</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
      <string>BaudRate p2</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="AppCOM">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>50</y>
+      <width>49</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>AppCOM</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="AuxCOM">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>80</y>
+      <width>49</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>AuxCOM</string>
     </property>
    </widget>
   </widget>

@@ -256,118 +256,6 @@ void MainWindow::on_pushButton_4_clicked()
         //qDebug() << dat <<dat.toUInt(&ok,16);
 
     }
-    //Commands separation
-    else if(txt.at(0) == QChar('#')){
-        i = 1;
-        txt = txt.sliced(i);
-        if(QString::compare(txt,"radinit") == 0){
-            //rad->connect(ui->textEdit_Port1->toPlainText(),ui->textEdit_Port2->toPlainText());
-            //send config file
-            rad->init(rad->cfgPath);
-        }
-        else if(QString::compare(txt,"getmode") == 0){
-           static const char initData[] = {
-                '\x0f', '\x06' , '\x00'
-            };
-            QByteArray sendData = QByteArray::fromRawData(initData,sizeof (initData));
-
-            while(!port1->waitForBytesWritten(300)){
-                port1->write(sendData );
-                qDebug() << sendData;
-            }
-            qDebug() << "Get mode command" << sendData;
-        }
-        else if(QString::compare(txt,"readreg") == 0){  //Implement asking from fine adresse
-           static const char initData[] = {
-                '\x0f', '\x12' , '\x00'
-            };
-            QByteArray sendData = QByteArray::fromRawData(initData,sizeof (initData));
-
-            while(!port1->waitForBytesWritten(300)){
-                port1->write(sendData );
-            }
-            qDebug() << "Read reg command" << sendData;
-        }
-
-        else if(QString::compare(txt,"init") == 0){
-            u2c->init();
-            /*
-            Timer_sendLine = new QTimer(this);
-            Timer_sendLine->setInterval(250);
-            Timer_sendLine->setSingleShot(false);
-            qDebug() << QObject::connect(Timer_sendLine,SIGNAL(timeout()),this,SLOT(SendNextRow_InitUSB2CAN()));
-            Timer_sendLine->start();
-            incLine = 0;
-            */
-        }
-
-        else if(QString::compare(txt,"busoff") == 0){
-            static const char stopCMD[] = {
-                 '\x0f', '\x08' , '\x00'
-             };
-             QByteArray sendData = QByteArray::fromRawData(stopCMD,sizeof (stopCMD));
-
-             while(!port1->waitForBytesWritten(300)){
-                 port1->write(sendData );
-             }
-             qDebug() << "Bus Off status command" << sendData;
-        }
-
-        else if(QString::compare(txt,"normal") == 0){
-            static const char stopCMD[] = {
-                 '\x0f', '\x03' , '\x00'
-             };
-             QByteArray sendData = QByteArray::fromRawData(stopCMD,sizeof (stopCMD));
-
-             while(!port1->waitForBytesWritten(300)){
-                 port1->write(sendData );
-             }
-             qDebug() << "Normal mode command sent" << sendData;
-        }
-        else if(QString::compare(txt,"config") == 0){
-            static const char stopCMD[] = {
-                 '\x0f', '\x02' , '\x00'
-             };
-             QByteArray sendData = QByteArray::fromRawData(stopCMD,sizeof (stopCMD));
-
-             while(!port1->waitForBytesWritten(300)){
-                 port1->write(sendData );
-             }
-             qDebug() << "Config mode command sent" << sendData;
-        }
-        else if(QString::compare(txt,"reset") == 0){
-            static const char stopCMD[] = {
-                 '\x0f', '\x12' , '\x02', '\x00', '\x01'
-             };
-             QByteArray sendData = QByteArray::fromRawData(stopCMD,sizeof (stopCMD));
-
-             while(!port1->waitForBytesWritten(300)){
-                 port1->write(sendData );
-             }
-             qDebug() << "Reset command sent" << sendData;
-        }
-
-
-        else{
-            qDebug()<< "Command does not exist";
-        }
-    }
-    else if (txt.at(0) == QChar('!')) {
-        if(QString::compare(txt,"getmode") == 0){
-            u2c->Get_Mode();
-        }
-        else{
-            u2c->write(txt.sliced(1).toLatin1());
-            //u2c->write("hey");
-        }
-    }
-
-    else{
-        QByteArray data = txt.toUtf8();
-        while(!port1->waitForBytesWritten(300)){
-            port1->write(data);
-        }
-    }
 
 }
 
@@ -714,16 +602,25 @@ void MainWindow::on_checkBox_toggled(bool checked)
     */
     if(checked == 1){
         //rad->connect();
-        if(rad->connect(ui->textEdit_Port1->toPlainText(),ui->textEdit_Port2->toPlainText()) !=3){
+        int status = rad->connect(ui->textEdit_Port1->toPlainText(),ui->textEdit_Port2->toPlainText());
+        if(status !=3){
             qDebug() << "Unsucesfull radar connect;" ;
             ui->checkBox->setChecked(false);
+            if(status == 1){
+                qDebug() << "It was connected only COMM port";
+            }
+            if(status == 2 ){
+                qDebug() << "It was connected only AUX port";
+            }
+
         }
         else{
             qDebug() << "Sucesfull radar connect;" ;
-            //connect(rad,SIGNAL(received_aux(QString)),this,SLOT(on_rad_DatProcessing(QString)));
 
             qDebug() << "AUX: " << connect(rad,SIGNAL(received_aux(QString)),this,SLOT(on_rad_DatProcessing(QString)));
             qDebug() << "COMM: " << connect(rad,SIGNAL(received_comm(QString)),this,SLOT(on_rad_COMM(QString)));
+
+            rad->initialization(rad->cfgPath);
         }
 
     }
@@ -735,7 +632,12 @@ void MainWindow::on_checkBox_toggled(bool checked)
 }
 
 void MainWindow::on_rad_DatProcessing(QString data){
-    ui->textBrowser_port2_RX->append(data + "\n\n");
+    //ui->textBrowser_port2_RX->append(data + "\n\n");
+
+
+    //add run thread 1 for sorting data
+    //rad->sortData(data,0);
+    ui->textBrowser_port2_RX->append("Received packet\n");
 }
 
 void MainWindow::on_rad_COMM(QString data){

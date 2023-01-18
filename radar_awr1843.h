@@ -60,13 +60,15 @@ public:
     int loadPackets();
     int ofset = 0;
     std::vector<QString> datForProcess;
+    //It was a private method
+    int sortData(QString,int);
 
 private:
     int ReadConfigCMD(QString path,std::array<QString, 60> txtLines);
     int PortDisconnect(QString typePort);
     int send_COMM(QString data);
     int readPackets(int msec);
-    int sortData(QString,int);
+
     //1 - point cloud | 2 - target object | 3 - target index
     int activeType = 0;
     std::array<QString, 60> temporary_arrayCMD;

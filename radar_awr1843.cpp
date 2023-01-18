@@ -36,7 +36,7 @@ int RADAR_AWR1843::initialization(QString path){
         QObject::connect(port_COMM,SIGNAL(readyRead()),this,SLOT(port_COMM_receive()));
         QObject::connect(port_AUXILIARY,SIGNAL(readyRead()),this,SLOT(port_AUXILIARY_receive()));
 
-    //QObject::connect(tim_debug,SIGNAL(timeout()),this,SLOT(tim_debug_handler()));
+    QObject::connect(tim_debug,SIGNAL(timeout()),this,SLOT(tim_debug_handler()));
 
     RX_radar_data->open(QIODevice::ReadWrite | QFile::Append);
 
@@ -76,11 +76,11 @@ void RADAR_AWR1843::tim_debug_handler(){
         //qDebug () << "Error during sending:" << send_COMM(temporary_arrayCMD[marker]);
         send_COMM(temporary_arrayCMD[marker]);
         watchdog_RX->stop();
-        QFile debug_file("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/deb.txt");
-        debug_file.open(QIODevice::ReadWrite | QFile::Append | QFile::Text);
-        QTextStream out(&debug_file);
-        out << marker << " --- " << temporary_arrayCMD[marker] << "\n";
-        debug_file.close();
+        //QFile debug_file("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/deb.txt");
+        //debug_file.open(QIODevice::ReadWrite | QFile::Append | QFile::Text);
+        //QTextStream out(&debug_file);
+        //out << marker << " --- " << temporary_arrayCMD[marker] << "\n";
+        //debug_file.close();
 
         QObject::connect(watchdog_RX,SIGNAL(timeout()),this,SLOT(watchdog_RX_handler()));
         watchdog_RX->start(watchdog_RX_period);
@@ -206,11 +206,15 @@ int RADAR_AWR1843:: init(QString path){
 
 //@ Direct send data
 int RADAR_AWR1843::send_COMM(QString data){
-    port_COMM->flush();
+    //port_COMM->flush();
     qint64 lengthWrittenData = 0;
-    while(!port_COMM->waitForBytesWritten(10)){
-        lengthWrittenData = port_COMM->write(data.toUtf8());
+    int size = qstrlen(data.toUtf8());
+    lengthWrittenData = port_COMM->write(data.toUtf8(),qstrlen(data.toUtf8()));
+    /*
+    while(!port_COMM->waitForBytesWritten(50)){
+        lengthWrittenData = port_COMM->write(data.toUtf8(),qstrlen(data.toUtf8()));
     }
+    */
         if(lengthWrittenData == data.toUtf8().length()){
             return 0;   //all is OK
         }
@@ -363,13 +367,29 @@ void RADAR_AWR1843::watchdog_RX_handler(){
 }
 
 int RADAR_AWR1843::port_AUXILIARY_receive(){
-    qDebug() << "tim: "  << timer_debug.nsecsElapsed();
-    timer_debug.restart();
-    //QFile RX_radar_data("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/RX_radar_data.txt");
-    //RX_radar_data->open(QIODevice::ReadWrite | QFile::Append | QFile::Text);    
-    QTextStream DebugLogStream(DebugLog);
+        //Time measurement between two receive signals
+    //qDebug() << "tim: "  << timer_debug.nsecsElapsed();
+    //timer_debug.restart();
+
     QByteArray RX_byte_array = port_AUXILIARY->readAll();
-    DebugLogStream << RX_byte_array.length();
+
+    //QFile RX_radar_data("C:/Users/RPlsicik/Documents/GitHub/RVC/tst/untitled4/RX_radar_data.txt");
+    //RX_radar_data.open(QIODevice::ReadWrite | QFile::Append | QFile::Text);
+
+        //opening file for save incoming radar data
+    QTextStream DebugLogStream(DebugLog);
+    if(DebugLog->isOpen() != true){
+        DebugLog->open(QIODevice::ReadWrite | QFile::WriteOnly | QFile::Text);
+        DebugLogStream << "\n";
+        DebugLog->close();
+        DebugLog->open(QIODevice::ReadWrite | QFile::Append | QFile::Text);
+    }
+    else{
+
+        DebugLogStream << RX_byte_array.length();
+    }
+
+
     QString RX = RX_byte_array.toHex();
 
     QString sync = "0201040306050807";
@@ -390,7 +410,10 @@ int RADAR_AWR1843::port_AUXILIARY_receive(){
                 }
                 else if(n==pos_next){
                     datForProcess.push_back(packet);
+
+                    //Signal for mainwindow slot
                     emit received_aux(packet);
+
                     packet.clear();
                     packet.append(RX.at(n));
                     //will continue
@@ -418,7 +441,8 @@ int RADAR_AWR1843::port_AUXILIARY_receive(){
                     //emit received_aux(datForProcess.);
                     //datForProcess.at(datForProcess.end())
                     packet.clear();
-                    packet.append(RX.at(n));
+
+                    //packet.append(RX.at(n));
                     //will continue
                 }
                 else{
@@ -426,6 +450,7 @@ int RADAR_AWR1843::port_AUXILIARY_receive(){
                 }
             }
         }
+
 
 
     }
@@ -451,7 +476,9 @@ int RADAR_AWR1843::port_AUXILIARY_receive(){
     }
     */
     //0201040306050807 - sync
-
+    if(datForProcess.size() % 10 == 1 && datForProcess.size() != 0){
+        qDebug() << "received";
+    }
 
     timer_debug.start();
 }

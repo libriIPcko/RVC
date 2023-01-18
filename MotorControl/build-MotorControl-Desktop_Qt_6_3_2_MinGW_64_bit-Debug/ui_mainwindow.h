@@ -47,6 +47,9 @@ public:
     QLabel *label_3;
     QLabel *label_4;
     QLabel *label_5;
+    QLabel *label_baudrate;
+    QLineEdit *lineEdit_baudrate;
+    QPushButton *pushButton_2;
     QWidget *tab_2;
     QDial *dial_position;
     QLCDNumber *lcdNumber;
@@ -107,11 +110,11 @@ public:
         label_2->setGeometry(QRect(320, 20, 31, 21));
         pushButton_showDev = new QPushButton(tab);
         pushButton_showDev->setObjectName(QString::fromUtf8("pushButton_showDev"));
-        pushButton_showDev->setGeometry(QRect(488, 18, 75, 20));
+        pushButton_showDev->setGeometry(QRect(40, 277, 75, 20));
         label_3 = new QLabel(tab);
         label_3->setObjectName(QString::fromUtf8("label_3"));
         label_3->setEnabled(true);
-        label_3->setGeometry(QRect(380, 20, 101, 16));
+        label_3->setGeometry(QRect(690, 0, 101, 16));
         QFont font;
         font.setStrikeOut(false);
         label_3->setFont(font);
@@ -136,6 +139,15 @@ public:
         label_5->setLineWidth(1);
         label_5->setText(QString::fromUtf8("TX:"));
         label_5->setTextFormat(Qt::PlainText);
+        label_baudrate = new QLabel(tab);
+        label_baudrate->setObjectName(QString::fromUtf8("label_baudrate"));
+        label_baudrate->setGeometry(QRect(370, 0, 81, 16));
+        lineEdit_baudrate = new QLineEdit(tab);
+        lineEdit_baudrate->setObjectName(QString::fromUtf8("lineEdit_baudrate"));
+        lineEdit_baudrate->setGeometry(QRect(370, 20, 113, 22));
+        pushButton_2 = new QPushButton(tab);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        pushButton_2->setGeometry(QRect(120, 278, 75, 20));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -189,6 +201,17 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "Connect", nullptr));
         lineEdit->setText(QCoreApplication::translate("MainWindow", "COM6", nullptr));
+        TX_textEdit->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">#msg701/ffaa01</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">#msg601/ffaabb01</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">#msg101/0001</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">#msg201/0002</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0"
+                        "px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", nullptr));
         pushButton_SendBtn->setText(QCoreApplication::translate("MainWindow", "Send", nullptr));
         pushButton_ListSendBtn->setText(QCoreApplication::translate("MainWindow", "ListSend", nullptr));
         pushButton_RX_clean->setText(QCoreApplication::translate("MainWindow", "C", nullptr));
@@ -198,6 +221,9 @@ public:
         label_2->setText(QCoreApplication::translate("MainWindow", "[ms]", nullptr));
         pushButton_showDev->setText(QCoreApplication::translate("MainWindow", "ShowDev", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "USB2CAN works...", nullptr));
+        label_baudrate->setText(QCoreApplication::translate("MainWindow", "BaudRate", nullptr));
+        lineEdit_baudrate->setText(QCoreApplication::translate("MainWindow", "9600", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("MainWindow", "Get Mode", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Connect", nullptr));
         radioButton->setText(QCoreApplication::translate("MainWindow", "Motor Activation", nullptr));
         label_6->setText(QCoreApplication::translate("MainWindow", "angle", nullptr));
