@@ -23,6 +23,7 @@ public:
     ~RADAR_AWR1843();
     int init(QString path);
     int initialization(QString path);
+    int stop();
     int connect();
     int connect(QString COMM,QString AUX);
 

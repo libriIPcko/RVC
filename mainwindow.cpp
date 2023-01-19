@@ -8,6 +8,7 @@
 #include <QtSerialPort/QtSerialPortVersion>
 #include <QtSerialPort/QtSerialPortDepends>
 
+
 //4Test Case var
 int temp_count = 0;
 
@@ -625,6 +626,8 @@ void MainWindow::on_checkBox_toggled(bool checked)
 
     }
     else{
+        rad->stop();
+
         rad->PortDisconnect();
         qDebug() << "Sucesfull radar disconnect;" ;
     }
@@ -636,7 +639,7 @@ void MainWindow::on_rad_DatProcessing(QString data){
 
 
     //add run thread 1 for sorting data
-    //rad->sortData(data,0);
+    rad->sortData(data,0);
     ui->textBrowser_port2_RX->append("Received packet\n");
 }
 

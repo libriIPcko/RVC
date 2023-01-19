@@ -45,6 +45,16 @@ int RADAR_AWR1843::initialization(QString path){
     return 0;
 }
 
+int RADAR_AWR1843::stop(){
+//here
+    if(send_COMM("sensorStop") != 0){
+        qDebug() << "Error statement of stop device";
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
 
 void RADAR_AWR1843::tim_debug_handler(){
     //qDebug() << "stopwatch";
